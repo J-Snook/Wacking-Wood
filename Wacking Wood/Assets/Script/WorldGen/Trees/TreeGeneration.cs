@@ -4,26 +4,35 @@ using UnityEngine;
 
 public class TreeGeneration : MonoBehaviour
 {
-    public float radius = 1f;
-    public Vector2 regionSize = Vector2.one;
+
+    public float density = 1;
     public int rejectionSamples = 30;
-    public float displayRadius = 1f;
+    public float sphereRadius = 1;
+    private Terrain _terrain;
 
     List<Vector2> points;
 
-    private void OnValidate()
+    void OnValidate()
     {
-        points = PointGeneration.GeneratePoints(regionSize, radius, rejectionSamples);
+        _terrain = GetComponent<Terrain>();
+        Vector3 boundsSize = _terrain.terrainData.bounds.size;
+        Vector2 regionSize = new Vector2(boundsSize.x, boundsSize.z);
+        points = PointGeneration.GeneratePoints(density, regionSize, rejectionSamples);
     }
 
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(regionSize / 2,regionSize);
-        if(points!=null)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(_terrain.terrainData.bounds.center, sphereRadius);
+        Gizmos.color = Color.red;
+        if(points != null)
         {
             foreach(Vector2 point in points)
             {
-                Gizmos.DrawSphere(point, displayRadius);
+                Vector3 _spherePos = new Vector3(point.x, 0, point.y);
+                _spherePos = _spherePos + _terrain.terrainData.bounds.min;
+                _spherePos.y = _terrain.SampleHeight(_spherePos) + sphereRadius;
+                Gizmos.DrawSphere(_spherePos, sphereRadius);
             }
         }
     }
