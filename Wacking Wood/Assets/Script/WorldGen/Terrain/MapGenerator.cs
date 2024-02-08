@@ -76,6 +76,11 @@ public class MapGenerator : MonoBehaviour
         if(octaves < 0) { octaves = 0; }
         if(meshHeightMultiplier < 1) { meshHeightMultiplier = 1; }
     }
+
+    private void Start()
+    {
+        GenerateMap();
+    }
 }
 
 [System.Serializable]
