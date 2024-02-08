@@ -4,9 +4,9 @@ using UnityEngine;
 
 public static class TextureGenerator
 {
-    public static Texture2D TextureFromColourMap(Color[] colour,Vector2Int mapsize)
+    public static Texture2D TextureFromColourMap(Color[] colour,int mapsize)
     {
-        Texture2D tex = new Texture2D(mapsize.x, mapsize.y);
+        Texture2D tex = new Texture2D(mapsize, mapsize);
         tex.filterMode = FilterMode.Point;
         tex.wrapMode = TextureWrapMode.Clamp;
         tex.SetPixels(colour);
@@ -26,6 +26,6 @@ public static class TextureGenerator
                 colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, heightMap[x, y]);
             }
         }
-        return TextureFromColourMap(colorMap,new Vector2Int(width, height));
+        return TextureFromColourMap(colorMap,width);
     }
 }
