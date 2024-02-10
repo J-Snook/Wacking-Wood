@@ -7,14 +7,14 @@ public class TreeHit : MonoBehaviour,IHitSystem
     [SerializeField] private Transform _trunk;
     [SerializeField] private GameObject _leaves;
     [SerializeField] private GameObject _treeTargetPrefab;
-    [SerializeField] private int _treeMaxHealth=6;
-    [SerializeField] private float _treeHitTimeoutDiff=30f;
+    public int _treeMaxHealth=1;
+    [SerializeField] private float _treeHitTimeoutDiff=5f;
     [SerializeField,Range(0f,360f)] private float _treeTargetHorizontalChange=0.5f;
     [SerializeField] private float _treeTargetVerticalRange = 1f;
     private int _treeHealth;
-    private Coroutine _treeTimeoutCoroutine;
     private Transform _currentTarget;
     private Rigidbody _treeRigidBody;
+    private bool _treeTimeOutActive=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +30,9 @@ public class TreeHit : MonoBehaviour,IHitSystem
     private void FallTree()
     {
         Destroy(_leaves);
-        gameObject.AddComponent<Rigidbody>().AddForce(-_currentTarget.position.normalized);
+        _treeRigidBody =  gameObject.AddComponent<Rigidbody>();
+        _treeRigidBody.AddForceAtPosition(-_currentTarget.transform.position, _currentTarget.transform.position);
+
         Debug.Log("Tree Fell");
     }
 
@@ -53,11 +55,15 @@ public class TreeHit : MonoBehaviour,IHitSystem
         {
             FallTree();
             StopAllCoroutines();
+            _treeTimeOutActive = false;
         }
         else
         {
             float timeoutWait = _treeHitTimeoutDiff * (_treeMaxHealth - _treeHealth);
-            StartCoroutine(HitTimeout(timeoutWait));
+            if (!_treeTimeOutActive)
+            {
+                StartCoroutine(HitTimeout(timeoutWait));
+            }
             GameObject _newTarget = Instantiate(_treeTargetPrefab,generateTargetLocation(player.transform.position),Quaternion.identity);
             _newTarget.transform.parent = transform;
             _currentTarget = _newTarget.transform;
@@ -81,10 +87,19 @@ public class TreeHit : MonoBehaviour,IHitSystem
 
     private IEnumerator HitTimeout(float hitTimeout)
     {
-        yield return new WaitForSeconds(hitTimeout);
-        if (_treeHealth > 0 && _treeHealth < _treeMaxHealth)
+        _treeTimeOutActive = true;
+        int i = 1;
+        while (_treeTimeOutActive)
         {
-            _treeHealth++;
+            yield return new WaitForSeconds(hitTimeout*i);
+            if (_treeHealth > 0 && _treeHealth < _treeMaxHealth)
+            {
+                _treeHealth++;
+            } else
+            {
+                _treeTimeOutActive = false;
+            }
+            i++;
         }
     }
 }
