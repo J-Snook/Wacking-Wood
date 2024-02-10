@@ -12,7 +12,7 @@ public class InteractionSystem : MonoBehaviour
 {
     [SerializeField] private float _interactionRange=3;
     [SerializeField] private float _interactionSphereRadius;
-    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private GameObject _debugSphere;
     private RaycastHit[] _interactionTargets;
     // Start is called before the first frame update
     void Start()
