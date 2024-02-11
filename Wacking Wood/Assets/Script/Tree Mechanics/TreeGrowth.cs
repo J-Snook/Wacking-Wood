@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TreeGrowth : MonoBehaviour
 {
-    [SerializeField, Range(0f, 6f)] private float _treeStage;
+    [SerializeField, Range(0f, 6f)] private int _treeStage;
     [SerializeField] private GameObject _trunk;
     [SerializeField] private GameObject _leaves;
     private TreeHit _treeHit;
@@ -14,10 +14,9 @@ public class TreeGrowth : MonoBehaviour
         _treeHit = gameObject.GetComponent<TreeHit>();
         if (_treeStage == 0)
         {
-            _treeStage = Random.Range(4f, 6f);
+            _treeStage = Random.Range(3, 6);
         }
         SetTreeStage(_treeStage);
-        //StartCoroutine(Colerps());
     }
 
     // Update is called once per frame

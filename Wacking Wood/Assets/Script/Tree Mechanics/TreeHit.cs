@@ -7,8 +7,9 @@ public class TreeHit : MonoBehaviour,IHitSystem
     [SerializeField] private Transform _trunk;
     [SerializeField] private GameObject _leaves;
     [SerializeField] private GameObject _treeTargetPrefab;
+    [SerializeField] private GameObject _sliceTargetPrefab;
     public int _treeMaxHealth=1;
-    [SerializeField] private float _treeHitTimeoutDiff=5f;
+    [SerializeField] private float _treeHitTimeoutDiff=30f;
     [SerializeField,Range(0f,360f)] private float _treeTargetHorizontalChange=0.5f;
     [SerializeField] private float _treeTargetVerticalRange = 1f;
     private int _treeHealth;
@@ -29,20 +30,22 @@ public class TreeHit : MonoBehaviour,IHitSystem
 
     private void FallTree()
     {
-        Destroy(_leaves);
         _treeRigidBody =  gameObject.AddComponent<Rigidbody>();
         _treeRigidBody.AddForceAtPosition(-_currentTarget.transform.position, _currentTarget.transform.position);
-
+        FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
+        ftH.Setup(_trunk.gameObject,_sliceTargetPrefab);
         Debug.Log("Tree Fell");
+        Destroy(_leaves);
+        Destroy(this);
     }
 
     public void Hit(HitSystem player,RaycastHit target)
-    {
+{
         if (_currentTarget == null)
         {
             _treeHealth--;
         }
-        else if (target.transform==_currentTarget)
+        else if (target.transform == _currentTarget)
         {
             Destroy(_currentTarget.gameObject);
             _treeHealth--;
@@ -51,7 +54,7 @@ public class TreeHit : MonoBehaviour,IHitSystem
         {
             return;
         }
-        if ( _treeHealth <= 0)
+        if (_treeHealth <= 0)
         {
             FallTree();
             StopAllCoroutines();
@@ -59,16 +62,14 @@ public class TreeHit : MonoBehaviour,IHitSystem
         }
         else
         {
-            float timeoutWait = _treeHitTimeoutDiff * (_treeMaxHealth - _treeHealth);
             if (!_treeTimeOutActive)
             {
-                StartCoroutine(HitTimeout(timeoutWait));
+                StartCoroutine(HitTimeout(_treeHitTimeoutDiff));
             }
-            GameObject _newTarget = Instantiate(_treeTargetPrefab,generateTargetLocation(player.transform.position),Quaternion.identity);
+            GameObject _newTarget = Instantiate(_treeTargetPrefab, generateTargetLocation(player.transform.position), Quaternion.identity);
             _newTarget.transform.parent = transform;
             _currentTarget = _newTarget.transform;
         }
-        
     }
 
     private Vector3 generateTargetLocation(Vector3 hitPos)
