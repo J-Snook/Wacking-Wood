@@ -30,6 +30,7 @@ public class TreeHit : MonoBehaviour,IHitSystem
 
     private void FallTree()
     {
+        //_trunk.transform.localScale = new Vector3(_trunk.transform.localScale.x, _trunk.transform.localPosition.y, _trunk.transform.localScale.z);
         _treeRigidBody =  gameObject.AddComponent<Rigidbody>();
         _treeRigidBody.AddForceAtPosition(-_currentTarget.transform.position, _currentTarget.transform.position);
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();

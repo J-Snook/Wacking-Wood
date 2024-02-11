@@ -10,18 +10,42 @@ public interface IHitSystem
 public class HitSystem : MonoBehaviour
 {
     [SerializeField] private float _hitSphereRange;
+    [SerializeField] private Transform _camera;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("1");
             //Animation Needs to go here for the swing
-            Ray r = new Ray(transform.position,transform.forward);
+            Ray r = new Ray(_camera.position+_camera.forward,_camera.forward);
             if(Physics.Raycast(r,out RaycastHit hit,_hitSphereRange))
             {
-                if(hit.transform.parent.TryGetComponent(out IHitSystem hitSystem))
+                Debug.Log("2");
+                if(hit.transform.parent!= null)
                 {
-                    hitSystem.Hit(this,hit);
+                    Debug.Log("3");
+                    if(hit.transform.parent.TryGetComponent(out IHitSystem hitSystem)) 
+                    {
+                        Debug.Log("4");
+                        hitSystem.Hit(this, hit);
+                    }
+                    else if (hit.transform.parent.parent != null)
+                    {
+                        Debug.Log("5");
+                        if(hit.transform.parent.parent.TryGetComponent(out IHitSystem fellTreeHit))
+                        {
+                            Debug.Log("6");
+                            fellTreeHit.Hit(this, hit);
+                        }
+                    }
                 }
             }
         }
@@ -30,6 +54,6 @@ public class HitSystem : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position,transform.position+(transform.forward*_hitSphereRange));
+        Gizmos.DrawLine(_camera.position + _camera.forward, _camera.position+(_camera.forward+_camera.forward*_hitSphereRange));
     }
 }

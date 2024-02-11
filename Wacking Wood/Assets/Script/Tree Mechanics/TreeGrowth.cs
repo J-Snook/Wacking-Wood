@@ -27,7 +27,7 @@ public class TreeGrowth : MonoBehaviour
 
     private void SetTreeStage(float treeStage)
     {
-        _trunk.transform.localScale = new Vector3 (Mathf.Pow(treeStage,0.25f), treeStage+0.5f, Mathf.Pow(treeStage, 0.25f));
+        _trunk.transform.localScale = new Vector3 (Mathf.Pow(treeStage,0.25f)/1.5f, treeStage+0.5f, Mathf.Pow(treeStage, 0.25f)/1.5f);
         _trunk.transform.localPosition = new Vector3(_trunk.transform.localPosition.x, treeStage, _trunk.transform.localPosition.z);
         _leaves.transform.localScale = new Vector3(treeStage+1f,treeStage,treeStage+1f);
         _leaves.transform.localPosition = new Vector3(_leaves.transform.localPosition.x, 3f * treeStage, _leaves.transform.localPosition.z);
