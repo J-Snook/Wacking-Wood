@@ -11,7 +11,7 @@ public class TreeGrowth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _treeHit = gameObject.GetComponent<TreeHit>();
+        _treeHit = _trunk.GetComponent<TreeHit>();
         if (_treeStage == 0)
         {
             _treeStage = Random.Range(3, 6);

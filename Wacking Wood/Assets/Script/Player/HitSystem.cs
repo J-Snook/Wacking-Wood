@@ -23,29 +23,13 @@ public class HitSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("1");
             //Animation Needs to go here for the swing
             Ray r = new Ray(_camera.position+_camera.forward,_camera.forward);
             if(Physics.Raycast(r,out RaycastHit hit,_hitSphereRange))
             {
-                Debug.Log("2");
-                if(hit.transform.parent!= null)
+                if(hit.collider.TryGetComponent(out IHitSystem hitSystem)) 
                 {
-                    Debug.Log("3");
-                    if(hit.transform.parent.TryGetComponent(out IHitSystem hitSystem)) 
-                    {
-                        Debug.Log("4");
-                        hitSystem.Hit(this, hit);
-                    }
-                    else if (hit.transform.parent.parent != null)
-                    {
-                        Debug.Log("5");
-                        if(hit.transform.parent.parent.TryGetComponent(out IHitSystem fellTreeHit))
-                        {
-                            Debug.Log("6");
-                            fellTreeHit.Hit(this, hit);
-                        }
-                    }
+                    hitSystem.Hit(this, hit);
                 }
             }
         }

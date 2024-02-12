@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TreeHit : MonoBehaviour,IHitSystem
 {
-    [SerializeField] private Transform _trunk;
     [SerializeField] private GameObject _leaves;
     [SerializeField] private GameObject _treeTargetPrefab;
     [SerializeField] private GameObject _sliceTargetPrefab;
+    [SerializeField] private GameObject _itemLogPrefab;
     public int _treeMaxHealth=1;
     [SerializeField] private float _treeHitTimeoutDiff=30f;
     [SerializeField,Range(0f,360f)] private float _treeTargetHorizontalChange=0.5f;
@@ -31,11 +31,10 @@ public class TreeHit : MonoBehaviour,IHitSystem
     private void FallTree()
     {
         //_trunk.transform.localScale = new Vector3(_trunk.transform.localScale.x, _trunk.transform.localPosition.y, _trunk.transform.localScale.z);
-        _treeRigidBody =  gameObject.AddComponent<Rigidbody>();
+        _treeRigidBody =  transform.parent.gameObject.AddComponent<Rigidbody>();
         _treeRigidBody.AddForceAtPosition(-_currentTarget.transform.position, _currentTarget.transform.position);
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
-        ftH.Setup(_trunk.gameObject,_sliceTargetPrefab);
-        Debug.Log("Tree Fell");
+        ftH.Setup(_sliceTargetPrefab,_itemLogPrefab);
         Destroy(_leaves);
         Destroy(this);
     }
@@ -46,7 +45,7 @@ public class TreeHit : MonoBehaviour,IHitSystem
         {
             _treeHealth--;
         }
-        else if (target.transform == _currentTarget)
+        else if (Vector3.Distance(_currentTarget.position,target.point)<=0.2)
         {
             Destroy(_currentTarget.gameObject);
             _treeHealth--;
@@ -55,6 +54,7 @@ public class TreeHit : MonoBehaviour,IHitSystem
         {
             return;
         }
+
         if (_treeHealth <= 0)
         {
             FallTree();
@@ -75,14 +75,14 @@ public class TreeHit : MonoBehaviour,IHitSystem
 
     private Vector3 generateTargetLocation(Vector3 hitPos)
     {
-        float radius = _trunk.localScale.x / 2;
+        float radius = transform.localScale.x / 2;
         float hitAngle = Vector3.SignedAngle(Vector3.forward, hitPos-transform.position, Vector3.up);
         hitAngle = (hitAngle >0 ) ? hitAngle : 360f+hitAngle;
         hitAngle += Random.Range(_treeTargetHorizontalChange / -2f, _treeTargetHorizontalChange / 2f);
         hitAngle = Mathf.Deg2Rad * hitAngle;
         Vector2 heightRange = new Vector2(hitPos.y - (_treeTargetVerticalRange / 2), hitPos.y + (_treeTargetVerticalRange / 2));
         Vector2 dir = new Vector2(Mathf.Sin(hitAngle), Mathf.Cos(hitAngle));
-        Vector2 radiusDir = new Vector2(_trunk.position.x, _trunk.position.z) + (dir * radius);
+        Vector2 radiusDir = new Vector2(transform.position.x, transform.position.z) + (dir * radius);
         Vector3 newLocation = new Vector3(radiusDir.x, Random.Range(heightRange.x,heightRange.y), radiusDir.y);
         return newLocation;
     }

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2055827760430609354}
-  - component: {fileID: 50670704788973933}
   - component: {fileID: 9034706296393316876}
   m_Layer: 0
   m_Name: TempTree
@@ -35,26 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &50670704788973933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3403900663660839623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b25882df7165c548812e198bbbfaddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trunk: {fileID: 7391624923240736911}
-  _leaves: {fileID: 4629038334801799257}
-  _treeTargetPrefab: {fileID: 4114068007207047573, guid: 065d413bc36f4aa41ae0e3d7d1152817, type: 3}
-  _sliceTargetPrefab: {fileID: 7597961303798895679, guid: 56bacb29233cb4b4c83c71775fa1ba09, type: 3}
-  _treeMaxHealth: 6
-  _treeHitTimeoutDiff: 30
-  _treeTargetHorizontalChange: 90
-  _treeTargetVerticalRange: 1
 --- !u!114 &9034706296393316876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +61,7 @@ GameObject:
   - component: {fileID: 4341181032271190747}
   - component: {fileID: 1946170237489123310}
   m_Layer: 0
-  m_Name: Capsule (1)
+  m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,8 +144,9 @@ GameObject:
   - component: {fileID: 1344038421437192603}
   - component: {fileID: 464006669442207626}
   - component: {fileID: 2656785145767487554}
+  - component: {fileID: 5510823996504021445}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Trunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,3 +231,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &5510823996504021445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362078168551693110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b25882df7165c548812e198bbbfaddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leaves: {fileID: 4629038334801799257}
+  _treeTargetPrefab: {fileID: 4114068007207047573, guid: 065d413bc36f4aa41ae0e3d7d1152817, type: 3}
+  _sliceTargetPrefab: {fileID: 7597961303798895679, guid: 56bacb29233cb4b4c83c71775fa1ba09, type: 3}
+  _itemLogPrefab: {fileID: 7346737534333614960, guid: d804bc5c255f7774b87391e957b0d912, type: 3}
+  _treeMaxHealth: 1
+  _treeHitTimeoutDiff: 30
+  _treeTargetHorizontalChange: 90
+  _treeTargetVerticalRange: 1
