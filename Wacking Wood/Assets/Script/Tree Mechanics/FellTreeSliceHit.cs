@@ -5,7 +5,7 @@ using UnityEngine;
 public class FellTreeSliceHit : MonoBehaviour, IHitSystem
 {
 
-    public void Hit(HitSystem player, RaycastHit hit)
+    public void Hit(InteractionSystem player, RaycastHit hit)
     {
         if (transform.parent.TryGetComponent(out FellTreeHit trunkScript))
         {

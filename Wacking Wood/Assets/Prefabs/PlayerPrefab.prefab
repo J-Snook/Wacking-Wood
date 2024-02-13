@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8714553392656433497}
   - component: {fileID: 8714553392656433496}
   - component: {fileID: 8714553392656433479}
-  - component: {fileID: 3760549607767631904}
+  - component: {fileID: 586447180809348492}
   - component: {fileID: 8714553392656433478}
   - component: {fileID: 8714553392656433499}
   m_Layer: 6
@@ -103,7 +103,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3760549607767631904
+--- !u!114 &586447180809348492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +112,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8714553392656433477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db4d4b7a25f39345ad05bc44b46418e, type: 3}
+  m_Script: {fileID: 11500000, guid: f04e945256000224d8bac88b15837189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitSphereRange: 3
+  _hitRange: 3
+  _interactionRange: 3
+  _distanceFromCamera: 1
+  _camera: {fileID: 8714553394407159971}
 --- !u!114 &8714553392656433478
 MonoBehaviour:
   m_ObjectHideFlags: 0

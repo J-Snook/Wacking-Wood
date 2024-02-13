@@ -39,7 +39,7 @@ public class TreeHit : MonoBehaviour,IHitSystem
         Destroy(this);
     }
 
-    public void Hit(HitSystem player,RaycastHit target)
+    public void Hit(InteractionSystem player,RaycastHit target)
 {
         if (_currentTarget == null)
         {

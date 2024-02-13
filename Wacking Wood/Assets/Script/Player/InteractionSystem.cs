@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IHitSystem
+{
+    public void Hit(InteractionSystem player, RaycastHit hit);
+}
 interface IInteractSystem
 {
     public string promptText { get; }
@@ -10,35 +14,47 @@ interface IInteractSystem
 
 public class InteractionSystem : MonoBehaviour
 {
-    [SerializeField] private float _interactionRange=3;
-    [SerializeField] private float _interactionSphereRadius;
-    [SerializeField] private GameObject _debugSphere;
-    private RaycastHit[] _interactionTargets;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float _hitRange;
+    [SerializeField] private float _interactionRange = 3f;
+    [SerializeField] private float _distanceFromCamera = 1f;
+    [SerializeField] private Transform _camera;
+    [SerializeField] private PlayerUI _scriptPlayerUI;
+    private bool _canSeePrompt;
+
+    private void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Physics.SphereCast(transform.position,_interactionSphereRadius,transform.forward,out RaycastHit hit,_interactionRange))
+        if (_canSeePrompt)
         {
-            if(hit.transform.TryGetComponent(out IInteractSystem interactSystem))
+            _canSeePrompt = _scriptPlayerUI.SetInteractionPrompt(string.Empty);
+        }
+        Ray r = new Ray(_camera.position + (_camera.forward * _distanceFromCamera), _camera.forward);
+        if (Input.GetMouseButtonDown(0))
+        {
+            //Animation Needs to go here for the swing
+            if (Physics.Raycast(r, out RaycastHit hit, _hitRange))
             {
-                if (interactSystem.promptText != string.Empty)
+                if (hit.collider.TryGetComponent(out IHitSystem hitSystem))
                 {
-                    Debug.Log(interactSystem.promptText);
+                    hitSystem.Hit(this, hit);
                 }
+            }
+        }
+        if (Physics.Raycast(r, out RaycastHit interactHit, _interactionRange))
+        {
+            if (interactHit.transform.TryGetComponent(out IInteractSystem interactSystem))
+            {
+                _canSeePrompt = _scriptPlayerUI.SetInteractionPrompt(interactSystem.promptText);
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     interactSystem.Interact(this);
                 }
-            }
-            if (hit.transform == transform)
-            {
-                Debug.Log("Self");
             }
         }
     }
@@ -46,6 +62,9 @@ public class InteractionSystem : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position+transform.forward*(_interactionRange + _interactionSphereRadius));
+        Gizmos.DrawLine(_camera.position + (_camera.forward * _distanceFromCamera), _camera.position + (_camera.forward * _distanceFromCamera) + (_camera.forward * _hitRange));
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(_camera.position + (_camera.forward * _distanceFromCamera), _camera.position + (_camera.forward * _distanceFromCamera) + (_camera.forward * _interactionRange));
     }
 }

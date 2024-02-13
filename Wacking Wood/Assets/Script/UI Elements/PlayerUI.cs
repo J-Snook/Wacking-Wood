@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public Slider fuelBar;
-    public Slider staminaBar;
-    public TextMeshProUGUI timeOfDay;
-    public TextMeshProUGUI cashAmount;
-    
-    
+    [SerializeField] private Slider fuelBar;
+    [SerializeField] private Slider staminaBar;
+    [SerializeField] private TextMeshProUGUI timeOfDay;
+    [SerializeField] private TextMeshProUGUI cashAmount;
+    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private GameObject prompt;
+
     public void Start()
     {
         InvokeRepeating("UpdateTime", 0f, 1f); // Update every second
@@ -45,5 +46,13 @@ public class PlayerUI : MonoBehaviour
         
         cashAmount.text = $"{formattedCash}";
     }
+
+    public bool SetInteractionPrompt(string text)
+    {
+        prompt.SetActive(text!=String.Empty);
+        promptText.text = text;
+        return text!=String.Empty;
+    }
+
 
 }
