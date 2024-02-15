@@ -5,13 +5,12 @@ public class LogPickup : MonoBehaviour, IInteractSystem
     [SerializeField] private string text = string.Empty;
     private static bool isHoldingLog = false; 
     private GameObject heldLog;
-    private InteractionSystem player;
 
     public string promptText => text;
 
     void Start()
     {
-        player = GetComponent<InteractionSystem>();
+
     }
 
     void Update()
@@ -25,7 +24,7 @@ public class LogPickup : MonoBehaviour, IInteractSystem
 
     public void Interact(InteractionSystem player)
     {
-        if (!isHoldingLog && Input.GetKeyDown(KeyCode.F))
+        if (!isHoldingLog)
         {
             
             if (heldLog == null)
