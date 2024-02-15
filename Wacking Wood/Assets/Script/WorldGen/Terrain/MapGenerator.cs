@@ -28,31 +28,28 @@ public class MapGenerator : MonoBehaviour
     public float meshHeightMultiplier;
     public AnimationCurve meshHeightCurve;
 
-    public float smoothness=1;
+    public Vector2Int structureLocation;
+    public float structureRadius;
+    public int structureSmoothness;
 
     public bool autoUpdate;
 
     public TerrainTypes[] regions;
 
+    public TreeGenerationMesh treeGen;
+
     public void GenerateMap()
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize,seed, noiseScale, octaves,persistance,lacunarity,offset,smoothness);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize,seed, noiseScale, octaves,persistance,lacunarity,offset);
+
+        noiseMap = NoiseSmoothing.smoothHeightMap(noiseMap, structureLocation, structureRadius, structureSmoothness);
 
         Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
         for(int y = 0; y < mapChunkSize; y++)
         {
             for(int x = 0; x < mapChunkSize; x++)
             {
-                float currentHeight = noiseMap[x, y];
-                for(int i = 0; i < regions.Length; i++)
-                {
-                    if(currentHeight <= regions[i].height)
-                    {
-                        colorMap[y * mapChunkSize + x] = regions[i].color;
-                        break;
-                    }
-
-                }
+                colorMap[y * mapChunkSize + x] = regions[0].color;
             }
         }
         MapDisplay display = gameObject.GetComponent<MapDisplay>();
@@ -68,6 +65,7 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier,meshHeightCurve,levelOfDetail), TextureGenerator.TextureFromColourMap(colorMap, mapChunkSize));
         }
+        treeGen.TreeGen(structureLocation,structureRadius);
     }
 
     private void OnValidate()
