@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462b96de69c062641a04eff36b7a63ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Log
+  text: Press F to pick up log
