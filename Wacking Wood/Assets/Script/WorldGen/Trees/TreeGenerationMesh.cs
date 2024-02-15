@@ -2,19 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SelectedTree
+{
+    Random,
+    Tree1,
+    Tree2,
+    Tree3,
+    Tree4
+}
+
+
 public class TreeGenerationMesh : MonoBehaviour
 {
-
+    public GameObject[] trees;
+    public SelectedTree _treeType;
     public float density = 1;
     public int rejectionSamples = 30;
     public float sphereRadius = 1;
     private MeshRenderer _mesh;
 
     List<Vector2> points;
-    [SerializeField] private GameObject _treePrefab;
+    private GameObject _treePrefab;
 
     private void Start()
     {
+        if (_treeType== SelectedTree.Random)
+        {
+            _treePrefab = trees[Random.Range(0, trees.Length)];
+        } else
+        {
+            _treePrefab = trees[(int)_treeType - 1];
+        }
+
         _mesh = GetComponent<MeshRenderer>();
         Vector3 boundsSize = _mesh.bounds.size;
         Vector2 regionSize = new Vector2(boundsSize.x, boundsSize.z);
