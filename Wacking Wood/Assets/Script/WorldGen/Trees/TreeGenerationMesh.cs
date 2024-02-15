@@ -24,7 +24,7 @@ public class TreeGenerationMesh : MonoBehaviour
     List<Vector2> points;
     private GameObject _treePrefab;
 
-    private void Start()
+    public void TreeGen(Vector2Int structLoc,float structRadius)
     {
         if (_treeType== SelectedTree.Random)
         {
@@ -37,7 +37,7 @@ public class TreeGenerationMesh : MonoBehaviour
         _mesh = GetComponent<MeshRenderer>();
         Vector3 boundsSize = _mesh.bounds.size;
         Vector2 regionSize = new Vector2(boundsSize.x, boundsSize.z);
-        points = PointGeneration.GeneratePoints(density, regionSize, rejectionSamples);
+        points = PointGeneration.GeneratePoints(density, regionSize, structLoc, structRadius, rejectionSamples);
         if(points != null)
         {
             int Count = 1;
