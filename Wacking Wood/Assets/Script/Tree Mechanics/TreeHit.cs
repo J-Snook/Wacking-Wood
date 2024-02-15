@@ -103,5 +103,6 @@ public class TreeHit : MonoBehaviour,IHitSystem
             }
             i++;
         }
+        Destroy(_currentTarget.gameObject);
     }
 }
