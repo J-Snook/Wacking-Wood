@@ -14,12 +14,35 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject prompt;
 
+
+    private MoneySystem moneySystem;
+
     public void Start()
     {
         InvokeRepeating("UpdateTime", 0f, 1f); // Update every second
+
+        // find money system
+        moneySystem = FindObjectOfType<MoneySystem>();
+
+        if (moneySystem == null)
+        {
+            Debug.LogError("MoneySystem not found in the scene. ");
+            return;
+        }
+
+        // money change event
+        moneySystem.OnMoneyChanged += UpdateCashAmount;
     }
 
-
+    private void OnDestroy()
+    {
+        if (moneySystem != null)
+        {
+            moneySystem.OnMoneyChanged -= UpdateCashAmount;
+        }
+       
+    }
+    
     public void UpdateTime()
     {
         DateTime now = DateTime.Now;
@@ -54,5 +77,18 @@ public class PlayerUI : MonoBehaviour
         return text!=String.Empty;
     }
 
+    // method that will deduct amount from our purchase
+    public void DeductCashAmount(double amount)
+    {
+        if (moneySystem != null)
+        {
+            moneySystem.TakeMoney((int)amount); 
+        }
+        else
+        {
+            Debug.LogError("Money system reference is null");
+        }
+        
+    }
 
 }

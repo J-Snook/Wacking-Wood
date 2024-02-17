@@ -5,12 +5,25 @@ public class LogPickup : MonoBehaviour, IInteractSystem
     [SerializeField] private string text = string.Empty;
     private static bool isHoldingLog = false; 
     private GameObject heldLog;
+    private MoneySystem moneySystem;
+    private PlayerUI playerUI;
+    
 
     public string promptText => text;
 
     void Start()
     {
-
+        moneySystem = FindObjectOfType<MoneySystem>();
+        if (moneySystem == null)
+        {
+            Debug.LogError("Money system not found ");
+        }
+        playerUI = FindObjectOfType<PlayerUI>();
+        if (playerUI == null)
+        {
+            Debug.LogError("PlayerUI not found ");
+        }
+        
     }
 
     void Update()
@@ -48,6 +61,26 @@ public class LogPickup : MonoBehaviour, IInteractSystem
                 }
 
                 isHoldingLog = true;
+
+                if (moneySystem != null)
+                {
+                    moneySystem.AddMoney(10);
+                }
+                else
+                {
+                    Debug.LogError("Moneysystem refference is null");
+                }
+
+                if (playerUI != null)
+                {
+                    playerUI.UpdateCashAmount(moneySystem.GetMoney());
+                    
+                }
+                else
+                {
+                    Debug.LogError("PlayerUI refference is null");
+                }
+               
             }
         }
         
