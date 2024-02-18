@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -13,11 +14,14 @@ public class PauseMenu : MonoBehaviour
     public GameObject CashTrackerUI;
     public GameObject TimeUI;
     public GameObject CursorUI;
+    public Button resumeButton;
     public MonoBehaviour CharacterMovementScript;
 
     private void Start()
     {
         CharacterMovementScript = GetComponent("Character Movement") as MonoBehaviour;
+        
+        resumeButton.onClick.AddListener(ResumeButton);
     }
 
     private void Update()
@@ -48,8 +52,12 @@ public class PauseMenu : MonoBehaviour
         TimeUI.SetActive(true);
         CursorUI.SetActive(true);
 
-        //activates character controller script
-        CharacterMovementScript.enabled = true;
+       
+    }
+
+    public void ResumeButton()
+    {
+        Resume();
     }
 
     private void Pause()
@@ -64,7 +72,6 @@ public class PauseMenu : MonoBehaviour
         TimeUI.SetActive(false);
         CursorUI.SetActive(false);
         
-        //disables character controller script
-        CharacterMovementScript.enabled = false;
+       
     }
 }
