@@ -2,12 +2,24 @@ using UnityEngine;
 
 public class LogPickup : MonoBehaviour, IInteractSystem
 {
-    [SerializeField] private string text = string.Empty;
     [SerializeField] private Rigidbody rb;
     private MoneySystem moneySystem;
     private PlayerUI playerUI;
     private PlayerHeldItem playerHeldItem;
-    
+    public LogStorage logStorage;
+    private string text
+    {
+        get
+        {
+            if (logStorage == null)
+            {
+                return "Press F to Pickup Log";
+            } else
+            {
+                return logStorage.text;
+            }
+        }
+    }
 
     public string promptText => text;
 
@@ -34,12 +46,18 @@ public class LogPickup : MonoBehaviour, IInteractSystem
 
     public void Interact(InteractionSystem player)
     {
-        if (playerHeldItem.holdItem(gameObject))
+        if (logStorage== null)
         {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            transform.localPosition = new Vector3(1f, 0.5f, 0f);
-            transform.localRotation = Quaternion.Euler(-90, 0, 0);
+            if(playerHeldItem.holdItem(gameObject))
+            {
+                rb.isKinematic = true;
+                rb.useGravity = false;
+                transform.localPosition = new Vector3(1f, 0.5f, 0f);
+                transform.localRotation = Quaternion.Euler(-90, 0, 0);
+            }
+        } else
+        {
+            logStorage.Interact(player);
         }
         
     }

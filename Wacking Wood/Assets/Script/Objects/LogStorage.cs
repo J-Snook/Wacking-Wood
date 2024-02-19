@@ -1,12 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LogStorage : MonoBehaviour, IInteractSystem
 {
-    private List<GameObject> storedLogs = new List<GameObject>();
+    private List<LogPickup> storedLogs = new List<LogPickup>();
     private PlayerHeldItem playerHeldScript;
-    private string text = "gsrsrhs";
+    public string text
+    {
+        get 
+        {
+            if(playerHeldScript.isHoldingItem)
+            {
+                return "Press F to Place Log";
+            }
+            else if (storedLogs.Count > 0)
+            {
+                return "Press F to Pickup Log";
+            } else
+            {
+                return string.Empty;
+            }
+        }
+    }
     public string promptText => text;
     private void Start()
     {
@@ -17,41 +34,26 @@ public class LogStorage : MonoBehaviour, IInteractSystem
         }
     }
 
-    private void Update()
-    {
-        if (playerHeldScript.isHoldingItem)
-        {
-            text = "Press F to Place Log";
-            Debug.Log("1");
-} 
-        else if (storedLogs.Count > 0)
-        {
-            text = "Press F to Pickup Log";
-            Debug.Log("2");
-        }
-        else
-        {
-            text=string.Empty;
-            Debug.Log("3");
-        }
-    }
-
     public void Interact(InteractionSystem player)
     {
         if (playerHeldScript.isHoldingItem)
         {
             GameObject heldItem = playerHeldScript.PlaceItem();
-            if (heldItem != null)
+            if (heldItem.TryGetComponent(out LogPickup logPickup))
             {
                 heldItem.transform.parent = transform;
-                heldItem.transform.localPosition = Vector3.zero;
+                heldItem.transform.localPosition = Vector3.up*storedLogs.Count;
                 heldItem.transform.rotation = transform.rotation;
-                storedLogs.Add(heldItem);
+                logPickup.logStorage = this;
+                storedLogs.Add(logPickup);
             }
         } 
         else if (storedLogs.Count >0)
         {
-            //Pick up log out of stack
+            LogPickup topLog = storedLogs[storedLogs.Count-1];
+            storedLogs.RemoveAt(storedLogs.Count - 1);
+            topLog.logStorage = null;
+            topLog.Interact(player);
         }
     }
 }

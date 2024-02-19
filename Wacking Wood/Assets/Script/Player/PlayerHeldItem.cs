@@ -17,11 +17,10 @@ public class PlayerHeldItem : MonoBehaviour
             heldItem = item;
             canDrop = itemDroppable;
             canPlace = itemPlaceable;
+            isHoldingItem = true;
             item.transform.parent = transform;
-            Debug.Log("Item Picked Up");
             return true;
         }
-        Debug.Log("Item Cant be Picked Up");
         return false;
     }
     
@@ -38,7 +37,7 @@ public class PlayerHeldItem : MonoBehaviour
         }
 
         heldItem = null;
-        Debug.Log("Item Dropped");
+        isHoldingItem = false;
     }
 
     public GameObject PlaceItem()
@@ -47,11 +46,10 @@ public class PlayerHeldItem : MonoBehaviour
         {
             GameObject rtnValue = heldItem;
             heldItem=null;
-            Debug.Log("Item Placed");
+            isHoldingItem = false;
             return rtnValue;
 
         }
-        Debug.Log("Item Cant be place");
         return null;
     }
     private void Update()
@@ -62,7 +60,6 @@ public class PlayerHeldItem : MonoBehaviour
             {
                 DropItem();
             }
-            Debug.Log("G pressed Cant Drop");
         }
     }
 }
