@@ -3,10 +3,10 @@ using UnityEngine;
 public class LogPickup : MonoBehaviour, IInteractSystem
 {
     [SerializeField] private string text = string.Empty;
-    private static bool isHoldingLog = false; 
-    private GameObject heldLog;
+    [SerializeField] private Rigidbody rb;
     private MoneySystem moneySystem;
     private PlayerUI playerUI;
+    private PlayerHeldItem playerHeldItem;
     
 
     public string promptText => text;
@@ -23,86 +23,24 @@ public class LogPickup : MonoBehaviour, IInteractSystem
         {
             Debug.LogError("PlayerUI not found ");
         }
-        
+        playerHeldItem = FindObjectOfType<PlayerHeldItem>();
+        if (playerHeldItem == null)
+        {
+            Debug.LogError("PlayerHeldItem not found ");
+        }
+
     }
 
-    void Update()
-    {
-        // This checks if player want to drop the log, if pressed G it activates DropLog func
-        if (isHoldingLog && Input.GetKeyDown(KeyCode.G))
-        {
-            DropLog();
-        }
-    }
 
     public void Interact(InteractionSystem player)
     {
-        if (!isHoldingLog)
+        if (playerHeldItem.holdItem(gameObject))
         {
-            
-            if (heldLog == null)
-            {
-                
-                heldLog = gameObject;
-
-                // Log becomes child of player, so we can walk with the log around
-                heldLog.transform.SetParent(player.transform);
-
-                // transforming and rotating position so its on right shoulder
-                heldLog.transform.localPosition = new Vector3(1f, 0.5f, 0f); 
-                heldLog.transform.localRotation = Quaternion.Euler(-90, 0, 0); 
-
-                // Disabling RB 
-                Rigidbody rb = heldLog.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = true;
-                    rb.useGravity = false;
-                }
-
-                isHoldingLog = true;
-
-                if (moneySystem != null)
-                {
-                    moneySystem.AddMoney(10);
-                }
-                else
-                {
-                    Debug.LogError("Moneysystem refference is null");
-                }
-
-                if (playerUI != null)
-                {
-                    playerUI.UpdateCashAmount(moneySystem.GetMoney());
-                    
-                }
-                else
-                {
-                    Debug.LogError("PlayerUI refference is null");
-                }
-               
-            }
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            transform.localPosition = new Vector3(1f, 0.5f, 0f);
+            transform.localRotation = Quaternion.Euler(-90, 0, 0);
         }
         
-    }
-
-    void DropLog()
-    {
-        if (heldLog != null)
-        {
-            
-            heldLog.transform.SetParent(null);
-
-            // Enable RB
-            Rigidbody rb = heldLog.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-                rb.useGravity = true;
-            }
-
-            isHoldingLog = false;
-            heldLog = null;
-        }
     }
 }
