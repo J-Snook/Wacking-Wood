@@ -10,10 +10,16 @@ public class AxeSwing : MonoBehaviour
     private float swingCoolDown;
     private bool readyToSwing;
     
+    protected Transform player;
+    protected PlayerAttributes _player;
+    
     private void Start()
     {
         readyToSwing = true;
         swingCoolDown = 2f;
+        
+        player = GameObject.Find("Player").transform;
+        _player = player.gameObject.GetComponent<PlayerAttributes>();
     }
 
     // Update is called once per frame
@@ -24,9 +30,11 @@ public class AxeSwing : MonoBehaviour
 
     private void Swing()
     {
-        if (Input.GetMouseButtonDown(0) && readyToSwing)
+        if (Input.GetMouseButtonDown(0) && readyToSwing && _player.Stamina > 1)
         {
             StartCoroutine(SwingAnimation());
+            _player.Stamina -= 20f; 
+            _player.RefillTime = 3.0f;
             readyToSwing = false;
             Invoke(nameof(SwingReload),swingCoolDown);
         }
