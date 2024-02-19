@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class PlayerHeldItem : MonoBehaviour
 {
-    public bool isHoldingItem;
+    public bool isHoldingItem = false;
     private GameObject heldItem;
     private bool canDrop;
     private bool canPlace;

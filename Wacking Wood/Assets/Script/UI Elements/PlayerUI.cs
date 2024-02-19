@@ -21,28 +21,8 @@ public class PlayerUI : MonoBehaviour
     {
         InvokeRepeating("UpdateTime", 0f, 1f); // Update every second
 
-        // find money system
-        moneySystem = FindObjectOfType<MoneySystem>();
-
-        if (moneySystem == null)
-        {
-            Debug.LogError("MoneySystem not found in the scene. ");
-            return;
-        }
-
-        // money change event
-        moneySystem.OnMoneyChanged += UpdateCashAmount;
     }
 
-    private void OnDestroy()
-    {
-        if (moneySystem != null)
-        {
-            moneySystem.OnMoneyChanged -= UpdateCashAmount;
-        }
-       
-    }
-    
     public void UpdateTime()
     {
         DateTime now = DateTime.Now;
@@ -63,7 +43,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     
-    public void UpdateCashAmount(double cashValue)
+    public void UpdateCashAmount(float cashValue)
     {
         string formattedCash = cashValue.ToString("C");
         
@@ -75,20 +55,6 @@ public class PlayerUI : MonoBehaviour
         prompt.SetActive(text!=String.Empty);
         promptText.text = text;
         return text!=String.Empty;
-    }
-
-    // method that will deduct amount from our purchase
-    public void DeductCashAmount(double amount)
-    {
-        if (moneySystem != null)
-        {
-            moneySystem.TakeMoney((int)amount); 
-        }
-        else
-        {
-            Debug.LogError("Money system reference is null");
-        }
-        
     }
 
 }

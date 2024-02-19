@@ -6,38 +6,28 @@ using System;
 
 public class MoneySystem : MonoBehaviour
 {
-    private float money = 100.00f;
+    private float _money = 100.00f;
+    public float Money { get; private set; }
+    private PlayerUI playerUIscript;
 
-    public event Action<double> OnMoneyChanged; 
-
-    public void AddMoney(int amount)
+    public bool AdjustMoney(float change)
     {
-        //this will increase our $-value as we sell something
-        money += amount;
-        
-
-    }
-
-    public void TakeMoney(int amount)
-    {
-        if (money >= amount)
+        float newbal = _money + change;
+        if (newbal > 0)
         {
-            // this will just decrese our $-value as we buy something
-            money -= amount;
-
+            _money = newbal;
+            playerUIscript.UpdateCashAmount(_money);
+            return true;
         }
-        else
-        {
-            Debug.LogWarning("Not enough money to take " + amount);
-        }
+        return false;
     }
 
-    public float GetMoney()
+    private void Start()
     {
-        return money;
+        playerUIscript = FindObjectOfType<PlayerUI>();
+        if (playerUIscript == null )
+        {
+            Debug.Log("Player UI Script Not Found");
+        }
     }
-
-
-
-
 }

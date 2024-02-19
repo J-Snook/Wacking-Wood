@@ -11,12 +11,17 @@ public class LogPickup : MonoBehaviour, IInteractSystem
     {
         get
         {
-            if (logStorage == null)
+            if (logStorage == null && !playerHeldItem.isHoldingItem)
             {
                 return "Press F to Pickup Log";
-            } else
+            } 
+            else if (logStorage != null)
             {
                 return logStorage.text;
+            } 
+            else
+            {
+                return string.Empty;
             }
         }
     }
