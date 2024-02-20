@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8714553392656433479}
   - component: {fileID: 586447180809348492}
   - component: {fileID: 8714553392656433478}
+  - component: {fileID: 7885087027291893308}
   - component: {fileID: 8714553392656433499}
   m_Layer: 6
   m_Name: PlayerPrefab
@@ -119,6 +120,7 @@ MonoBehaviour:
   _interactionRange: 3
   _distanceFromCamera: 1
   _camera: {fileID: 8714553394407159971}
+  _scriptPlayerUI: {fileID: 0}
 --- !u!114 &8714553392656433478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +153,20 @@ MonoBehaviour:
   headBobAmplitude: 0.8
   headBobFrequency: 8
   returnSpeed: 10
+--- !u!114 &7885087027291893308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8714553392656433477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ced121e8703a244bbadc5e7486d1e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 0
+  interiorMaterial: {fileID: 2100000, guid: bc4a3479076d87646ba591894b4781e5, type: 2}
 --- !u!143 &8714553392656433499
 CharacterController:
   m_ObjectHideFlags: 0
