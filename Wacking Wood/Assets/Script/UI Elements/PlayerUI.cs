@@ -15,8 +15,6 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject prompt;
 
 
-    private MoneySystem moneySystem;
-
     public void Start()
     {
         InvokeRepeating("UpdateTime", 0f, 1f); // Update every second

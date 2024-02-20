@@ -3,7 +3,6 @@ using UnityEngine;
 public class LogPickup : MonoBehaviour, IInteractSystem
 {
     [SerializeField] private Rigidbody rb;
-    private MoneySystem moneySystem;
     private PlayerUI playerUI;
     private PlayerHeldItem playerHeldItem;
     public LogStorage logStorage;
@@ -30,11 +29,6 @@ public class LogPickup : MonoBehaviour, IInteractSystem
 
     void Start()
     {
-        moneySystem = FindObjectOfType<MoneySystem>();
-        if (moneySystem == null)
-        {
-            Debug.LogError("Money system not found ");
-        }
         playerUI = FindObjectOfType<PlayerUI>();
         if (playerUI == null)
         {

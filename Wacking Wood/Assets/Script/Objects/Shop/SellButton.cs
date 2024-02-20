@@ -24,11 +24,11 @@ public class SellButton : MonoBehaviour, IInteractSystem
     {
         if (_logStorage != null && _logStorage.storedLogs.Count > 0)
         {
-            MoneySystem moneySystem = player.GetComponent<MoneySystem>();
+            PlayerAttributes playerAttributes = player.GetComponent<PlayerAttributes>();
             for(int i = _logStorage.storedLogs.Count-1; i>=0; i--)
             {
                 Destroy(_logStorage.storedLogs[i].gameObject);
-                moneySystem.AdjustMoney(sellPrice);
+                playerAttributes.UpdateCash(10f);
                 _logStorage.storedLogs.RemoveAt(i);
             }
         }

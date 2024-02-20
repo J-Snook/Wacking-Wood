@@ -43,7 +43,7 @@ public class CharacterMovement : MonoBehaviour
         if (Physics.Raycast(jumpDetectTransform.position, -Vector3.up, out hit, jumpDetectDistance, notThisLayerMask))
         {
             ySpecificVelocity = 0.0f;
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 ySpecificVelocity += jumpForce;
             }
@@ -54,7 +54,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         playerVelocity.y = ySpecificVelocity;
-        playerVelocity *= movementSpeed * Time.deltaTime;
+        playerVelocity *= (Input.GetKey(KeyCode.LeftShift)) ? movementSpeed * 1.5f * Time.deltaTime : movementSpeed * Time.deltaTime;
         playerVelocity = characterTransform.TransformDirection(playerVelocity);
 
         characterController.Move(playerVelocity);
