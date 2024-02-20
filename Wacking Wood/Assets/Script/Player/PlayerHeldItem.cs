@@ -7,6 +7,7 @@ public class PlayerHeldItem : MonoBehaviour
 {
     public bool isHoldingItem = false;
     private GameObject heldItem;
+    public GameObject HeldItem { get { return heldItem; }}
     private bool canDrop;
     private bool canPlace;
 
@@ -40,17 +41,17 @@ public class PlayerHeldItem : MonoBehaviour
         isHoldingItem = false;
     }
 
-    public GameObject PlaceItem()
+    public bool PlaceItem()
     {
         if (heldItem != null && canPlace)
         {
             GameObject rtnValue = heldItem;
             heldItem=null;
             isHoldingItem = false;
-            return rtnValue;
+            return true;
 
         }
-        return null;
+        return false;
     }
     private void Update()
     {
