@@ -27,13 +27,13 @@ public class AxeSwing : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Swing();
+
     }
 
-    private void Swing()
+    public void Swing()
     {
         CanSwingCheck();
-        if (Input.GetMouseButtonDown(0) && readyToSwing)
+        if (readyToSwing)
         {
             StartCoroutine(SwingAnimation());
             _player.Stamina -= swingStaminaCost;

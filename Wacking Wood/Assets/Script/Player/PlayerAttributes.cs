@@ -74,7 +74,7 @@ public class PlayerAttributes : MonoBehaviour
 
         if (refillTime <= 0)
         {
-            currentStamina += .5f;
+            currentStamina += 15f*Time.deltaTime;
         }
         
         uiElements.UpdateStaminaValue(currentStamina/maxStamina);

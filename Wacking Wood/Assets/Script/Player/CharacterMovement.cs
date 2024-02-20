@@ -63,7 +63,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && playerAttributes.Stamina > 0f)
         {
             playerVelocity *= sprintChange;
-            playerAttributes.Stamina -= 0.2f;
+            playerAttributes.Stamina -= 10f*Time.deltaTime;
         }
         playerVelocity *=  movementSpeed * Time.deltaTime;
         playerVelocity = characterTransform.TransformDirection(playerVelocity);

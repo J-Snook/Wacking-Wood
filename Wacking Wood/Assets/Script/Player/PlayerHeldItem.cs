@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class PlayerHeldItem : MonoBehaviour
 {
+    [SerializeField] private Transform cameraHolder;
+    [SerializeField] private GameObject axe;
     public bool isHoldingItem = false;
     private GameObject heldItem;
     public GameObject HeldItem { get { return heldItem; }}
@@ -19,7 +21,7 @@ public class PlayerHeldItem : MonoBehaviour
             canDrop = itemDroppable;
             canPlace = itemPlaceable;
             isHoldingItem = true;
-            item.transform.parent = transform;
+            item.transform.parent = cameraHolder;
             return true;
         }
         return false;
@@ -60,6 +62,22 @@ public class PlayerHeldItem : MonoBehaviour
             if (heldItem != null && canDrop)
             {
                 DropItem();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        { 
+            if (heldItem != null)
+            {
+                if (heldItem == axe)
+                {
+                    axe.SetActive(false);
+                    heldItem = null;
+                    isHoldingItem = false;
+                }
+            } else
+            {
+                axe.SetActive(true);
+                holdItem(axe,false,false);
             }
         }
     }

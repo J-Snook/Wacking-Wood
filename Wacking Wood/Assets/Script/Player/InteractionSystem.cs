@@ -14,15 +14,20 @@ interface IInteractSystem
 
 public class InteractionSystem : MonoBehaviour
 {
+    [SerializeField] private GameObject axeGameObject;
     [SerializeField] private float _hitRange;
     [SerializeField] private float _interactionRange = 3f;
     [SerializeField] private float _distanceFromCamera = 1f;
     [SerializeField] private Transform _camera;
     [SerializeField] private PlayerUI _scriptPlayerUI;
     private bool _canSeePrompt;
+    private AxeSwing axeSwing;
+    private PlayerHeldItem playerHeldItemScript;
 
     private void Start()
     {
+        axeSwing = FindAnyObjectByType<AxeSwing>();
+        playerHeldItemScript = FindAnyObjectByType<PlayerHeldItem>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -37,7 +42,10 @@ public class InteractionSystem : MonoBehaviour
         Ray r = new Ray(_camera.position + (_camera.forward * _distanceFromCamera), _camera.forward);
         if (Input.GetMouseButtonDown(0))
         {
-            //Animation Needs to go here for the swing
+            if (playerHeldItemScript.HeldItem == axeGameObject)
+            {
+                axeSwing.Swing();
+            }
             if (Physics.Raycast(r, out RaycastHit hit, _hitRange))
             {
                 if (hit.collider.TryGetComponent(out IHitSystem hitSystem))
