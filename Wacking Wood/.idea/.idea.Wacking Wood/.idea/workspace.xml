@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65824067-b709-4e31-9f9a-d3694c1bdd97" name="Changes" comment="" />
+    <list default="true" id="65824067-b709-4e31-9f9a-d3694c1bdd97" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Wacking Wood/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Wacking Wood/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerTestingScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerTestingScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/MeshSlice/ClickToCutTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/MeshSlice/ClickToCutTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/MeshSlice/Cutter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/MeshSlice/Cutter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/LogPickup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/UI Elements/PlayerUI.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -36,9 +42,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\Arek\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Arek\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\Arek\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\jackt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\jackt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\jackt\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -98,6 +104,7 @@
       <updated>1707775662253</updated>
       <workItem from="1707775665153" duration="1868000" />
       <workItem from="1707956877797" duration="5834000" />
+      <workItem from="1708396823088" duration="2725000" />
     </task>
     <servers />
   </component>

@@ -32,9 +32,19 @@ public class Cutter : MonoBehaviour
         return new Triangle(verticesToSend, normalsToSend, uvsToSend, _submeshIndex);
     }
 
-    public static void Cut(GameObject _baseGameObject, Vector3 _slicePoint, Vector3 _direction, Material _fillMaterial)
+    public static void Cut(GameObject _baseGameObject, Vector3 _slicePoint, Vector3 _direction, Material _fillMaterial, bool usePlane, Plane _plane = new Plane())
     {
-        Plane slicePlane = new Plane(_baseGameObject.transform.InverseTransformDirection(-_direction), _baseGameObject.transform.InverseTransformPoint(_slicePoint));
+        Plane slicePlane = new Plane();
+        if (usePlane)
+        {
+            slicePlane = _plane;
+            Debug.Log(slicePlane.distance);
+        }
+        else
+        {
+            slicePlane = new Plane(_baseGameObject.transform.InverseTransformDirection(-_direction), _baseGameObject.transform.InverseTransformPoint(_slicePoint));
+            Debug.Log(slicePlane.distance);
+        }
         baseMesh = _baseGameObject.GetComponent<MeshFilter>().mesh;
         List<Vector3> addedVertices = new List<Vector3>();
 
