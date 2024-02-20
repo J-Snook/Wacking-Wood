@@ -15,11 +15,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject TimeUI;
     public GameObject CursorUI;
     public Button resumeButton;
-    public MonoBehaviour CharacterMovementScript;
+
+    private Quaternion originalRotation;
+   
 
     private void Start()
     {
-        CharacterMovementScript = GetComponent("Character Movement") as MonoBehaviour;
+        
         
         resumeButton.onClick.AddListener(ResumeButton);
     }
@@ -52,6 +54,8 @@ public class PauseMenu : MonoBehaviour
         TimeUI.SetActive(true);
         CursorUI.SetActive(true);
 
+        
+
        
     }
 
@@ -71,7 +75,10 @@ public class PauseMenu : MonoBehaviour
         CashTrackerUI.SetActive(false);
         TimeUI.SetActive(false);
         CursorUI.SetActive(false);
+
         
-       
+
+
+
     }
 }
