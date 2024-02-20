@@ -129,3 +129,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: Press F to pick up log
+  rb: {fileID: 5589106558158108849}

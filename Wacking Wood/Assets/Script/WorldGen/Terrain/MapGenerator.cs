@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public GameObject buildingPrefab;
+    
     public enum DrawMode
     {
         NoiseMap,
@@ -65,7 +67,11 @@ public class MapGenerator : MonoBehaviour
         {
             display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier,meshHeightCurve,levelOfDetail), TextureGenerator.TextureFromColourMap(colorMap, mapChunkSize));
         }
-        treeGen.TreeGen(structureLocation,structureRadius);
+        Vector3 _structPos = treeGen.TreeGen(structureLocation, structureRadius);
+        if (Physics.Raycast(_structPos, Vector3.down,out RaycastHit hit))
+        {
+            Instantiate(buildingPrefab,new Vector3(_structPos.x,hit.point.y+buildingPrefab.transform.localScale.y/2,_structPos.z),Quaternion.identity);
+        }
     }
 
     private void OnValidate()
@@ -77,6 +83,14 @@ public class MapGenerator : MonoBehaviour
 
     private void Start()
     {
+        if (structureLocation.x == 0 && structureLocation.y == 0 )
+        {
+            structureLocation = new Vector2Int(Random.Range(Mathf.CeilToInt(structureRadius), Mathf.FloorToInt(240f - structureRadius)), Random.Range(Mathf.CeilToInt(structureRadius), Mathf.FloorToInt(240f - structureRadius)));
+        }
+        if (offset.x == 0 && offset.y == 0 )
+        {
+            offset = new Vector2(Random.Range(-100000f,100000f), Random.Range(-100000f, 100000f));
+        }
         GenerateMap();
     }
 }

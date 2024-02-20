@@ -2,74 +2,68 @@ using UnityEngine;
 
 public class LogPickup : MonoBehaviour, IInteractSystem
 {
-    [SerializeField] private string text = string.Empty;
-    private static bool isHoldingLog = false; 
-    private GameObject heldLog;
+    [SerializeField] private Rigidbody rb;
+    private MoneySystem moneySystem;
+    private PlayerUI playerUI;
+    private PlayerHeldItem playerHeldItem;
+    public LogStorage logStorage;
+    private string text
+    {
+        get
+        {
+            if (logStorage == null && !playerHeldItem.isHoldingItem)
+            {
+                return "Press F to Pickup Log";
+            } 
+            else if (logStorage != null)
+            {
+                return logStorage.text;
+            } 
+            else
+            {
+                return string.Empty;
+            }
+        }
+    }
 
     public string promptText => text;
 
     void Start()
     {
-
-    }
-
-    void Update()
-    {
-        // This checks if player want to drop the log, if pressed G it activates DropLog func
-        if (isHoldingLog && Input.GetKeyDown(KeyCode.G))
+        moneySystem = FindObjectOfType<MoneySystem>();
+        if (moneySystem == null)
         {
-            DropLog();
+            Debug.LogError("Money system not found ");
         }
+        playerUI = FindObjectOfType<PlayerUI>();
+        if (playerUI == null)
+        {
+            Debug.LogError("PlayerUI not found ");
+        }
+        playerHeldItem = FindObjectOfType<PlayerHeldItem>();
+        if (playerHeldItem == null)
+        {
+            Debug.LogError("PlayerHeldItem not found ");
+        }
+
     }
+
 
     public void Interact(InteractionSystem player)
     {
-        if (!isHoldingLog)
+        if (logStorage== null)
         {
-            
-            if (heldLog == null)
+            if(playerHeldItem.holdItem(gameObject))
             {
-                
-                heldLog = gameObject;
-
-                // Log becomes child of player, so we can walk with the log around
-                heldLog.transform.SetParent(player.transform);
-
-                // transforming and rotating position so its on right shoulder
-                heldLog.transform.localPosition = new Vector3(1f, 0.5f, 0f); 
-                heldLog.transform.localRotation = Quaternion.Euler(-90, 0, 0); 
-
-                // Disabling RB 
-                Rigidbody rb = heldLog.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = true;
-                    rb.useGravity = false;
-                }
-
-                isHoldingLog = true;
+                rb.isKinematic = true;
+                rb.useGravity = false;
+                transform.localPosition = new Vector3(1f, 0.5f, 0f);
+                transform.localRotation = Quaternion.Euler(-90, 0, 0);
             }
+        } else
+        {
+            logStorage.Interact(player);
         }
         
-    }
-
-    void DropLog()
-    {
-        if (heldLog != null)
-        {
-            
-            heldLog.transform.SetParent(null);
-
-            // Enable RB
-            Rigidbody rb = heldLog.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-                rb.useGravity = true;
-            }
-
-            isHoldingLog = false;
-            heldLog = null;
-        }
     }
 }

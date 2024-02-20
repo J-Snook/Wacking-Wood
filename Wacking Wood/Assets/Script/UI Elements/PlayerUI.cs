@@ -14,11 +14,14 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject prompt;
 
+
+    private MoneySystem moneySystem;
+
     public void Start()
     {
         InvokeRepeating("UpdateTime", 0f, 1f); // Update every second
-    }
 
+    }
 
     public void UpdateTime()
     {
@@ -40,7 +43,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     
-    public void UpdateCashAmount(double cashValue)
+    public void UpdateCashAmount(float cashValue)
     {
         string formattedCash = cashValue.ToString("C");
         
@@ -53,6 +56,5 @@ public class PlayerUI : MonoBehaviour
         promptText.text = text;
         return text!=String.Empty;
     }
-
 
 }

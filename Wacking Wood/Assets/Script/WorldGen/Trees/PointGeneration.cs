@@ -5,7 +5,7 @@ using UnityEngine;
 public static class PointGeneration
 {
 
-    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize,Vector2Int structLoc,float structRadius, int numSamplesBeforeRejection = 30)
+    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
     {
         float cellSize = radius / Mathf.Sqrt(2);
 
@@ -13,7 +13,7 @@ public static class PointGeneration
         List<Vector2> points = new List<Vector2>();
         List<Vector2> spawnPoints = new List<Vector2>();
 
-        spawnPoints.Add(new Vector2(Random.Range(0,sampleRegionSize.x), Random.Range(0, sampleRegionSize.y)));
+        spawnPoints.Add(sampleRegionSize/2);
         while(spawnPoints.Count > 0)
         {
             int spawnIndex = Random.Range(0, spawnPoints.Count);
@@ -25,7 +25,7 @@ public static class PointGeneration
                 float angle = Random.value * Mathf.PI * 2;
                 Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
                 Vector2 candidate = spawnCentre + dir * Random.Range(radius, 2 * radius);
-                if(IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid, structLoc, structRadius))
+                if(IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid))
                 {
                     points.Add(candidate);
                     spawnPoints.Add(candidate);
@@ -44,14 +44,10 @@ public static class PointGeneration
         return points;
     }
 
-    static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius, List<Vector2> points, int[,] grid,Vector2Int structLoc,float structRadius)
+    static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius, List<Vector2> points, int[,] grid)
     {
         if(candidate.x >= 0 && candidate.x < sampleRegionSize.x && candidate.y >= 0 && candidate.y < sampleRegionSize.y)
         {
-            if (Vector2.Distance(candidate,structLoc) < structRadius*1.25)
-            {
-                return false;
-            }
             int cellX = (int)(candidate.x / cellSize);
             int cellY = (int)(candidate.y / cellSize);
             int searchStartX = Mathf.Max(0, cellX - 2);
