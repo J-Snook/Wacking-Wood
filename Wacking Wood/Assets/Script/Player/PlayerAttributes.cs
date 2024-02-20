@@ -24,25 +24,29 @@ public class PlayerAttributes : MonoBehaviour
 
     #region Properties
 
-        public float Stamina
+    public float Stamina
+    {
+        get { return currentStamina; }
+        set
         {
-            get => currentStamina;
-            set => currentStamina = value;
+            currentStamina = value;
+            refillTime = 3f;
         }
+    }
 
-        public float RefillTime
-        {
-            get => refillTime;
-            set => refillTime = value;
-        }
+    public float RefillTime
+    {
+        get => refillTime;
+        set => refillTime = value;
+    }
         
-        public float Fuel
-        {
-            get => currentFuel;
-            set => currentFuel = value;
-        }
+    public float Fuel
+    {
+        get => currentFuel;
+        set => currentFuel = value;
+    }
         
-        public float Cash { get; private set; }
+    public float Cash { get; private set; }
 
     #endregion
     
@@ -70,7 +74,7 @@ public class PlayerAttributes : MonoBehaviour
 
         if (refillTime <= 0)
         {
-            currentStamina += 1f;
+            currentStamina += .5f;
         }
         
         uiElements.UpdateStaminaValue(currentStamina/maxStamina);

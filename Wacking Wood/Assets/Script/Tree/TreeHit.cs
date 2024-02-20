@@ -15,11 +15,13 @@ public class TreeHit : MonoBehaviour,IHitSystem
     private int _treeHealth;
     private Transform _currentTarget;
     private Rigidbody _treeRigidBody;
+    private AxeSwing axeSwing;
     private bool _treeTimeOutActive=false;
     // Start is called before the first frame update
     void Start()
     {
         _treeHealth = _treeMaxHealth;
+        axeSwing = FindObjectOfType<AxeSwing>();
     }
 
     // Update is called once per frame
@@ -40,36 +42,38 @@ public class TreeHit : MonoBehaviour,IHitSystem
     }
 
     public void Hit(InteractionSystem player,RaycastHit target)
-{
-        if (_currentTarget == null)
+    {
+        if (axeSwing.CanSwing)
         {
-            _treeHealth--;
-        }
-        else if (Vector3.Distance(_currentTarget.position,target.point)<=0.2)
-        {
-            Destroy(_currentTarget.gameObject);
-            _treeHealth--;
-        }
-        else
-        {
-            return;
-        }
-
-        if (_treeHealth <= 0)
-        {
-            FallTree();
-            StopAllCoroutines();
-            _treeTimeOutActive = false;
-        }
-        else
-        {
-            if (!_treeTimeOutActive)
+            if (_currentTarget == null)
             {
-                StartCoroutine(HitTimeout(_treeHitTimeoutDiff));
+                _treeHealth--;
             }
-            GameObject _newTarget = Instantiate(_treeTargetPrefab, generateTargetLocation(player.transform.position), Quaternion.identity);
-            _newTarget.transform.parent = transform;
-            _currentTarget = _newTarget.transform;
+            else if (Vector3.Distance(_currentTarget.position, target.point) <= 0.2)
+            {
+                Destroy(_currentTarget.gameObject);
+                _treeHealth--;
+            }
+            else
+            {
+                return;
+            }
+            if (_treeHealth <= 0)
+            {
+                FallTree();
+                StopAllCoroutines();
+                _treeTimeOutActive = false;
+            }
+            else
+            {
+                if (!_treeTimeOutActive)
+                {
+                    StartCoroutine(HitTimeout(_treeHitTimeoutDiff));
+                }
+                GameObject _newTarget = Instantiate(_treeTargetPrefab, generateTargetLocation(player.transform.position), Quaternion.identity);
+                _newTarget.transform.parent = transform;
+                _currentTarget = _newTarget.transform;
+            }
         }
     }
 

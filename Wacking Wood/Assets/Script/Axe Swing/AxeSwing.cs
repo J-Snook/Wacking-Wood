@@ -7,8 +7,11 @@ public class AxeSwing : MonoBehaviour
 
     public GameObject axe;
 
-    private float swingCoolDown;
+    [SerializeField] private float swingCoolDown=0.5f;
+    [SerializeField] private float swingStaminaCost = 10f;
     private bool readyToSwing;
+    private bool isSwinging=false;
+    public bool CanSwing { get { return readyToSwing; } }
     
     protected Transform player;
     protected PlayerAttributes _player;
@@ -16,7 +19,6 @@ public class AxeSwing : MonoBehaviour
     private void Start()
     {
         readyToSwing = true;
-        swingCoolDown = 2f;
         
         player = GameObject.Find("Player").transform;
         _player = player.gameObject.GetComponent<PlayerAttributes>();
@@ -30,25 +32,26 @@ public class AxeSwing : MonoBehaviour
 
     private void Swing()
     {
-        if (Input.GetMouseButtonDown(0) && readyToSwing && _player.Stamina > 1)
+        CanSwingCheck();
+        if (Input.GetMouseButtonDown(0) && readyToSwing)
         {
             StartCoroutine(SwingAnimation());
-            _player.Stamina -= 20f; 
-            _player.RefillTime = 3.0f;
-            readyToSwing = false;
-            Invoke(nameof(SwingReload),swingCoolDown);
+            _player.Stamina -= swingStaminaCost;
         }
+    }
+
+    private void CanSwingCheck()
+    {
+        readyToSwing = (_player.Stamina >= swingStaminaCost) && !isSwinging;
     }
 
     IEnumerator SwingAnimation()
     {
+        isSwinging = true;
         axe.GetComponent<Animator>().Play("AxeSwing");
         yield return new WaitForSeconds(1f);
         axe.GetComponent<Animator>().Play("NewState");
-    }
-
-    private void SwingReload()
-    {
-        readyToSwing = true;
+        yield return new WaitForSeconds(swingCoolDown);
+        isSwinging = false;
     }
 }

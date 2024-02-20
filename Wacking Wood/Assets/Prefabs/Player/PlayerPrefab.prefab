@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8714553392656433496}
   - component: {fileID: 8714553392656433479}
   - component: {fileID: 7151596822505736481}
-  - component: {fileID: 1825150852397688903}
   - component: {fileID: 586447180809348492}
   - component: {fileID: 8714553392656433478}
   - component: {fileID: 8714553392656433499}
@@ -118,18 +117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHoldingItem: 0
---- !u!114 &1825150852397688903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8714553392656433477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb10b637f772420429407ae8820f9463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &586447180809348492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,9 +153,11 @@ MonoBehaviour:
   jumpDetectTransform: {fileID: 8714553392847522951}
   jumpDetectDistance: 0.15
   movementSpeed: 5
+  sprintChange: 2
   jumpForce: 2
   gravityForce: -9.8
   cameraSensitivity: {x: 2, y: 2}
+  cameraRotationLimit: 89
   playerVelocity: {x: 0, y: 0, z: 0}
   ySpecificVelocity: 0
   notThisLayerMask:

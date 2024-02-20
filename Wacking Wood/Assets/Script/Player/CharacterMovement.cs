@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -11,9 +12,11 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private Transform jumpDetectTransform;
     [SerializeField] private float jumpDetectDistance;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float sprintChange;
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravityForce;
     [SerializeField] private Vector2 cameraSensitivity;
+    [SerializeField] private float cameraRotationLimit;
     [SerializeField] private Vector3 playerVelocity;
     [SerializeField] private float ySpecificVelocity;
     [SerializeField] private LayerMask notThisLayerMask;
@@ -22,10 +25,13 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float headBobAmplitude;
     [SerializeField] private float headBobFrequency;
     [SerializeField] private float returnSpeed;
+    private Vector2 cameraRotation=Vector2.zero;
+    private PlayerAttributes playerAttributes;
 
     void Start()
     {
         cameraStartLocalPosition = cameraTransform.localPosition;
+        playerAttributes = FindObjectOfType<PlayerAttributes>();
     }
 
     void Update()
@@ -54,7 +60,12 @@ public class CharacterMovement : MonoBehaviour
         }
 
         playerVelocity.y = ySpecificVelocity;
-        playerVelocity *= (Input.GetKey(KeyCode.LeftShift)) ? movementSpeed * 1.5f * Time.deltaTime : movementSpeed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.LeftShift) && playerAttributes.Stamina > 0f)
+        {
+            playerVelocity *= sprintChange;
+            playerAttributes.Stamina -= 0.2f;
+        }
+        playerVelocity *=  movementSpeed * Time.deltaTime;
         playerVelocity = characterTransform.TransformDirection(playerVelocity);
 
         characterController.Move(playerVelocity);
@@ -63,11 +74,15 @@ public class CharacterMovement : MonoBehaviour
     void Looking()
     {
         Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        mouseMovement = mouseMovement * cameraSensitivity;
+        cameraRotation.x += mouseMovement.x;
+        cameraRotation.y += mouseMovement.y;
+        cameraRotation.y = Mathf.Clamp(cameraRotation.y, -cameraRotationLimit, cameraRotationLimit);
+        var xQuat = Quaternion.AngleAxis(cameraRotation.x, Vector3.up);
+        var yQuat = Quaternion.AngleAxis(cameraRotation.y, Vector3.left);
 
-        mouseMovement *= cameraSensitivity;
-
-        characterTransform.Rotate(0f, mouseMovement.x, 0.0f);
-        cameraHolderTransform.Rotate(-mouseMovement.y, 0.0f, 0.0f);
+        cameraHolderTransform.localRotation = yQuat;
+        transform.localRotation = xQuat;
 
         if (isHeadBobEnabled && new Vector2(playerVelocity.x, playerVelocity.z).magnitude != 0)
         {
