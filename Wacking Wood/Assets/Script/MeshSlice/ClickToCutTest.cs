@@ -28,15 +28,15 @@ public class ClickToCutTest : MonoBehaviour
                    
                     if(cutMode == CutMode.Click)
 					{
-                        Cutter.Cut(victim, hit.point, Vector3.up, interiorMaterial, false);
+                        Cutter.Cut(victim, hit.point, interiorMaterial, false);
 					}
                     else if(cutMode == CutMode.SetPlane)
                     {
-	                    Cutter.Cut(victim, hit.point, Vector3.up, interiorMaterial, true,generatePlaneFromGameObject(victim.transform, hit.point));
+	                    Cutter.Cut(victim, hit.point, interiorMaterial, true,generatePlaneFromGameObject(victim.transform, hit.point));
                     }
                     else if (cutMode == CutMode.TriPoint)
                     {
-	                    Cutter.Cut(victim, hit.point, Vector3.up, interiorMaterial, true,generatePlaneFromVector3());
+	                    Cutter.Cut(victim, hit.point, interiorMaterial, true,generatePlaneFromVector3());
                     }
 				}
 			}
@@ -44,6 +44,12 @@ public class ClickToCutTest : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Turn a game object plane into the Plane type
+    /// </summary>
+    /// <param name="victim">What are we hitting</param>
+    /// <param name="hitPoint">Where did we hit</param>
+    /// <returns></returns>
     private Plane generatePlaneFromGameObject(Transform victim, Vector3 hitPoint)
     {
 	    Transform _trans = setPlane.transform;
@@ -52,6 +58,10 @@ public class ClickToCutTest : MonoBehaviour
 	    return new Plane(-normal, pos);
     }
 
+    /// <summary>
+    /// Make a plane from 3 points
+    /// </summary>
+    /// <returns></returns>
     private Plane generatePlaneFromVector3()
     {
 	    return new Plane(triPoints[0], triPoints[1], triPoints[2]);

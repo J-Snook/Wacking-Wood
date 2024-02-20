@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// All the information needed for a new Mesh
+/// </summary>
 public class GenerateNewMesh
 {
     List<Vector3> _vertices = new List<Vector3>();
@@ -30,6 +33,10 @@ public class GenerateNewMesh
         set {_subMeshIndices = value;}
     }
 
+    /// <summary>
+    /// Takes the Information from the Triangle and adds it into the Information for this mesh
+    /// </summary>
+    /// <param name="_tri">The Triangle in Question</param>
     public void AddTriangle(Triangle _tri)
     {
         int currentVertCount = _vertices.Count;
@@ -52,6 +59,10 @@ public class GenerateNewMesh
         }
     }
 
+    /// <summary>
+    /// Generates a new Mesh Object using the data we have stored in this Object
+    /// </summary>
+    /// <returns>Filled Mesh Object</returns>
     public Mesh GetGeneratedMesh()
     {
         Mesh mesh = new Mesh();

@@ -624,7 +624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1470542084
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -911,7 +911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7885087027291893308, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: cutMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7885087027291893308, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: setPlane
