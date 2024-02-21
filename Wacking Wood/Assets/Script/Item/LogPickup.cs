@@ -51,6 +51,7 @@ public class LogPickup : MonoBehaviour, IInteractSystem
             {
                 rb.isKinematic = true;
                 rb.useGravity = false;
+                gameObject.layer = LayerMask.NameToLayer("HeldItems");
                 transform.localPosition = new Vector3(1f, 0.5f, 0f);
                 transform.localRotation = Quaternion.Euler(-90, 0, 0);
             }

@@ -128,5 +128,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462b96de69c062641a04eff36b7a63ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Press F to pick up log
   rb: {fileID: 5589106558158108849}
+  logStorage: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHitSystem
 {
-    public void Hit(InteractionSystem player, RaycastHit hit);
+    public void Hit(InteractionSystem player, RaycastHit hit,GameObject heldItem);
 }
 interface IInteractSystem
 {
@@ -42,15 +42,15 @@ public class InteractionSystem : MonoBehaviour
         Ray r = new Ray(_camera.position + (_camera.forward * _distanceFromCamera), _camera.forward);
         if (Input.GetMouseButtonDown(0))
         {
-            if (playerHeldItemScript.HeldItem == axeGameObject)
+            if(Physics.Raycast(r, out RaycastHit hit, _hitRange))
             {
-                axeSwing.Swing();
-            }
-            if (Physics.Raycast(r, out RaycastHit hit, _hitRange))
-            {
+                if (playerHeldItemScript.HeldItem == axeGameObject)
+                {
+                    axeSwing.Swing();
+                }
                 if (hit.collider.TryGetComponent(out IHitSystem hitSystem))
                 {
-                    hitSystem.Hit(this, hit);
+                    hitSystem.Hit(this, hit, playerHeldItemScript.HeldItem);
                 }
             }
         }
