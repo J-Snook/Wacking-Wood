@@ -26,12 +26,6 @@ public class TreeHit : MonoBehaviour, IHitSystem
         _treeHealth = _treeMaxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void FallTree()
     {
         //_trunk.transform.localScale = new Vector3(_trunk.transform.localScale.x, _trunk.transform.localPosition.y, _trunk.transform.localScale.z);

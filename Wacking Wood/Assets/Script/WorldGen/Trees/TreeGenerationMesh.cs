@@ -23,7 +23,7 @@ public class TreeGenerationMesh : MonoBehaviour
 
 
 
-    public Vector3 TreeGen(BuildingGeneration buildingScript, GameObject[] trees,float density=10f,int rejectionSamples=2)
+    public Vector3 TreeGen(BuildingGeneration buildingScript, GameObject[] trees,float density=7f,int rejectionSamples=2)
     {
         _treePrefab = trees[Random.Range(0, trees.Length)];
 

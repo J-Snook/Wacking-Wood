@@ -22,7 +22,6 @@ public class BuildingGeneration: MonoBehaviour
             hasBuilding= true;
             building= buildingInfo[index];
         }
-        Debug.Log(index);
     }
 
     public void GenerateStructurePositions()

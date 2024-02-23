@@ -30,6 +30,7 @@ public class EndlessTerrain : MonoBehaviour
         maxViewDistance = detailLevels[detailLevels.Length-1].visableDistanceThreshold;
         chunkSize = MapGenerator.mapChunkSize - 1;
         chunksVisableInViewDst = Mathf.RoundToInt(maxViewDistance / chunkSize);
+        
         UpdateVisibleChunks();
     }
 
@@ -178,7 +179,7 @@ public class EndlessTerrain : MonoBehaviour
                             }
                             if (!hasTrees)
                             {
-                                treeScript.TreeGen(buildScript, treePrefabs);
+                                treeScript.TreeGen(buildScript, treePrefabs,Random.Range(7,10));
                                 hasTrees = true;                            }
                         }
                         else if(!lodMesh.hasRequestedMesh)
@@ -237,5 +238,6 @@ public class EndlessTerrain : MonoBehaviour
     {
         public int lod;
         public float visableDistanceThreshold;
+        public bool useForCollider;
     }
 }

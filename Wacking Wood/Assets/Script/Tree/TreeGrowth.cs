@@ -19,12 +19,6 @@ public class TreeGrowth : MonoBehaviour
         SetTreeStage(_treeStage);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnValidate()
     {
         SetTreeStage(_treeStage);
