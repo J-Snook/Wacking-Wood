@@ -24,13 +24,6 @@ public class TreeHit : MonoBehaviour, IHitSystem
     void Start()
     {
         _treeHealth = _treeMaxHealth;
-        axeSwing = FindObjectOfType<AxeSwing>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void FallTree()
@@ -46,6 +39,7 @@ public class TreeHit : MonoBehaviour, IHitSystem
 
     public void Hit(InteractionSystem player, RaycastHit target, GameObject heldItem)
     {
+        axeSwing = player.transform.GetComponentInChildren<AxeSwing>();
         if(heldItem == axeSwing.axe && axeSwing.CanSwing && !_isHit)
         {
             StartCoroutine(AxeHitSwingDelayed(player,target, _hitTimeDelay));

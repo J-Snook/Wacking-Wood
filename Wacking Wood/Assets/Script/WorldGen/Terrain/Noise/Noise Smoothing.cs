@@ -4,23 +4,26 @@ using UnityEngine;
 
 public static class NoiseSmoothing
 {
-    public static float[,] smoothHeightMap(float[,] heightMap, Vector2Int location, float hardRadius,int structureSmoothness)
+    public static float[,] smoothHeightMap(float[,] heightMap, Vector2Int location, float hardRadius,float structureSmoothness)
     {
-        int size = heightMap.GetLength(0);
+        int size = heightMap.GetLength(0)-1;
         float targetHeight = heightMap[location.x, location.y];
-        for(int y = 0; y < size; y++)
+        int smoothingRange = Mathf.CeilToInt(hardRadius * structureSmoothness);
+        for(int y = location.y - smoothingRange; y < location.y + smoothingRange; y++)
         {
-            for(int x = 0; x < size; x++)
+            if(y < 0 || y > size) continue;
+            for(int x = location.x - smoothingRange; x < location.x + smoothingRange; x++)
             {
+                if(x < 0 || x > size) continue;
                 Vector2Int pos = new Vector2Int(x, y);
-                float dist = Vector2Int.Distance(new Vector2Int(x, y), location);
+                float dist = Vector2Int.Distance(pos, location);
                 if(dist <= hardRadius)
                 {
                     heightMap[x, y] = targetHeight;
                 }
-                else if(dist <= hardRadius * 10)
+                else if(dist <= hardRadius * structureSmoothness)
                 {
-                    heightMap[x, y] = Mathf.Lerp(targetHeight, heightMap[x, y], (dist - hardRadius) / (hardRadius * structureSmoothness - hardRadius));
+                    heightMap[x, y]=Mathf.Lerp(targetHeight, heightMap[x, y], (dist - hardRadius) / (hardRadius * structureSmoothness - hardRadius));
                 }
             }
         }

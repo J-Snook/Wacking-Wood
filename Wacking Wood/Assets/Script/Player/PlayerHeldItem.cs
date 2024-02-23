@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public class PlayerHeldItem : MonoBehaviour
 {
-    [SerializeField] private Transform camera;
-    [SerializeField] private GameObject axe;
+    [SerializeField] private Transform _camera;
+    [SerializeField] private GameObject _axe;
     public bool isHoldingItem = false;
     private GameObject heldItem;
     public GameObject HeldItem { get { return heldItem; }}
@@ -22,7 +22,7 @@ public class PlayerHeldItem : MonoBehaviour
             canPlace = itemPlaceable;
             isHoldingItem = true;
             item.layer = LayerMask.NameToLayer("HeldItems");
-            item.transform.parent = camera;
+            item.transform.parent = _camera;
             return true;
         }
         return false;
@@ -69,16 +69,16 @@ public class PlayerHeldItem : MonoBehaviour
         { 
             if (heldItem != null)
             {
-                if (heldItem == axe)
+                if (heldItem == _axe)
                 {
-                    axe.SetActive(false);
+                    _axe.SetActive(false);
                     heldItem = null;
                     isHoldingItem = false;
                 }
             } else
             {
-                axe.SetActive(true);
-                holdItem(axe,false,false);
+                _axe.SetActive(true);
+                holdItem(_axe, false,false);
             }
         }
     }
