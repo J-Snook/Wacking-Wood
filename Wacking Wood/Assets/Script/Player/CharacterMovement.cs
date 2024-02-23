@@ -22,6 +22,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float headBobAmplitude;
     [SerializeField] private float headBobFrequency;
     [SerializeField] private float returnSpeed;
+    
 
     void Start()
     {
@@ -30,8 +31,12 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        Movement();
-        Looking();
+        
+        
+            Movement();
+            Looking();
+        
+        
     }
 
     void Movement()
@@ -62,20 +67,25 @@ public class CharacterMovement : MonoBehaviour
 
     void Looking()
     {
-        Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-
-        mouseMovement *= cameraSensitivity;
-
-        characterTransform.Rotate(0f, mouseMovement.x, 0.0f);
-        cameraHolderTransform.Rotate(-mouseMovement.y, 0.0f, 0.0f);
-
-        if (isHeadBobEnabled && new Vector2(playerVelocity.x, playerVelocity.z).magnitude != 0)
+        if (!PauseMenu.pausedGame)
         {
-            Vector3 headBobber = new Vector3(0f, 0f, 0f);
-            headBobber.y += Mathf.Sin(Time.time * headBobFrequency);
-            headBobber *= headBobAmplitude * Time.deltaTime;
-            cameraTransform.localPosition += headBobber;
+            Vector2 mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+            mouseMovement *= cameraSensitivity;
+
+            characterTransform.Rotate(0f, mouseMovement.x, 0.0f);
+            cameraHolderTransform.Rotate(-mouseMovement.y, 0.0f, 0.0f);
+
+            if (isHeadBobEnabled && new Vector2(playerVelocity.x, playerVelocity.z).magnitude != 0)
+            {
+                Vector3 headBobber = new Vector3(0f, 0f, 0f);
+                headBobber.y += Mathf.Sin(Time.time * headBobFrequency);
+                headBobber *= headBobAmplitude * Time.deltaTime;
+                cameraTransform.localPosition += headBobber;
+            }
+            cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, cameraStartLocalPosition, Time.deltaTime * returnSpeed);
+            
         }
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, cameraStartLocalPosition, Time.deltaTime * returnSpeed);
+        
     }
 }

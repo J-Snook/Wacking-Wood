@@ -22,6 +22,9 @@ public class PauseMenu : MonoBehaviour
         CharacterMovementScript = GetComponent("Character Movement") as MonoBehaviour;
         
         resumeButton.onClick.AddListener(ResumeButton);
+        
+        
+        
     }
 
     private void Update()
@@ -52,7 +55,8 @@ public class PauseMenu : MonoBehaviour
         TimeUI.SetActive(true);
         CursorUI.SetActive(true);
 
-       
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void ResumeButton()
@@ -71,6 +75,9 @@ public class PauseMenu : MonoBehaviour
         CashTrackerUI.SetActive(false);
         TimeUI.SetActive(false);
         CursorUI.SetActive(false);
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         
        
     }
