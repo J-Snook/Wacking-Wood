@@ -10,6 +10,7 @@ public class EndlessTerrain : MonoBehaviour
 
     public LODInfo[] detailLevels;
     public BuildingInfo[] buildingInfo;
+    public GameObject[] treePrefabs;
     public static float maxViewDistance;
     public Transform player;
     public Material mapMat;
@@ -64,7 +65,7 @@ public class EndlessTerrain : MonoBehaviour
                     terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
                 } else
                 {
-                    terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord,chunkSize,detailLevels,transform, mapMat,buildingInfo));
+                    terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord,chunkSize,detailLevels,transform, mapMat,buildingInfo,treePrefabs));
                 }
 
             }
@@ -75,26 +76,32 @@ public class EndlessTerrain : MonoBehaviour
     {
         GameObject meshObj;
         Vector2 pos;
+        int size;
         Bounds bounds;
 
         MeshRenderer meshRenderer;
         MeshFilter meshFilter;
         MeshCollider meshCollider;
+        BuildingGeneration buildScript;
+        TreeGenerationMesh treeScript;
 
         LODInfo[] detailLevels;
         BuildingInfo[] buildingInfo;
+        GameObject[] treePrefabs;
         LODMesh[] lodMeshes;
-        Vector2Int structPos;
-        int buildingIndex;
 
+        bool hasBuildings = false;
+        bool hasTrees = false;
         MapData mapData;
         bool hasMapData;
         int previousLODIndex = -1;
 
-        public TerrainChunk(Vector2 coord,int size,LODInfo[] detailLevels,Transform parent,Material mat, BuildingInfo[] buildingInfo) 
+        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material mat, BuildingInfo[] buildingInfo, GameObject[] treePrefabs) 
         {
             this.detailLevels= detailLevels;
             this.buildingInfo = buildingInfo;
+            this.size = size;
+            this.treePrefabs = treePrefabs;
             pos = coord * size;
             bounds = new Bounds(pos, Vector3.one * size);
             Vector3 posV3 = new Vector3(pos.x, 0, pos.y);
@@ -103,6 +110,9 @@ public class EndlessTerrain : MonoBehaviour
             meshRenderer = meshObj.AddComponent<MeshRenderer>();
             meshFilter = meshObj.AddComponent<MeshFilter>();
             meshCollider = meshObj.AddComponent<MeshCollider>();
+            treeScript = meshObj.AddComponent<TreeGenerationMesh>();
+            buildScript = meshObj.AddComponent<BuildingGeneration>();
+            buildScript.selectedBuildingIndex(buildingInfo);
             meshRenderer.sharedMaterial = mat;
             meshObj.transform.position = posV3;
             meshObj.transform.parent= parent;
@@ -124,6 +134,13 @@ public class EndlessTerrain : MonoBehaviour
 
             Texture2D texture = TextureGenerator.TextureFromColourMap(mapData.colorMap, MapGenerator.mapChunkSize);
             meshRenderer.material.mainTexture = texture;
+            
+            if(buildScript.hasBuilding)
+            {
+                buildScript.GenerateStructurePositions();
+                float[,] heightmap = NoiseSmoothing.smoothHeightMap(mapData.heightmap, buildScript.buildingLocalPos, buildScript.building.radius, 4f);
+                mapData = new MapData(heightmap, mapData.colorMap);
+            }
 
             UpdateTerrainChunk();
         }
@@ -154,23 +171,18 @@ public class EndlessTerrain : MonoBehaviour
                             previousLODIndex = lodIndex;
                             meshFilter.mesh = lodMesh.mesh;
                             meshCollider.sharedMesh = lodMesh.mesh;
-                            //Generate Trees and Buildings?
+                            if (!hasBuildings)
+                            {
+                                buildScript.BuildStructure(meshCollider);
+                                hasBuildings = true;
+                            }
+                            if (!hasTrees)
+                            {
+                                treeScript.TreeGen(buildScript, treePrefabs);
+                                hasTrees = true;                            }
                         }
                         else if(!lodMesh.hasRequestedMesh)
                         {
-                            float randomChance = Random.Range(0f, 100f);
-                            buildingIndex=-1;
-                            for(int i = 0; i < buildingInfo.Length; i++)
-                            {
-                                if(randomChance < buildingInfo[i].upperValue ) { buildingIndex = i; } else { break; }
-                            }
-                            if(buildingIndex != -1)
-                            {
-                                float structureRadius = buildingInfo[buildingIndex].radius;
-                                structPos = new Vector2Int(Random.Range(Mathf.CeilToInt(structureRadius), Mathf.FloorToInt(240f - structureRadius)), Random.Range(Mathf.CeilToInt(structureRadius), Mathf.FloorToInt(240f - structureRadius)));
-                                float[,] heightmap = NoiseSmoothing.smoothHeightMap(mapData.heightmap, structPos, structureRadius, 1);
-                                mapData = new MapData(heightmap,mapData.colorMap);
-                            }
                             lodMesh.RequestMesh(mapData);
                         }
                     }
@@ -225,14 +237,5 @@ public class EndlessTerrain : MonoBehaviour
     {
         public int lod;
         public float visableDistanceThreshold;
-    }
-
-    [System.Serializable]
-    public struct BuildingInfo
-    {
-        public string name;
-        public GameObject prefab;
-        public float upperValue;
-        public float radius;
     }
 }
