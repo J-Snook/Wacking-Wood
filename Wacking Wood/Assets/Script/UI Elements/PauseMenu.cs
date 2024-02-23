@@ -9,11 +9,17 @@ public class PauseMenu : MonoBehaviour
     public static bool pausedGame = false;
 
     public GameObject pausedMenuUI;
+    public GameObject pauseMenuContainer;
     public GameObject StaminaBarUI;
     public GameObject FuelBarUI;
     public GameObject CashTrackerUI;
     public GameObject TimeUI;
     public GameObject CursorUI;
+    public GameObject PauseMenu_Container;
+    public GameObject SettingsMenu_Container;
+    public GameObject GraphicsPanel_Dialoug;
+    public GameObject SoundPanel_Dialoug;
+    public GameObject GamePanel_Dialoug;
     public Button resumeButton;
 
     private Quaternion originalRotation;
@@ -56,6 +62,11 @@ public class PauseMenu : MonoBehaviour
         CashTrackerUI.SetActive(true);
         TimeUI.SetActive(true);
         CursorUI.SetActive(true);
+        PauseMenu_Container.SetActive(false);
+        SettingsMenu_Container.SetActive(false);
+        GraphicsPanel_Dialoug.SetActive(false);
+        SoundPanel_Dialoug.SetActive(false);
+        GamePanel_Dialoug.SetActive(false);
 
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -79,6 +90,12 @@ public class PauseMenu : MonoBehaviour
         CashTrackerUI.SetActive(false);
         TimeUI.SetActive(false);
         CursorUI.SetActive(false);
+        PauseMenu_Container.SetActive(true);
+        SettingsMenu_Container.SetActive(false);
+        GraphicsPanel_Dialoug.SetActive(false);
+        SoundPanel_Dialoug.SetActive(false);
+        GamePanel_Dialoug.SetActive(false);
+        
 
 
 
