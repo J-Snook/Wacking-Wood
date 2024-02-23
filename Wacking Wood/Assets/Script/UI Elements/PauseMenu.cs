@@ -24,6 +24,9 @@ public class PauseMenu : MonoBehaviour
         
         
         resumeButton.onClick.AddListener(ResumeButton);
+        
+        
+        
     }
 
     private void Update()
@@ -54,9 +57,10 @@ public class PauseMenu : MonoBehaviour
         TimeUI.SetActive(true);
         CursorUI.SetActive(true);
 
-        
 
-       
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
     public void ResumeButton()
@@ -69,15 +73,17 @@ public class PauseMenu : MonoBehaviour
         pausedMenuUI.SetActive(true);
         Time.timeScale = 0f;
         pausedGame = true;
-        
+
         StaminaBarUI.SetActive(false);
         FuelBarUI.SetActive(false);
         CashTrackerUI.SetActive(false);
         TimeUI.SetActive(false);
         CursorUI.SetActive(false);
 
-        
 
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
 
     }
