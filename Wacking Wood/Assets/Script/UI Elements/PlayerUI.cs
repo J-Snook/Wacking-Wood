@@ -14,18 +14,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject prompt;
 
-
-    public void Start()
+    public void UpdateTime(int hour, int minute)
     {
-        InvokeRepeating("UpdateTime", 0f, 1f); // Update every second
-
-    }
-
-    public void UpdateTime()
-    {
-        DateTime now = DateTime.Now;
-        string timeString = now.ToString("HH:mm"); 
-        timeOfDay.text = timeString;
+        timeOfDay.text = $"{hour.ToString("D2")}:{minute.ToString("D2")}";
     }
     
     
