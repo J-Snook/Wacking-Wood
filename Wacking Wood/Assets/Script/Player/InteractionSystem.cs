@@ -14,7 +14,6 @@ interface IInteractSystem
 
 public class InteractionSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject axeGameObject;
     [SerializeField] private float _hitRange;
     [SerializeField] private float _interactionRange = 3f;
     [SerializeField] private float _distanceFromCamera = 1f;
@@ -42,7 +41,7 @@ public class InteractionSystem : MonoBehaviour
         Ray r = new Ray(_camera.position+_camera.forward, _camera.forward);
         if (Input.GetMouseButtonDown(0))
         {
-            if(playerHeldItemScript.HeldItem == axeGameObject)
+            if(playerHeldItemScript.HeldItem == axeSwing.axe)
             {
                 axeSwing.Swing();
             }

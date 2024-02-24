@@ -15,7 +15,7 @@ public class BuildingGeneration: MonoBehaviour
         int index = -1;
         for(int i = 0; i < buildingInfo.Length; i++)
         {
-            if(randomWeight <= buildingInfo[i].weight) { index = i; } else { break; }
+            if(randomWeight <= buildingInfo[i].weight) { index = i; break; }
         }
         if (index >= 0)
         {

@@ -30,7 +30,6 @@ public class TreeHit : MonoBehaviour, IHitSystem
     {
         //_trunk.transform.localScale = new Vector3(_trunk.transform.localScale.x, _trunk.transform.localPosition.y, _trunk.transform.localScale.z);
         _treeRigidBody = transform.parent.gameObject.AddComponent<Rigidbody>();
-        _treeRigidBody.AddForceAtPosition(-_currentTarget.transform.position, _currentTarget.transform.position);
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
         ftH.Setup(_sliceTargetPrefab, _itemLogPrefab);
         Destroy(_leaves);
