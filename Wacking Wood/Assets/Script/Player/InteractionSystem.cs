@@ -39,7 +39,7 @@ public class InteractionSystem : MonoBehaviour
         {
             _canSeePrompt = _scriptPlayerUI.SetInteractionPrompt(string.Empty);
         }
-        Ray r = new Ray(_camera.position + (_camera.forward * _distanceFromCamera), _camera.forward);
+        Ray r = new Ray(_camera.position+_camera.forward, _camera.forward);
         if (Input.GetMouseButtonDown(0))
         {
             if(playerHeldItemScript.HeldItem == axeGameObject)

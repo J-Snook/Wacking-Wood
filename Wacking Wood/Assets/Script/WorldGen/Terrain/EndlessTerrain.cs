@@ -21,7 +21,7 @@ public class EndlessTerrain : MonoBehaviour
     int chunksVisableInViewDst;
 
     Dictionary<Vector2,TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2,TerrainChunk>();
-    static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
+    static List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
     private void Start()
     {
@@ -47,11 +47,12 @@ public class EndlessTerrain : MonoBehaviour
 
     void UpdateVisibleChunks()
     {
-        for(int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
+        HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
+        for(int i = visibleTerrainChunks.Count-1; i >= 0; i--)
         {
-            terrainChunksVisibleLastUpdate[i].setVisible(false);
+            alreadyUpdatedChunkCoords.Add(visibleTerrainChunks[i].coord);
+            visibleTerrainChunks[i].UpdateTerrainChunk();
         }
-        terrainChunksVisibleLastUpdate.Clear();
 
         int currentChunkCoordX = Mathf.RoundToInt(playerPosition.x / chunkSize);
         int currentChunkCoordY = Mathf.RoundToInt(playerPosition.y / chunkSize);
@@ -61,20 +62,25 @@ public class EndlessTerrain : MonoBehaviour
             for(int xOffset = -chunksVisableInViewDst; xOffset <= chunksVisableInViewDst; xOffset++)
             {
                 Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
-                if (terrainChunkDictionary.ContainsKey(viewedChunkCoord))
+                if(!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) 
                 {
-                    terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
-                } else
-                {
-                    terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord,chunkSize,detailLevels,transform, mapMat,buildingInfo,treePrefabs));
+                    if(terrainChunkDictionary.ContainsKey(viewedChunkCoord))
+                    {
+                        terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
+                    }
+                    else
+                    {
+                        terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMat, buildingInfo, treePrefabs));
+                    }
                 }
-
             }
         }
     }
 
     public class TerrainChunk
     {
+        public Vector2 coord;
+        
         GameObject meshObj;
         Vector2 pos;
         int size;
@@ -99,6 +105,7 @@ public class EndlessTerrain : MonoBehaviour
 
         public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material mat, BuildingInfo[] buildingInfo, GameObject[] treePrefabs) 
         {
+            this.coord = coord;
             this.detailLevels= detailLevels;
             this.buildingInfo = buildingInfo;
             this.size = size;
@@ -151,6 +158,8 @@ public class EndlessTerrain : MonoBehaviour
             if (hasMapData)
             {
                 float playerDistFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(playerPosition));
+
+                bool wasVisible = isVisible();
                 bool visible = playerDistFromNearestEdge <= maxViewDistance;
 
                 if(visible)
@@ -187,9 +196,19 @@ public class EndlessTerrain : MonoBehaviour
                             lodMesh.RequestMesh(mapData);
                         }
                     }
-                    terrainChunksVisibleLastUpdate.Add(this);
                 }
-                setVisible(visible);
+
+                if (wasVisible!= visible)
+                {
+                    if (visible)
+                    {
+                        visibleTerrainChunks.Add(this);
+                    } else
+                    {
+                        visibleTerrainChunks.Remove(this);
+                    }
+                    setVisible(visible);
+                }
             }
         }
 
