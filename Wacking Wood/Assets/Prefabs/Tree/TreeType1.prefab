@@ -247,6 +247,8 @@ MonoBehaviour:
   _treeTargetPrefab: {fileID: 4114068007207047573, guid: 065d413bc36f4aa41ae0e3d7d1152817, type: 3}
   _sliceTargetPrefab: {fileID: 7597961303798895679, guid: 56bacb29233cb4b4c83c71775fa1ba09, type: 3}
   _itemLogPrefab: {fileID: 7346737534333614960, guid: d804bc5c255f7774b87391e957b0d912, type: 3}
+  _hitTimeDelay: 0.5
+  treeTag: tree1
   _treeMaxHealth: 1
   _treeHitTimeoutDiff: 30
   _treeTargetHorizontalChange: 90

@@ -16,22 +16,30 @@ public class TreeHit : MonoBehaviour, IHitSystem
     [SerializeField] private float _treeTargetVerticalRange = 1f;
     private int _treeHealth;
     private Transform _currentTarget;
-    private Rigidbody _treeRigidBody;
     private AxeSwing axeSwing;
     private bool _treeTimeOutActive = false;
     private bool _isHit = false;
     // Start is called before the first frame update
-    void Start()
+    public void ResetTree()
     {
+        StopAllCoroutines();
         _treeHealth = _treeMaxHealth;
+        _isHit = false;
+        _treeTimeOutActive = false;
+        if (_currentTarget != null)
+        {
+            Destroy(_currentTarget.gameObject);
+        }
     }
 
     private void FallTree()
     {
         //_trunk.transform.localScale = new Vector3(_trunk.transform.localScale.x, _trunk.transform.localPosition.y, _trunk.transform.localScale.z);
-        _treeRigidBody = transform.parent.gameObject.AddComponent<Rigidbody>();
+        transform.parent.gameObject.AddComponent<Rigidbody>();
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
         ftH.Setup(_sliceTargetPrefab, _itemLogPrefab);
+        string treeTag = transform.parent.name.Split(':')[0];
+        ObjectPooler.Instance.RemoveFromPool(treeTag,transform.parent.gameObject);
         Destroy(_leaves);
         Destroy(this);
     }

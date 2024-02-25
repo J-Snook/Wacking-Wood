@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeGrowth : MonoBehaviour
+public class TreeGrowth : MonoBehaviour, IPooledObject
 {
     [SerializeField, Range(0f, 6f)] private int _treeStage;
     [SerializeField] private GameObject _trunk;
     [SerializeField] private GameObject _leaves;
     private TreeHit _treeHit;
     // Start is called before the first frame update
-    void Start()
+    public void OnPoolStart()
     {
         _treeHit = _trunk.GetComponent<TreeHit>();
         if (_treeStage == 0)
@@ -17,6 +17,7 @@ public class TreeGrowth : MonoBehaviour
             _treeStage = Random.Range(3, 6);
         }
         SetTreeStage(_treeStage);
+        _treeHit.ResetTree();
     }
 
     private void OnValidate()

@@ -186,16 +186,20 @@ public class EndlessTerrain : MonoBehaviour
                                 buildScript.BuildStructure(meshCollider);
                                 hasBuildings = true;
                             }
-                            if (!hasTrees)
-                            {
-                                treeScript.TreeGen(buildScript, treePrefabs,Random.Range(7,10));
-                                hasTrees = true;                            }
                         }
                         else if(!lodMesh.hasRequestedMesh)
                         {
                             lodMesh.RequestMesh(mapData);
                         }
                     }
+                    if(lodMeshes[lodIndex].hasMesh && !hasTrees)
+                    {
+                        treeScript.TreeGen(meshRenderer, buildScript, Random.Range(7, 10));
+                        hasTrees= true;
+                    }
+                } else
+                {
+                    hasTrees = false;
                 }
 
                 if (wasVisible!= visible)
@@ -203,7 +207,8 @@ public class EndlessTerrain : MonoBehaviour
                     if (visible)
                     {
                         visibleTerrainChunks.Add(this);
-                    } else
+                    } 
+                    else
                     {
                         visibleTerrainChunks.Remove(this);
                     }
