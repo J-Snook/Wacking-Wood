@@ -192,14 +192,14 @@ public class EndlessTerrain : MonoBehaviour
                             lodMesh.RequestMesh(mapData);
                         }
                     }
-                    if(lodMeshes[lodIndex].hasMesh && !hasTrees)
+                    if (lodMeshes[lodIndex].hasMesh)
                     {
                         treeScript.TreeGen(meshRenderer, buildScript, Random.Range(7, 10));
-                        hasTrees= true;
                     }
-                } else
+                }
+                else
                 {
-                    hasTrees = false;
+                    treeScript.ResetTrees();
                 }
 
                 if (wasVisible!= visible)

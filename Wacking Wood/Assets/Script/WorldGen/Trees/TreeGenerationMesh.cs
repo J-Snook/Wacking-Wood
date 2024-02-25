@@ -4,11 +4,13 @@ using UnityEngine;
 public class TreeGenerationMesh : MonoBehaviour
 {
     private List<Vector3> treePoints;
+    private List<GameObject> treeObjects = new List<GameObject>();
     private ObjectPooler _pooler;
     private string treeTag;
 
     public void TreeGen(MeshRenderer meshRenderer, BuildingGeneration buildingScript,float density=7f,int rejectionSamples=2)
     {
+        if (treeObjects.Count >0) { return; }
         if (treePoints == null )
         {
             treePoints = new List<Vector3>();
@@ -41,7 +43,19 @@ public class TreeGenerationMesh : MonoBehaviour
             GameObject tree = _pooler.SpawnFromPool(treeTag, point, Quaternion.identity);
             tree.transform.parent = transform;
             tree.name = treeTag+ ":" + Count;
+            treeObjects.Add(tree);
             Count++;
         }
+    }
+
+
+    public void ResetTrees()
+    {
+        for(int i = 0; i < treeObjects.Count; i++)
+        {
+            treeObjects[i].SetActive(false);
+            treeObjects[i].transform.parent = _pooler.transform.Find(treeTag);
+        }
+        treeObjects.Clear();
     }
 }
