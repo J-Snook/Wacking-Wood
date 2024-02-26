@@ -28,6 +28,7 @@ public class ObjectPooler : MonoBehaviour
 
     public List<Pool> pools;
     public Dictionary<string,List<GameObject>> poolDictionary = new Dictionary<string,List<GameObject>>();
+    private Dictionary<string,Transform> poolParents = new Dictionary<string,Transform>();
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class ObjectPooler : MonoBehaviour
         {
             Transform parentTransform = new GameObject(pool.tag).transform;
             parentTransform.parent = transform;
+            poolParents.Add(pool.tag, parentTransform);
             List<GameObject> objectPool = new List<GameObject>();
             for(int i = 0; i < pool.size; i++)
             {
@@ -58,7 +60,7 @@ public class ObjectPooler : MonoBehaviour
     {
         foreach(Pool pool in pools)
         {
-            Transform parentTransform = transform.Find(pool.tag);
+            Transform parentTransform = poolParents[pool.tag];
             for(int i = poolDictionary[pool.tag].Count; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
@@ -68,6 +70,22 @@ public class ObjectPooler : MonoBehaviour
             }
 
         }
+    }
+
+    public void ResetGO(string tag,GameObject GO)
+    {
+        if(!poolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning("Pool with Tag " + tag + " doesn't exist");
+            return;
+        }
+        if(!poolDictionary[tag].Contains(GO))
+        {
+            Debug.LogWarning("Pool with Tag " + tag + " doesn't have the gameObject");
+            return;
+        }
+        GO.SetActive(false);
+        GO.transform.parent = poolParents[tag];
     }
 
     public GameObject SpawnFromPool(string tag,Vector3 pos,Quaternion rot)
