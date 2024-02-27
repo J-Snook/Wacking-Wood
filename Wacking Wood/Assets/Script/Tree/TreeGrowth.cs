@@ -20,11 +20,6 @@ public class TreeGrowth : MonoBehaviour, IPooledObject
         _treeHit.ResetTree();
     }
 
-    private void OnValidate()
-    {
-        SetTreeStage(_treeStage);
-    }
-
     private void SetTreeStage(float treeStage)
     {
         _trunk.transform.localScale = new Vector3 (Mathf.Pow(treeStage,0.25f)/1.5f, treeStage+0.5f, Mathf.Pow(treeStage, 0.25f)/1.5f);

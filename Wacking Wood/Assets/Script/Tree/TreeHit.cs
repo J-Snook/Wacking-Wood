@@ -34,8 +34,7 @@ public class TreeHit : MonoBehaviour, IHitSystem
 
     private void FallTree()
     {
-        //_trunk.transform.localScale = new Vector3(_trunk.transform.localScale.x, _trunk.transform.localPosition.y, _trunk.transform.localScale.z);
-        transform.parent.gameObject.AddComponent<Rigidbody>();
+        Rigidbody rb = transform.parent.gameObject.AddComponent<Rigidbody>();
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
         ftH.Setup(_sliceTargetPrefab, _itemLogPrefab);
         string treeTag = transform.parent.name.Split(':')[0];
