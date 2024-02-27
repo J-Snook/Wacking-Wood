@@ -9,19 +9,30 @@ public class PauseMenu : MonoBehaviour
     public static bool pausedGame = false;
 
     public GameObject pausedMenuUI;
+    public GameObject pauseMenuContainer;
     public GameObject StaminaBarUI;
     public GameObject FuelBarUI;
     public GameObject CashTrackerUI;
     public GameObject TimeUI;
     public GameObject CursorUI;
+    public GameObject PauseMenu_Container;
+    public GameObject SettingsMenu_Container;
+    public GameObject GraphicsPanel_Dialoug;
+    public GameObject SoundPanel_Dialoug;
+    public GameObject GamePanel_Dialoug;
     public Button resumeButton;
-    public MonoBehaviour CharacterMovementScript;
+
+    private Quaternion originalRotation;
+   
 
     private void Start()
     {
-        CharacterMovementScript = GetComponent("Character Movement") as MonoBehaviour;
+        
         
         resumeButton.onClick.AddListener(ResumeButton);
+        
+        
+        
     }
 
     private void Update()
@@ -51,8 +62,16 @@ public class PauseMenu : MonoBehaviour
         CashTrackerUI.SetActive(true);
         TimeUI.SetActive(true);
         CursorUI.SetActive(true);
+        PauseMenu_Container.SetActive(false);
+        SettingsMenu_Container.SetActive(false);
+        GraphicsPanel_Dialoug.SetActive(false);
+        SoundPanel_Dialoug.SetActive(false);
+        GamePanel_Dialoug.SetActive(false);
 
-       
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
     public void ResumeButton()
@@ -65,13 +84,24 @@ public class PauseMenu : MonoBehaviour
         pausedMenuUI.SetActive(true);
         Time.timeScale = 0f;
         pausedGame = true;
-        
+
         StaminaBarUI.SetActive(false);
         FuelBarUI.SetActive(false);
         CashTrackerUI.SetActive(false);
         TimeUI.SetActive(false);
         CursorUI.SetActive(false);
+        PauseMenu_Container.SetActive(true);
+        SettingsMenu_Container.SetActive(false);
+        GraphicsPanel_Dialoug.SetActive(false);
+        SoundPanel_Dialoug.SetActive(false);
+        GamePanel_Dialoug.SetActive(false);
         
-       
+
+
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+
     }
 }

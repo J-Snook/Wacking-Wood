@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 36316540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89d46a39c5cdd014d9490829efcb119b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ef10383ce9bafb47a3b073220f9e420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 1
@@ -13342,7 +13342,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1826503070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e461e712684204bab65c5134683748, type: 3}
+  m_Script: {fileID: 11500000, guid: 43e2caba86fdfd148b50f09397dab16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   volumeValue: {fileID: 1351054721}
@@ -13358,9 +13358,9 @@ MonoBehaviour:
   defaultBrightness: 1
   qualityDropdown: {fileID: 1845830338}
   fullScreenToggle: {fileID: 456064891}
-  _newGameLevel: Level
+  _newGameLevel: 
   noSavedGame: {fileID: 561179626}
-  ResolutionDropdown: {fileID: 1797309935}
+  ResolutionDropdown: {fileID: 0}
 --- !u!4 &1826503072
 Transform:
   m_ObjectHideFlags: 0
