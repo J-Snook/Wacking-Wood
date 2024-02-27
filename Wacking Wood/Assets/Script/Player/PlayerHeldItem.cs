@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class PlayerHeldItem : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class PlayerHeldItem : MonoBehaviour
             rb.useGravity = true;
         }
         heldItem.layer = LayerMask.NameToLayer("Default");
+        ObjectManagement.Instance.attachObject(heldItem);
         heldItem = null;
         isHoldingItem = false;
     }

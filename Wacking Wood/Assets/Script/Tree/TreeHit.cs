@@ -34,11 +34,16 @@ public class TreeHit : MonoBehaviour, IHitSystem
 
     private void FallTree()
     {
+        Vector3 force = new Vector3(transform.position.x,_currentTarget.position.y, transform.position.z);
+        force = (force - _currentTarget.transform.position).normalized;
         Rigidbody rb = transform.parent.gameObject.AddComponent<Rigidbody>();
+        rb.AddForceAtPosition(-force, _currentTarget.position);
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
         ftH.Setup(_sliceTargetPrefab, _itemLogPrefab);
         string treeTag = transform.parent.name.Split(':')[0];
         ObjectPooler.Instance.RemoveFromPool(treeTag,transform.parent.gameObject);
+        transform.parent.parent = null;
+        ObjectManagement.Instance.attachObject(transform.parent.gameObject);
         Destroy(_leaves);
         Destroy(this);
     }

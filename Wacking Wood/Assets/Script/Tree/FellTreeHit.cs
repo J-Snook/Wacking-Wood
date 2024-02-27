@@ -37,12 +37,6 @@ public class FellTreeHit : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SliceHit()
     {
         Destroy(_slice);

@@ -29,6 +29,7 @@ public class LogPickup : MonoBehaviour, IInteractSystem
 
     void Start()
     {
+        ObjectManagement.Instance.attachObject(gameObject);
         playerUI = FindObjectOfType<PlayerUI>();
         if (playerUI == null)
         {
@@ -49,6 +50,7 @@ public class LogPickup : MonoBehaviour, IInteractSystem
         {
             if(playerHeldItem.holdItem(gameObject))
             {
+                ObjectManagement.Instance.detachObject(gameObject);
                 rb.isKinematic = true;
                 rb.useGravity = false;
                 gameObject.layer = LayerMask.NameToLayer("HeldItems");
