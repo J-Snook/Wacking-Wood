@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.32696944, g: 0.28958488, b: 0.3222681, a: 1}
+  m_IndirectSpecularColor: {r: 0.02664565, g: 0.2930945, b: 0.48741186, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1645,7 +1645,11 @@ MonoBehaviour:
     radius: 10
   - name: Sleeping Bag
     prefab: {fileID: 2833163625313149061, guid: 21d2a1944a946c846b060d774aaf09d9, type: 3}
-    weight: 90
+    weight: 20
+    radius: 10
+  - name: Sled
+    prefab: {fileID: 8286488538648076097, guid: db16f72a697fabf45aa59d67d2e91a60, type: 3}
+    weight: 100
     radius: 10
   player: {fileID: 470673959}
   mapMat: {fileID: 2100000, guid: d76127c26052951439d3368daef188c9, type: 2}

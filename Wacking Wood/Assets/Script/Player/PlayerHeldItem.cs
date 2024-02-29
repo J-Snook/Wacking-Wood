@@ -6,6 +6,10 @@ using static UnityEditor.Progress;
 
 public class PlayerHeldItem : MonoBehaviour
 {
+    #region Singleton
+    public static PlayerHeldItem Instance;
+    #endregion
+
     [SerializeField] private Transform _camera;
     [SerializeField] private GameObject _axe;
     public bool isHoldingItem = false;
@@ -13,6 +17,11 @@ public class PlayerHeldItem : MonoBehaviour
     public GameObject HeldItem { get { return heldItem; }}
     private bool canDrop;
     private bool canPlace;
+
+    private void Awake()
+    {
+        Instance= this;
+    }
 
     public bool holdItem(GameObject item, bool itemDroppable=true, bool itemPlaceable=true)
     {
@@ -33,9 +42,7 @@ public class PlayerHeldItem : MonoBehaviour
     {
         heldItem.transform.parent = null;
 
-        // Enable RB
-        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (heldItem.TryGetComponent(out Rigidbody rb))
         {
             rb.isKinematic = false;
             rb.useGravity = true;

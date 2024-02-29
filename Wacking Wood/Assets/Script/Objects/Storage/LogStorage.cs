@@ -62,7 +62,7 @@ public class LogStorage : MonoBehaviour, IInteractSystem
         } 
         else if (storedLogs.Count > 0)
         {
-            LogPickup topLog = storedLogs[storedLogs.Count-1];
+            LogPickup topLog = storedLogs[^1];
             storedLogs.RemoveAt(storedLogs.Count - 1);
             topLog.logStorage = null;
             topLog.Interact(player);
