@@ -1,12 +1,34 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class TreeGenerationMesh : MonoBehaviour
+public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
 {
     private List<Vector3> treePoints;
     private List<GameObject> treeObjects = new List<GameObject>();
     private ObjectPooler _pooler;
     private string treeTag;
+    private Vector2 coord;
+
+    private void Awake()
+    {
+        _pooler = ObjectPooler.Instance;
+        DataPersistanceManager _dataManagement = DataPersistanceManager.instance;
+        
+    }
+
+    public void treeInit(Vector2 coord)
+    {
+        this.coord = coord;
+        if (DataPersistanceManager.instance.gameData.treeStoreTags.TryGetValue(coord,out string tag))
+        {
+            treeTag = tag;
+        }
+        if(DataPersistanceManager.instance.gameData.treeStorePoints.TryGetValue(coord, out List<Vector3> points))
+        {
+            treePoints = points;
+        }
+    }
 
     public void TreeGen(MeshRenderer meshRenderer, BuildingGeneration buildingScript,float density=7f,int rejectionSamples=2)
     {
@@ -14,7 +36,6 @@ public class TreeGenerationMesh : MonoBehaviour
         if (treePoints == null )
         {
             treePoints = new List<Vector3>();
-            _pooler = ObjectPooler.Instance;
             treeTag = "tree" + Random.Range(1, 4).ToString();
             Bounds _meshBounds = meshRenderer.bounds;
             Vector2 regionSize = new Vector2(_meshBounds.size.x, _meshBounds.size.z);
@@ -34,7 +55,6 @@ public class TreeGenerationMesh : MonoBehaviour
                         continue;
                     }
                 }
-                //points.Remove(point);
             }
         }
         int Count = 1;
@@ -57,5 +77,24 @@ public class TreeGenerationMesh : MonoBehaviour
             treeObjects[i].transform.parent = _pooler.transform.Find(treeTag);
         }
         treeObjects.Clear();
+    }
+
+    public void LoadData(GameData data)
+    {
+        Debug.Log("This shouldnt load here");
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        if (data.treeStorePoints.ContainsKey(coord))
+        {
+            data.treeStorePoints.Remove(coord);
+        }
+        if(data.treeStoreTags.ContainsKey(coord))
+        {
+            data.treeStoreTags.Remove(coord);
+        }
+        data.treeStoreTags.Add(coord, treeTag);
+        data.treeStorePoints.Add(coord, treePoints);
     }
 }

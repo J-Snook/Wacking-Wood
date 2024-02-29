@@ -33,18 +33,16 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
 
     void Update()
     {
-        
-        
-            Movement();
-            Looking();
-        
-        
+        Movement();
+        Looking();
     }
 
     public void LoadData(GameData data)
     {
-        this.transform.position = data.playerPosition;
+        Vector3 playerPos = data.playerPosition + Vector3.up * 5f;
+        this.transform.position = playerPos;
         this.transform.rotation = Quaternion.Euler(data.playerRotation);
+        Debug.Log(data.playerPosition);
     }
 
     public void SaveData(ref GameData data)

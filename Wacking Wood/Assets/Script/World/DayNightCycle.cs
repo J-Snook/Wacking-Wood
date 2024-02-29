@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DayNightCycle : MonoBehaviour
+public class DayNightCycle : MonoBehaviour, IDataPersistance
 {
     [SerializeField] private Cycles[] cycles;
     [SerializeField] private float numSecondsPerMinute = 1f;
@@ -111,6 +111,20 @@ public class DayNightCycle : MonoBehaviour
             RenderSettings.fogDensity = Mathf.Lerp(from, to, i / time);
             yield return null;
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        minutes= data.minutes;
+        hours= data.hours;
+        days= data.days;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.minutes = minutes;
+        data.hours= hours;
+        data.days= days;
     }
 
     [System.Serializable]

@@ -15,7 +15,7 @@ public class DataPersistanceManager : MonoBehaviour
 
     [SerializeField] private bool useEncryption;
     
-    private GameData gameData;
+    public GameData gameData;
 
     private List<IDataPersistance> dataPersistanceObjects;
 
@@ -85,19 +85,24 @@ public class DataPersistanceManager : MonoBehaviour
             dataPersistanceObj.LoadData(gameData);
         }
         
-        Debug.Log("Loaded Time = " + gameData.timeOfDay);
+        Debug.Log("Loaded Time = " + gameData.days + "-" + gameData.hours + ":" +gameData.minutes);
         Debug.Log("Loaded Cash = " + gameData.cashAmount);
+        Debug.Log("Loaded " + gameData.buildingPos.Count + " number of buildings");
+        Debug.Log("Loaded " + gameData.treeStoreTags.Count + " number of trees");
     }
 
     public void SaveGame()
     {
+        this.dataPersistanceObjects = FindAllDataPersistanceObjects();
         foreach (IDataPersistance dataPersistanceObj in dataPersistanceObjects)
         {
             dataPersistanceObj.SaveData(ref gameData);
         }
-        Debug.Log("Saved Time = " + gameData.timeOfDay);
+        Debug.Log("Saved Time = " + gameData.days + "-" + gameData.hours + ":" + gameData.minutes);
         Debug.Log("Saved Cash = " + gameData.cashAmount);
-        
+        Debug.Log("Saved " + gameData.buildingPos.Count + " number of buildings");
+        Debug.Log("Saved " + gameData.treeStoreTags.Count + " number of trees");
+
         dataHandler.Save(gameData);
     }
 
@@ -108,9 +113,7 @@ public class DataPersistanceManager : MonoBehaviour
 
     private List<IDataPersistance> FindAllDataPersistanceObjects()
     {
-        IEnumerable<IDataPersistance> dataPersistancesObjects =
-            FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistance>();
-
+        IEnumerable<IDataPersistance> dataPersistancesObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<IDataPersistance>();
         return new List<IDataPersistance>(dataPersistancesObjects);
     }
     

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttributes : MonoBehaviour
+public class PlayerAttributes : MonoBehaviour, IDataPersistance
 {
     #region Variables
     
@@ -105,5 +105,19 @@ public class PlayerAttributes : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void LoadData(GameData data)
+    {
+        Cash = data.cashAmount;
+        Fuel = data.fuel;
+        Stamina = data.stamina;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.cashAmount = Cash;
+        data.fuel = Fuel;
+        data.stamina = Stamina;
     }
 }

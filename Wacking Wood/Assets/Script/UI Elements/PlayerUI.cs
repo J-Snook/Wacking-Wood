@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour, IDataPersistance
+public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private Slider fuelBar;
     [SerializeField] private Slider staminaBar;
@@ -26,23 +26,8 @@ public class PlayerUI : MonoBehaviour, IDataPersistance
     public void UpdateTime(int hour, int minute)
     {
         timeOfDay.text = $"{hour.ToString("D2")}:{minute.ToString("D2")}";
-
-        gameData.timeOfDay = hour * 60 + minute;
     }
     
-   
-
-    public void LoadData(GameData data)
-    {
-        gameData = data;
-        UpdateTime(gameData.timeOfDay / 60, gameData.timeOfDay % 60); // Convert total minutes back to hour and minute
-        UpdateCashAmount(gameData.cashAmount);
-    }
-
-    public void SaveData(ref GameData data)
-    {
-        data = gameData;
-    }
     
     
     public void UpdateFuelValue(float fuelValue)
