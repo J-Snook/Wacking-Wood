@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour
+public class PlayerUI : MonoBehaviour, IDataPersistance
 {
     [SerializeField] private Slider fuelBar;
     [SerializeField] private Slider staminaBar;
@@ -14,9 +15,33 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject prompt;
 
+    private GameData gameData;
+
+    private void Start()
+    {
+        gameData = new GameData();
+    }
+
+
     public void UpdateTime(int hour, int minute)
     {
         timeOfDay.text = $"{hour.ToString("D2")}:{minute.ToString("D2")}";
+
+        gameData.timeOfDay = hour * 60 + minute;
+    }
+    
+   
+
+    public void LoadData(GameData data)
+    {
+        gameData = data;
+        UpdateTime(gameData.timeOfDay / 60, gameData.timeOfDay % 60); // Convert total minutes back to hour and minute
+        UpdateCashAmount(gameData.cashAmount);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data = gameData;
     }
     
     
@@ -34,9 +59,12 @@ public class PlayerUI : MonoBehaviour
     
     public void UpdateCashAmount(float cashValue)
     {
-        string formattedCash = cashValue.ToString("C");
+        gameData.cashAmount = cashValue;
+        cashAmount.text = cashValue.ToString("C");
         
-        cashAmount.text = $"{formattedCash}";
+
+        //string formattedCash = cashValue.ToString("C");
+        //cashAmount.text = $"{formattedCash}";
     }
 
     public bool SetInteractionPrompt(string text)

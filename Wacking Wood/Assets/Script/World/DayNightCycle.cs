@@ -16,8 +16,10 @@ public class DayNightCycle : MonoBehaviour
 
     private int minutes;
     public int Minutes { get { return minutes; } set { minutes = value;OnMinuteChange(value); } }
+    
     private int hours;
     public int Hours { get { return hours; } set { hours = value; OnHourChange(value); } }
+    
     private int days;
     public int Days { get { return days; } set {days=value; } }
 

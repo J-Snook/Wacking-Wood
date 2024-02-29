@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour, IDataPersistance
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform characterTransform;
@@ -39,6 +39,18 @@ public class CharacterMovement : MonoBehaviour
             Looking();
         
         
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+        this.transform.rotation = Quaternion.Euler(data.playerRotation);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerRotation = this.transform.rotation.eulerAngles;
+        data.playerPosition = this.transform.position;
     }
 
     void Movement()
