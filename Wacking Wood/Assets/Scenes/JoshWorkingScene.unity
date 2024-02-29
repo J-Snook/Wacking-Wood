@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17430066, g: 0.2913677, b: 0.40618932, a: 1}
+  m_IndirectSpecularColor: {r: 0.54935646, g: 0.7941612, b: 0.9733915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1683,12 +1683,12 @@ MonoBehaviour:
     visableDistanceThreshold: 400
     useForCollider: 0
   buildingInfo:
-  - name: Store
-    prefab: {fileID: 6830949276178957363, guid: 507a4e560c5641f41a063bb0bec28f44, type: 3}
-    weight: 10
-    radius: 10
   - name: Sleeping Bag
     prefab: {fileID: 2833163625313149061, guid: 21d2a1944a946c846b060d774aaf09d9, type: 3}
+    weight: 10
+    radius: 10
+  - name: Store
+    prefab: {fileID: 6830949276178957363, guid: 507a4e560c5641f41a063bb0bec28f44, type: 3}
     weight: 90
     radius: 10
   player: {fileID: 470673959}

@@ -37,10 +37,11 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
             Vector2 regionSize = new Vector2(_meshBounds.size.x, _meshBounds.size.z);
             List<Vector2> points = PointGeneration.GeneratePoints(density, regionSize, rejectionSamples);
             Vector2 _structPos = new Vector2(buildingScript.buildingLocalPos.x, 240f - buildingScript.buildingLocalPos.y);
+            float sqrbuildRadius = buildingScript.building.radius * buildingScript.building.radius;
             foreach(Vector2 point in points)
             {
                 float sqrDist = (_structPos - point).sqrMagnitude;
-                if(sqrDist > buildingScript.building.radius * 1.25f)
+                if(sqrDist > sqrbuildRadius)
                 {
                     Vector3 _truePos = new Vector3(point.x, _meshBounds.max.y, point.y) + _meshBounds.min;
                     float rayDist = _meshBounds.size.y;
@@ -58,9 +59,20 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
         {
             GameObject tree = _pooler.SpawnFromPool(treeTag, point, Quaternion.identity);
             tree.transform.parent = transform;
+            tree.transform.GetComponentInChildren<TreeHit>().initPoint = point;
             tree.name = treeTag+ ":" + Count;
             treeObjects.Add(tree);
             Count++;
+        }
+    }
+
+    public void RemovePoint(Vector3 point)
+    {
+        Debug.Log("recv at rp");
+        if(treePoints.Contains(point))
+        {
+            Debug.Log("removing at rp");
+            treePoints.Remove(point);
         }
     }
 

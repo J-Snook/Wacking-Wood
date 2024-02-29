@@ -15,14 +15,6 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject prompt;
 
-    private GameData gameData;
-
-    private void Start()
-    {
-        gameData = new GameData();
-    }
-
-
     public void UpdateTime(int hour, int minute)
     {
         timeOfDay.text = $"{hour.ToString("D2")}:{minute.ToString("D2")}";
@@ -44,7 +36,6 @@ public class PlayerUI : MonoBehaviour
     
     public void UpdateCashAmount(float cashValue)
     {
-        gameData.cashAmount = cashValue;
         cashAmount.text = cashValue.ToString("C");
         
 

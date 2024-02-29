@@ -1,8 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour, IDataPersistance
@@ -28,9 +24,6 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
 
     private void Start()
     {
-        globalLight.color = cycles[0].color;
-        RenderSettings.skybox.SetTexture("_Texture1", cycles[0].tex);
-        RenderSettings.skybox.SetFloat("_Blend", 0);
         gradients = new Gradient[cycles.Length];
         GradientAlphaKey[] alphas = new GradientAlphaKey[2] { new GradientAlphaKey(1f, 1f), new GradientAlphaKey(1f, 1f) };
         for(int i = 0; i < cycles.Length; i++)
@@ -118,6 +111,28 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
         minutes= data.minutes;
         hours= data.hours;
         days= data.days;
+        int index=-1;
+        if ( hours < cycles[1].hourTime || hours >= cycles[0].hourTime)
+        {
+            index = 0;
+        }
+        else
+        {
+            for(int i = 1; i < cycles.Length; i++)
+            {
+                if(hours >= cycles[i].hourTime && hours < cycles[(i+1>cycles.Length) ? 0 : i+1].hourTime)
+                {
+                    index = i;
+                }
+            }
+        }
+        Debug.Log(index);
+        RenderSettings.skybox.SetTexture("_Texture1", cycles[index].tex);
+        RenderSettings.skybox.SetTexture("_Texture2", cycles[index].tex);
+        RenderSettings.skybox.SetFloat("_Blend", 0);
+        globalLight.color = cycles[index].color;
+        RenderSettings.fogColor = cycles[index].color;
+        RenderSettings.fogDensity = cycles[index].fogDensity;
     }
 
     public void SaveData(ref GameData data)

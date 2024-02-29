@@ -19,6 +19,7 @@ public class GameData
 
     public Vector3 playerPosition;
     public Vector3 playerRotation;
+    public Vector3 cameraRotation;
     public SerializableDictionary<Vector2, BuildingInfomation> buildingStoredInfo;
     public SerializableDictionary<Vector2, treeInfomation> treeInfomation;
 
@@ -27,6 +28,7 @@ public class GameData
         System.Random r = new System.Random();
         playerPosition = Vector3.up*15f;
         playerRotation = Vector3.zero;
+        cameraRotation = Vector3.zero;
 
         minutes = 50;
         hours = 5;

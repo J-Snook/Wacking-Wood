@@ -35,20 +35,29 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
     {
         Movement();
         Looking();
+        FellThroughWorldCheck();
+    }
+
+    private void FellThroughWorldCheck()
+    {
+        if (transform.position.y <= -100)
+        {
+            transform.position = new Vector3(transform.position.x,50f,transform.position.z);
+        }
     }
 
     public void LoadData(GameData data)
     {
         Vector3 playerPos = data.playerPosition + Vector3.up * 5f;
-        this.transform.position = playerPos;
-        this.transform.rotation = Quaternion.Euler(data.playerRotation);
-        Debug.Log(data.playerPosition);
+        transform.position = playerPos;
+        transform.rotation = Quaternion.Euler(data.playerRotation);
+        cameraHolderTransform.rotation = Quaternion.Euler(data.cameraRotation);
     }
 
     public void SaveData(ref GameData data)
     {
-        data.playerRotation = this.transform.rotation.eulerAngles;
-        data.playerPosition = this.transform.position;
+        data.playerRotation = transform.rotation.eulerAngles;
+        data.playerPosition = transform.position;
     }
 
     void Movement()
