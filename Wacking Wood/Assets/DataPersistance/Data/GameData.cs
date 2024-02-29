@@ -19,10 +19,10 @@ public class GameData
 
     public Vector3 playerPosition;
     public Vector3 playerRotation;
-    public Dictionary<Vector2, int> buildingTypes;
-    public Dictionary<Vector2, string> treeStoreTags;
-    public Dictionary<Vector2, Vector2Int> buildingPos;
-    public Dictionary<Vector2, List<Vector3>> treeStorePoints;
+    public SerializableDictionary<Vector2, int> buildingTypes;
+    public SerializableDictionary<Vector2, string> treeStoreTags;
+    public SerializableDictionary<Vector2, Vector2Int> buildingPos;
+    public SerializableDictionary<Vector2, List<Vector3>> treeStorePoints;
 
     public GameData()
     {
@@ -37,10 +37,10 @@ public class GameData
         stamina=100f;
         fuel=100f;
         seed = r.Next(1000000);
-        buildingPos = new Dictionary<Vector2, Vector2Int>();
-        buildingTypes = new Dictionary<Vector2, int>();
-        treeStoreTags = new Dictionary<Vector2, string>();
-        treeStorePoints = new Dictionary<Vector2, List<Vector3>>();
+        buildingPos = new SerializableDictionary<Vector2, Vector2Int>();
+        buildingTypes = new SerializableDictionary<Vector2, int>();
+        treeStoreTags = new SerializableDictionary<Vector2, string>();
+        treeStorePoints = new SerializableDictionary<Vector2, List<Vector3>>();
     }
 
 }
