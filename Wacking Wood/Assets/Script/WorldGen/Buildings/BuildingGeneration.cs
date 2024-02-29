@@ -11,6 +11,7 @@ public class BuildingGeneration: MonoBehaviour,IDataPersistance
     public BuildingInfo building;
     public Vector2Int buildingLocalPos;
     private Vector2 coord;
+    private bool hasStoredInfo=false;
 
     public void buildingInit(Vector2 coord)
     {
@@ -19,11 +20,13 @@ public class BuildingGeneration: MonoBehaviour,IDataPersistance
 
     public void selectedBuildingIndex(BuildingInfo[] buildingInfo)
     {
-        if(DataPersistanceManager.instance.gameData.buildingTypes.TryGetValue(coord, out int dictIndex))
+        if(DataPersistanceManager.instance.gameData.buildingStoredInfo.TryGetValue(coord, out BuildingInfomation storedInfo))
         {
-            buildingIndex = dictIndex;
+            buildingIndex = storedInfo.index;
             building = buildingInfo[buildingIndex];
+            buildingLocalPos = storedInfo.localPos;
             hasBuilding = true;
+            hasStoredInfo = true;
             return;
         }
         float randomWeight = Random.Range(0f, 100f);
@@ -42,11 +45,7 @@ public class BuildingGeneration: MonoBehaviour,IDataPersistance
 
     public void GenerateStructurePosition()
     {
-        if(DataPersistanceManager.instance.gameData.buildingPos.TryGetValue(coord, out Vector2Int position))
-        {
-            buildingLocalPos = position;
-            return;
-        }
+        if(hasStoredInfo) { return; }
         if (hasBuilding)
         {
             float structureDiameter = building.radius * 4f;
@@ -72,21 +71,17 @@ public class BuildingGeneration: MonoBehaviour,IDataPersistance
 
     public void LoadData(GameData data)
     {
-        Debug.Log("This shouldnt be loading here");
+        //Ignore me loads a different way
     }
 
     public void SaveData(ref GameData data)
     {
-        if(data.buildingPos.ContainsKey(coord))
+        if(!hasBuilding) { return; }
+        if(data.buildingStoredInfo.ContainsKey(coord))
         {
-            data.buildingPos.Remove(coord);
+            data.buildingStoredInfo.Remove(coord);
         }
-        if(data.buildingTypes.ContainsKey(coord))
-        {
-            data.buildingTypes.Remove(coord);
-        }
-        data.buildingPos.Add(coord,buildingLocalPos);
-        data.buildingTypes.Add(coord, buildingIndex);
+        data.buildingStoredInfo.Add(coord,new BuildingInfomation(buildingIndex,buildingLocalPos));
     }
 }
 

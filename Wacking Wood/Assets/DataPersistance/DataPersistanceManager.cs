@@ -84,11 +84,14 @@ public class DataPersistanceManager : MonoBehaviour
         {
             dataPersistanceObj.LoadData(gameData);
         }
-        
-        Debug.Log("Loaded Time = " + gameData.days + "-" + gameData.hours + ":" +gameData.minutes);
+        Debug.Log("Loaded Time = " + gameData.days + " - " + gameData.hours + ":" + gameData.minutes);
         Debug.Log("Loaded Cash = " + gameData.cashAmount);
-        Debug.Log("Loaded " + gameData.buildingPos.Count + " number of buildings");
-        Debug.Log("Loaded " + gameData.treeStoreTags.Count + " number of trees");
+        Debug.Log("Loaded Stamina = " + gameData.stamina);
+        Debug.Log("Loaded Fuel = " + gameData.fuel);
+        Debug.Log("Loaded Seed = " + gameData.seed);
+        Debug.Log("Loaded player pos = " + gameData.playerPosition + " and rot = " + gameData.playerRotation);
+        Debug.Log("Loaded " + gameData.buildingStoredInfo.Count + " number of buildings");
+        Debug.Log("Loaded " + gameData.treeInfomation.Count + " number of trees");
     }
 
     public void SaveGame()
@@ -98,10 +101,14 @@ public class DataPersistanceManager : MonoBehaviour
         {
             dataPersistanceObj.SaveData(ref gameData);
         }
-        Debug.Log("Saved Time = " + gameData.days + "-" + gameData.hours + ":" + gameData.minutes);
+        Debug.Log("Saved Time = " + gameData.days + " - " + gameData.hours + ":" + gameData.minutes);
         Debug.Log("Saved Cash = " + gameData.cashAmount);
-        Debug.Log("Saved " + gameData.buildingPos.Count + " number of buildings");
-        Debug.Log("Saved " + gameData.treeStoreTags.Count + " number of trees");
+        Debug.Log("Saved Stamina = " + gameData.stamina);
+        Debug.Log("Saved Fuel = " + gameData.fuel);
+        Debug.Log("Saved Seed = " + gameData.seed);
+        Debug.Log("Saved player pos = " + gameData.playerPosition + " and rot = " + gameData.playerRotation);
+        Debug.Log("Saved " + gameData.buildingStoredInfo.Count + " number of buildings");
+        Debug.Log("Saved " + gameData.treeInfomation.Count + " number of trees");
 
         dataHandler.Save(gameData);
     }

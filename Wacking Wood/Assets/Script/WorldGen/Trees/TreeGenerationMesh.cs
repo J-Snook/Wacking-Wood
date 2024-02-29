@@ -13,20 +13,16 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
     private void Awake()
     {
         _pooler = ObjectPooler.Instance;
-        DataPersistanceManager _dataManagement = DataPersistanceManager.instance;
         
     }
 
     public void treeInit(Vector2 coord)
     {
         this.coord = coord;
-        if (DataPersistanceManager.instance.gameData.treeStoreTags.TryGetValue(coord,out string tag))
+        if(DataPersistanceManager.instance.gameData.treeInfomation.TryGetValue(coord, out treeInfomation treeInfo))
         {
-            treeTag = tag;
-        }
-        if(DataPersistanceManager.instance.gameData.treeStorePoints.TryGetValue(coord, out List<Vector3> points))
-        {
-            treePoints = points;
+            treePoints = treeInfo.positions;
+            treeTag = treeInfo.tag;
         }
     }
 
@@ -81,20 +77,16 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
 
     public void LoadData(GameData data)
     {
-        Debug.Log("This shouldnt load here");
+        //Ignore me loads a different way
     }
 
     public void SaveData(ref GameData data)
     {
-        if (data.treeStorePoints.ContainsKey(coord))
+        if (data.treeInfomation.ContainsKey(coord))
         {
-            data.treeStorePoints.Remove(coord);
+            Debug.Log(coord+":removing");
+            data.treeInfomation.Remove(coord);
         }
-        if(data.treeStoreTags.ContainsKey(coord))
-        {
-            data.treeStoreTags.Remove(coord);
-        }
-        data.treeStoreTags.Add(coord, treeTag);
-        data.treeStorePoints.Add(coord, treePoints);
+        data.treeInfomation.Add(coord, new treeInfomation(treeTag,treePoints,coord));
     }
 }
