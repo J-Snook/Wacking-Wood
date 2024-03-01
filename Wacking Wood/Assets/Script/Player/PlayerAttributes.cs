@@ -5,20 +5,21 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour, IDataPersistance
 {
     #region Variables
-    
-        private float currentStamina = 100f;
-        private float maxStamina = 100f;
-        private float minStamina = 0f;
-        private float refillTime = 3f;
-    
-        private float currentFuel = 100f;
-        private float maxFuel = 100f;
-        private float minFuel = 0f;
 
-        private float currentCash = 0f;
-        private float minCash = 0;
+    [SerializeField] private float staminaRegen;
+    private float currentStamina = 100f;
+    private float maxStamina = 100f;
+    private float minStamina = 0f;
+    private float refillTime = 3f;
+    
+    private float currentFuel = 100f;
+    private float maxFuel = 100f;
+    private float minFuel = 0f;
 
-        public PlayerUI uiElements;
+    private float currentCash = 0f;
+    private float minCash = 0;
+
+    public PlayerUI uiElements;
 
     #endregion
 
@@ -74,7 +75,7 @@ public class PlayerAttributes : MonoBehaviour, IDataPersistance
 
         if (refillTime <= 0)
         {
-            currentStamina += 15f*Time.deltaTime;
+            currentStamina += Time.deltaTime * (staminaRegen / DayNightCycle.instance.staminaRegenReduction);
         }
         
         uiElements.UpdateStaminaValue(currentStamina/maxStamina);

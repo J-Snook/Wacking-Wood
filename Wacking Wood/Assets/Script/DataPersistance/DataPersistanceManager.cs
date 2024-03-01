@@ -90,6 +90,7 @@ public class DataPersistanceManager : MonoBehaviour
         Debug.Log("Loaded Fuel = " + gameData.fuel);
         Debug.Log("Loaded Seed = " + gameData.seed);
         Debug.Log("Loaded player pos = " + gameData.playerPosition + " and rot = " + gameData.playerRotation);
+        Debug.Log("Loaded Camera rot = " + gameData.cameraRotation);
         Debug.Log("Loaded " + gameData.buildingStoredInfo.Count + " number of buildings");
         Debug.Log("Loaded " + gameData.treeInfomation.Count + " number of trees");
     }
@@ -107,6 +108,7 @@ public class DataPersistanceManager : MonoBehaviour
         Debug.Log("Saved Fuel = " + gameData.fuel);
         Debug.Log("Saved Seed = " + gameData.seed);
         Debug.Log("Saved player pos = " + gameData.playerPosition + " and rot = " + gameData.playerRotation);
+        Debug.Log("Saved Camera rot = " + gameData.cameraRotation);
         Debug.Log("Saved " + gameData.buildingStoredInfo.Count + " number of buildings");
         Debug.Log("Saved " + gameData.treeInfomation.Count + " number of trees");
 

@@ -68,10 +68,8 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
 
     public void RemovePoint(Vector3 point)
     {
-        Debug.Log("recv at rp");
         if(treePoints.Contains(point))
         {
-            Debug.Log("removing at rp");
             treePoints.Remove(point);
         }
     }

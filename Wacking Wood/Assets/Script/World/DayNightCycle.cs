@@ -8,7 +8,11 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
     [SerializeField] private float deltaTimeMultipler = 1f;
     [SerializeField] private Light globalLight;
     [SerializeField] private PlayerUI _playerUI;
+    [HideInInspector] public float staminaRegenReduction;
 
+    #region Singleton
+    public static DayNightCycle instance;
+    #endregion
 
     private int minutes;
     public int Minutes { get { return minutes; } set { minutes = value;OnMinuteChange(value); } }
@@ -21,6 +25,11 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
 
     private float tempSeconds;
     private Gradient[] gradients;
+
+    private void Awake()
+    {
+        instance= this;
+    }
 
     private void Start()
     {
@@ -66,9 +75,11 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
         {
             if(cycles[i].hourTime==Hours)
             {
-                StartCoroutine(LerpSkybox(cycles[(i - 1 < 0) ? cycles.Length-1 : i-1].tex, cycles[i].tex, 10f));
-                StartCoroutine(LerpLight(i, 10f));
-                StartCoroutine(LerpFogDensity(cycles[(i - 1 < 0) ? cycles.Length - 1 : i - 1].fogDensity, cycles[i].fogDensity,10f));
+                float transitionTime = Mathf.Abs(cycles[(i + 1 > cycles.Length) ? 0 : i+1].hourTime - cycles[i].hourTime)/4f;
+                StartCoroutine(LerpSkybox(cycles[(i - 1 < 0) ? cycles.Length-1 : i-1].tex, cycles[i].tex, transitionTime));
+                StartCoroutine(LerpLight(i, transitionTime));
+                StartCoroutine(LerpFogDensity(cycles[(i - 1 < 0) ? cycles.Length - 1 : i - 1].fogDensity, cycles[i].fogDensity, transitionTime));
+                staminaRegenReduction = cycles[i].reduceStamina;
             }
         }
     }
@@ -133,6 +144,7 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
         globalLight.color = cycles[index].color;
         RenderSettings.fogColor = cycles[index].color;
         RenderSettings.fogDensity = cycles[index].fogDensity;
+        staminaRegenReduction = cycles[index].reduceStamina;
     }
 
     public void SaveData(ref GameData data)
@@ -150,6 +162,7 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
         public float fogDensity;
         public Color color;
         public Texture2D tex;
+        public float reduceStamina;
     }
 }
 

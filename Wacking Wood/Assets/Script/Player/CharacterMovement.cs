@@ -22,6 +22,7 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
     [SerializeField] private float headBobAmplitude;
     [SerializeField] private float headBobFrequency;
     [SerializeField] private float returnSpeed;
+    [SerializeField] private float sprintStaminaReduction;
     private Vector2 cameraRotation=Vector2.zero;
     private PlayerAttributes playerAttributes;
 
@@ -50,14 +51,15 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
     {
         Vector3 playerPos = data.playerPosition + Vector3.up * 5f;
         transform.position = playerPos;
-        transform.rotation = Quaternion.Euler(data.playerRotation);
-        cameraHolderTransform.rotation = Quaternion.Euler(data.cameraRotation);
+        transform.localRotation = data.playerRotation;
+        cameraHolderTransform.localRotation = data.cameraRotation;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.playerRotation = transform.rotation.eulerAngles;
+        data.playerRotation = transform.localRotation;
         data.playerPosition = transform.position;
+        data.cameraRotation = cameraHolderTransform.localRotation;
     }
 
     void Movement()
@@ -83,7 +85,7 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
         if (Input.GetKey(KeyCode.LeftShift) && playerAttributes.Stamina > 0f)
         {
             playerVelocity *= sprintChange;
-            playerAttributes.Stamina -= 10f*Time.deltaTime;
+            playerAttributes.Stamina -= Time.deltaTime * sprintStaminaReduction;
         }
         playerVelocity *=  movementSpeed * Time.deltaTime;
         playerVelocity = characterTransform.TransformDirection(playerVelocity);
