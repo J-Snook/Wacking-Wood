@@ -29,10 +29,12 @@ public class ChainsawSwing : MonoBehaviour
 
     private void Swing()
     {
-        if (Input.GetMouseButtonDown(0) && readyToSwing && _player.Stamina > 1)
+        if (Input.GetMouseButtonDown(0) && readyToSwing && _player.Stamina > 1 && _player.Fuel > 1)
         {
             StartCoroutine(SwingAnimation());
-            _player.Stamina -= 20f; 
+            _player.Stamina -= 20f;
+            _player.Fuel -= 5f;
+            _player.RefillTime = 3.0f;
             readyToSwing = false;
             Invoke(nameof(SwingReload),swingCoolDown);
         }
@@ -40,9 +42,9 @@ public class ChainsawSwing : MonoBehaviour
 
     IEnumerator SwingAnimation()
     {
-        CS.GetComponent<Animator>().Play("ChainSwing");
+        CS.GetComponent<Animator>().Play("Swing");
         yield return new WaitForSeconds(1f);
-        CS.GetComponent<Animator>().Play("NewState");
+        CS.GetComponent<Animator>().Play("Idle");
     }
 
     private void SwingReload()
