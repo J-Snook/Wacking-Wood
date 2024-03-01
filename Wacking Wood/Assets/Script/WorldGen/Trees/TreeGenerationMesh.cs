@@ -94,7 +94,6 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
     {
         if (data.treeInfomation.ContainsKey(coord))
         {
-            Debug.Log(coord+":removing");
             data.treeInfomation.Remove(coord);
         }
         data.treeInfomation.Add(coord, new treeInfomation(treeTag,treePoints,coord));

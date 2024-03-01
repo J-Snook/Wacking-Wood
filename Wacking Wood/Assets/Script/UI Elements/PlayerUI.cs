@@ -20,8 +20,6 @@ public class PlayerUI : MonoBehaviour
         timeOfDay.text = $"{hour.ToString("D2")}:{minute.ToString("D2")}";
     }
     
-    
-    
     public void UpdateFuelValue(float fuelValue)
     {
         fuelBar.value = fuelValue;

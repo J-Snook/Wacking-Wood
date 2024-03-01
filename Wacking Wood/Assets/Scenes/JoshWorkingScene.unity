@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.54935646, g: 0.7941612, b: 0.9733915, a: 1}
+  m_IndirectSpecularColor: {r: 0.32696944, g: 0.28958488, b: 0.3222681, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -451,6 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0086ef15c408a4a4ea6dd08389c4bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  staminaRegen: 10
   uiElements: {fileID: 685149379}
 --- !u!4 &470673959 stripped
 Transform:
@@ -935,25 +936,30 @@ MonoBehaviour:
     fogDensity: 0.02
     color: {r: 0.0983001, g: 0.20131609, b: 0.4433962, a: 1}
     tex: {fileID: 2800000, guid: b9d5abddb3677664c9f8afdc7461c7f3, type: 3}
+    reduceStamina: 0
   - name: Sunrise
     hourTime: 6
     fogDensity: 0.005
     color: {r: 0.509434, g: 0.39447525, b: 0.016820943, a: 1}
     tex: {fileID: 2800000, guid: e48db779721d552468ddabbc3f13ac12, type: 3}
+    reduceStamina: 0
   - name: Day
     hourTime: 8
     fogDensity: 0.001
     color: {r: 0.9811321, g: 0.9245315, b: 0.745105, a: 1}
     tex: {fileID: 2800000, guid: 835f946a3d8dbbc459976d571182fb0b, type: 3}
+    reduceStamina: 0
   - name: Sunset
     hourTime: 18
     fogDensity: 0.01
     color: {r: 0.7735849, g: 0.46929148, b: 0.1715023, a: 1}
     tex: {fileID: 2800000, guid: a18c436d74bb23945a1439dd01d145e1, type: 3}
+    reduceStamina: 0
   numSecondsPerMinute: 1
   deltaTimeMultipler: 1
   globalLight: {fileID: 705507994}
   _playerUI: {fileID: 685149379}
+  staminaRegenReduction: 0
 --- !u!1 &859102884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,12 +1691,16 @@ MonoBehaviour:
   buildingInfo:
   - name: Sleeping Bag
     prefab: {fileID: 2833163625313149061, guid: 21d2a1944a946c846b060d774aaf09d9, type: 3}
-    weight: 10
+    weight: 1
     radius: 10
   - name: Store
     prefab: {fileID: 6830949276178957363, guid: 507a4e560c5641f41a063bb0bec28f44, type: 3}
-    weight: 90
+    weight: 2
     radius: 10
+  - name: Gas Can
+    prefab: {fileID: 5545916989818505206, guid: 417bf90d28165af40afe98b6e44d8362, type: 3}
+    weight: 100
+    radius: 20
   player: {fileID: 470673959}
   mapMat: {fileID: 2100000, guid: d76127c26052951439d3368daef188c9, type: 2}
 --- !u!1 &1461645707

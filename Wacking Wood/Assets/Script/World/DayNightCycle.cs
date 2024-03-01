@@ -137,7 +137,6 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
                 }
             }
         }
-        Debug.Log(index);
         RenderSettings.skybox.SetTexture("_Texture1", cycles[index].tex);
         RenderSettings.skybox.SetTexture("_Texture2", cycles[index].tex);
         RenderSettings.skybox.SetFloat("_Blend", 0);

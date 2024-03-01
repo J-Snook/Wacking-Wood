@@ -33,7 +33,6 @@ public class ChainsawSwing : MonoBehaviour
         {
             StartCoroutine(SwingAnimation());
             _player.Stamina -= 20f; 
-            _player.RefillTime = 3.0f;
             readyToSwing = false;
             Invoke(nameof(SwingReload),swingCoolDown);
         }

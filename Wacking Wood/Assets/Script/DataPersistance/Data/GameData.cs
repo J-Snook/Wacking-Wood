@@ -35,7 +35,7 @@ public class GameData
         days = 0;
         cashAmount = 0f;
         stamina=100f;
-        fuel=100f;
+        fuel=0f;
         seed = r.Next(1000000);
         buildingStoredInfo = new SerializableDictionary<Vector2, BuildingInfomation>();
         treeInfomation = new SerializableDictionary<Vector2, treeInfomation>();
