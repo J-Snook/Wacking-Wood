@@ -34,9 +34,9 @@ public class PlayerUI : MonoBehaviour
     
     public void UpdateCashAmount(float cashValue)
     {
-        string formattedCash = cashValue.ToString("C");
+       
         
-        cashAmount.text = $"{formattedCash}";
+        cashAmount.text = $"{cashValue:0.00}";
     }
 
     public bool SetInteractionPrompt(string text)

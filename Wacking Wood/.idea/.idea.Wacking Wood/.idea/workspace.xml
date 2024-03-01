@@ -11,7 +11,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Script/Axe Swing/AxeSwing.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/UI Elements/PlayerUI.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -107,6 +106,12 @@
       <workItem from="1708426206742" duration="1371000" />
       <workItem from="1708437048097" duration="126000" />
       <workItem from="1708437193516" duration="7000" />
+      <workItem from="1709031016260" duration="182000" />
+      <workItem from="1709031363605" duration="15000" />
+      <workItem from="1709031884957" duration="2438000" />
+      <workItem from="1709039606621" duration="1223000" />
+      <workItem from="1709169747138" duration="89000" />
+      <workItem from="1709310682724" duration="1763000" />
     </task>
     <servers />
   </component>
