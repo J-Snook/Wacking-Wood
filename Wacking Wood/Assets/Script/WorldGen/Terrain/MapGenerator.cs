@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+public class MapGenerator : MonoBehaviour, IDataPersistance
 {
     
     public enum DrawMode
@@ -38,8 +38,6 @@ public class MapGenerator : MonoBehaviour
     public bool autoUpdate;
 
     public TerrainTypes[] regions;
-
-    public TreeGenerationMesh treeGen;
 
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
@@ -150,6 +148,15 @@ public class MapGenerator : MonoBehaviour
 
     }
 
+    public void LoadData(GameData data)
+    {
+        seed = data.seed;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.seed = seed;
+    }
 
     struct MapThreadInfo<T>
     {

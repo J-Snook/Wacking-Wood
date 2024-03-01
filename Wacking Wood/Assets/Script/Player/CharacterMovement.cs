@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour, IDataPersistance
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform characterTransform;
@@ -36,12 +33,31 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        
-        
-            Movement();
-            Looking();
-        
-        
+        Movement();
+        Looking();
+        FellThroughWorldCheck();
+    }
+
+    private void FellThroughWorldCheck()
+    {
+        if (transform.position.y <= -100)
+        {
+            transform.position = new Vector3(transform.position.x,50f,transform.position.z);
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        Vector3 playerPos = data.playerPosition + Vector3.up * 5f;
+        transform.position = playerPos;
+        transform.rotation = Quaternion.Euler(data.playerRotation);
+        cameraHolderTransform.rotation = Quaternion.Euler(data.cameraRotation);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerRotation = transform.rotation.eulerAngles;
+        data.playerPosition = transform.position;
     }
 
     void Movement()

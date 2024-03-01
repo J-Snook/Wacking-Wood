@@ -110,12 +110,14 @@ public class EndlessTerrain : MonoBehaviour
             bounds = new Bounds(pos, Vector3.one * size);
             Vector3 posV3 = new Vector3(pos.x, 0, pos.y);
 
-            meshObj = new GameObject("TerrainChunk");
+            meshObj = new GameObject("TerrainChunk "+coord);
             meshRenderer = meshObj.AddComponent<MeshRenderer>();
             meshFilter = meshObj.AddComponent<MeshFilter>();
             meshCollider = meshObj.AddComponent<MeshCollider>();
             treeScript = meshObj.AddComponent<TreeGenerationMesh>();
+            treeScript.treeInit(coord);
             buildScript = meshObj.AddComponent<BuildingGeneration>();
+            buildScript.buildingInit(coord);
             buildScript.selectedBuildingIndex(buildingInfo);
             meshRenderer.sharedMaterial = mat;
             meshObj.transform.position = posV3;
@@ -140,8 +142,8 @@ public class EndlessTerrain : MonoBehaviour
             meshRenderer.material.mainTexture = texture;
             
             if(buildScript.hasBuilding)
-            {
-                buildScript.GenerateStructurePositions();
+            { 
+                buildScript.GenerateStructurePosition();
                 float[,] heightmap = NoiseSmoothing.smoothHeightMap(mapData.heightmap, buildScript.buildingLocalPos, buildScript.building.radius, 4f);
                 mapData = new MapData(heightmap, mapData.colorMap);
             }

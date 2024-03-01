@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttributes : MonoBehaviour
+public class PlayerAttributes : MonoBehaviour, IDataPersistance
 {
     #region Variables
     
@@ -15,7 +15,7 @@ public class PlayerAttributes : MonoBehaviour
         private float maxFuel = 100f;
         private float minFuel = 0f;
 
-        private float currentCash = 0;
+        private float currentCash = 0f;
         private float minCash = 0;
 
         public PlayerUI uiElements;
@@ -46,7 +46,7 @@ public class PlayerAttributes : MonoBehaviour
         set => currentFuel = value;
     }
         
-    public float Cash { get; private set; }
+    public float Cash { get { return currentCash; } private set { currentCash = value; } }
 
     #endregion
     
@@ -97,13 +97,30 @@ public class PlayerAttributes : MonoBehaviour
     
     public bool UpdateCash(float change)
     {
-        float newbal = currentCash + change;
+        float newbal = Cash + change;
         if (newbal >= minCash)
         {
-            currentCash = newbal;
+            Cash = newbal;
             uiElements.UpdateCashAmount(currentCash);
             return true;
         }
         return false;
+    }
+
+    public void LoadData(GameData data)
+    {
+        Cash = data.cashAmount;
+        Fuel = data.fuel;
+        Stamina = data.stamina;
+        uiElements.UpdateCashAmount(Cash);
+        uiElements.UpdateFuelValue(Fuel);
+        uiElements.UpdateStaminaValue(Stamina);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.cashAmount = Cash;
+        data.fuel = Fuel;
+        data.stamina = Stamina;
     }
 }

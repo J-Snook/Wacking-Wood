@@ -1,16 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class BuildingGeneration: MonoBehaviour
+public class BuildingGeneration: MonoBehaviour,IDataPersistance
 {
     public bool hasBuilding=false;
+    private int buildingIndex;
     public GameObject buildingGO;
     public BuildingInfo building;
     public Vector2Int buildingLocalPos;
+    private Vector2 coord;
+    private bool hasStoredInfo=false;
+
+    public void buildingInit(Vector2 coord)
+    {
+        this.coord = coord;
+    }
 
     public void selectedBuildingIndex(BuildingInfo[] buildingInfo)
     {
+        if(DataPersistanceManager.instance.gameData.buildingStoredInfo.TryGetValue(coord, out BuildingInfomation storedInfo))
+        {
+            buildingIndex = storedInfo.index;
+            building = buildingInfo[buildingIndex];
+            buildingLocalPos = storedInfo.localPos;
+            hasBuilding = true;
+            hasStoredInfo = true;
+            return;
+        }
         float randomWeight = Random.Range(0f, 100f);
         int index = -1;
         for(int i = 0; i < buildingInfo.Length; i++)
@@ -20,12 +38,14 @@ public class BuildingGeneration: MonoBehaviour
         if (index >= 0)
         {
             hasBuilding= true;
+            buildingIndex = index;
             building= buildingInfo[index];
         }
     }
 
-    public void GenerateStructurePositions()
+    public void GenerateStructurePosition()
     {
+        if(hasStoredInfo) { return; }
         if (hasBuilding)
         {
             float structureDiameter = building.radius * 4f;
@@ -47,6 +67,21 @@ public class BuildingGeneration: MonoBehaviour
                 buildingGO.name = building.name;
             }
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        //Ignore me loads a different way
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        if(!hasBuilding) { return; }
+        if(data.buildingStoredInfo.ContainsKey(coord))
+        {
+            data.buildingStoredInfo.Remove(coord);
+        }
+        data.buildingStoredInfo.Add(coord,new BuildingInfomation(buildingIndex,buildingLocalPos));
     }
 }
 

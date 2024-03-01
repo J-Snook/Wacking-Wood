@@ -86,19 +86,13 @@ public class MainMenu_Controller : MonoBehaviour
     // Levels Classes
     public void NewGameYes()
     {
-        SceneManager.LoadScene(_newGameLevel); 
+        DataPersistanceManager.instance.NewGame();
+        SceneManager.LoadSceneAsync("JoshWorkingScene");
+        //SceneManager.LoadScene(_newGameLevel); 
     }
     public void LoadGameYes()
     {
-        if (PlayerPrefs.HasKey("SavedLevel"))
-        {
-            levelToLoad = PlayerPrefs.GetString("SavedLevel");
-            SceneManager.LoadScene(levelToLoad);
-        }
-        else
-        {
-            noSavedGame.SetActive(true);
-        }
+        SceneManager.LoadSceneAsync("JoshWorkingScene");
     }
     public void ExitButton()
     {

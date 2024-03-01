@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
@@ -20,6 +21,7 @@ public class PlayerUI : MonoBehaviour
     }
     
     
+    
     public void UpdateFuelValue(float fuelValue)
     {
         fuelBar.value = fuelValue;
@@ -34,9 +36,11 @@ public class PlayerUI : MonoBehaviour
     
     public void UpdateCashAmount(float cashValue)
     {
-        string formattedCash = cashValue.ToString("C");
+        cashAmount.text = cashValue.ToString("C");
         
-        cashAmount.text = $"{formattedCash}";
+
+        //string formattedCash = cashValue.ToString("C");
+        //cashAmount.text = $"{formattedCash}";
     }
 
     public bool SetInteractionPrompt(string text)

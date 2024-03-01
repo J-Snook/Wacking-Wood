@@ -19,6 +19,7 @@ public class TreeHit : MonoBehaviour, IHitSystem
     private AxeSwing axeSwing;
     private bool _treeTimeOutActive = false;
     private bool _isHit = false;
+    public Vector3 initPoint;
     // Start is called before the first frame update
     public void ResetTree()
     {
@@ -36,6 +37,10 @@ public class TreeHit : MonoBehaviour, IHitSystem
     {
         Vector3 force = new Vector3(transform.position.x,_currentTarget.position.y, transform.position.z);
         force = (force - _currentTarget.transform.position).normalized;
+        if(transform.parent.parent.TryGetComponent(out TreeGenerationMesh tgm) && initPoint!=Vector3.zero)
+        {
+            tgm.RemovePoint(initPoint);
+        }
         Rigidbody rb = transform.parent.gameObject.AddComponent<Rigidbody>();
         rb.AddForceAtPosition(-force, _currentTarget.position);
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
