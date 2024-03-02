@@ -19,14 +19,14 @@ public class InteractionSystem : MonoBehaviour
     [SerializeField] private float _distanceFromCamera = 1f;
     [SerializeField] private Transform _camera;
     [SerializeField] private PlayerUI _scriptPlayerUI;
+    [SerializeField] private AxeSwing axeSwing;
+    [SerializeField] private ChainsawSwing chainsawSwing;
     private bool _canSeePrompt;
-    private AxeSwing axeSwing;
     private PlayerHeldItem playerHeldItemScript;
 
     private void Start()
     {
-        axeSwing = FindAnyObjectByType<AxeSwing>();
-        playerHeldItemScript = FindAnyObjectByType<PlayerHeldItem>();
+        playerHeldItemScript = PlayerHeldItem.Instance;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -44,6 +44,10 @@ public class InteractionSystem : MonoBehaviour
             if(playerHeldItemScript.HeldItem == axeSwing.axe)
             {
                 axeSwing.Swing();
+            }
+            if (playerHeldItemScript.HeldItem == chainsawSwing.CS)
+            {
+                chainsawSwing.Swing();
             }
             if(Physics.Raycast(r, out RaycastHit hit, _hitRange))
             {

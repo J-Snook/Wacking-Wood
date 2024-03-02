@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
-public class AxeSwing : MonoBehaviour
+public class ChainsawSwing : MonoBehaviour
 {
-
-    public GameObject axe;
-
-    [SerializeField] private float swingCoolDown=0.5f;
-    [SerializeField] private float swingStaminaCost = 10f;
+    [SerializeField] private float swingCoolDown = 0.5f;
+    [SerializeField] private float swingFuelCost = 15f;
+    public GameObject CS;
     private bool readyToSwing;
-    private bool isSwinging=false;
+    private bool isUsing = false;
     public bool CanSwing { get { return readyToSwing; } }
+
     private PlayerAttributes _player;
     
     private void Start()
@@ -22,25 +22,24 @@ public class AxeSwing : MonoBehaviour
     public void Swing()
     {
         CanSwingCheck();
-        if (readyToSwing)
+        if(readyToSwing)
         {
             StartCoroutine(SwingAnimation());
-            _player.Stamina -= swingStaminaCost;
+            _player.Fuel -= swingFuelCost;
         }
     }
-
     private void CanSwingCheck()
     {
-        readyToSwing = (_player.Stamina >= swingStaminaCost) && !isSwinging;
+        readyToSwing = (_player.Fuel >= swingFuelCost) && !isUsing;
     }
 
     IEnumerator SwingAnimation()
     {
-        isSwinging = true;
-        axe.GetComponent<Animator>().Play("AxeSwing");
+        isUsing = true;
+        CS.GetComponent<Animator>().Play("Swing");
         yield return new WaitForSeconds(1f);
-        axe.GetComponent<Animator>().Play("NewState");
+        CS.GetComponent<Animator>().Play("Idle");
         yield return new WaitForSeconds(swingCoolDown);
-        isSwinging = false;
+        isUsing = false;
     }
 }

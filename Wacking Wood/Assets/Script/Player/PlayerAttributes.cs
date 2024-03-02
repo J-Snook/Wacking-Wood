@@ -80,7 +80,7 @@ public class PlayerAttributes : MonoBehaviour, IDataPersistance
     private void UpdateStamina()
     {
         refillTime -= Time.deltaTime;
-        if(refillTime <= 0)
+        if(refillTime <= 0 && currentStamina < MaxStamina)
         {
             currentStamina += Time.deltaTime * (staminaRegen / DayNightCycle.instance.staminaRegenReduction);
             uiElements.UpdateStaminaValue(currentStamina / MaxStamina);

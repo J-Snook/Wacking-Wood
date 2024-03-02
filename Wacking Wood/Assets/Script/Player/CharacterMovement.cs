@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour, IDataPersistance
@@ -25,15 +26,30 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
     [SerializeField] private float sprintStaminaReduction;
     private Vector2 cameraRotation=Vector2.zero;
     private PlayerAttributes playerAttributes;
+    private bool hadSpawnDelay=false;
 
     void Start()
     {
         cameraStartLocalPosition = cameraTransform.localPosition;
-        playerAttributes = FindObjectOfType<PlayerAttributes>();
+        playerAttributes = PlayerAttributes.instance;
+        StartCoroutine(SpawnDelay());
+    }
+
+    IEnumerator SpawnDelay()
+    {
+        while (!hadSpawnDelay)
+        {
+            if (Physics.Raycast(jumpDetectTransform.position, Vector3.down))
+            {
+                hadSpawnDelay = true;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     void Update()
     {
+        if(!hadSpawnDelay) { return; }
         Movement();
         Looking();
         FellThroughWorldCheck();
@@ -49,8 +65,7 @@ public class CharacterMovement : MonoBehaviour, IDataPersistance
 
     public void LoadData(GameData data)
     {
-        Vector3 playerPos = data.playerPosition + Vector3.up * 5f;
-        transform.position = playerPos;
+        transform.position = data.playerPosition;
         transform.localRotation = data.playerRotation;
         cameraHolderTransform.localRotation = data.cameraRotation;
     }

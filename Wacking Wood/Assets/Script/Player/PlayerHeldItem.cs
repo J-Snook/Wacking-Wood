@@ -12,11 +12,9 @@ public class PlayerHeldItem : MonoBehaviour
     #endregion
 
     [SerializeField] private Transform _camera;
-    [SerializeField] private GameObject _axe;
-    [SerializeField] private GameObject _chainsaw;
     [SerializeField] private GameObject _fuelBar;
-    [SerializeField] private ChainsawSwing css;
-    [SerializeField] private AxeSwing axs;
+    [SerializeField] private ChainsawSwing chainsawScript;
+    [SerializeField] private AxeSwing axeScript;
     [SerializeField] private GameObject EB1;
     [SerializeField] private GameObject EB2;
     
@@ -33,8 +31,6 @@ public class PlayerHeldItem : MonoBehaviour
     
     public void Start()
     {
-        css.enabled = false;
-        axs.enabled = false;
     }
 
     public bool holdItem(GameObject item, bool itemDroppable=true, bool itemPlaceable=true)
@@ -93,20 +89,18 @@ public class PlayerHeldItem : MonoBehaviour
         { 
             if (heldItem != null)
             {
-                if (heldItem == _axe)
+                if (heldItem == axeScript.axe)
                 {
-                    _axe.SetActive(false);
-                    axs.enabled = false;
+                    axeScript.axe.SetActive(false);
                     EB1.SetActive(false);
                     heldItem = null;
                     isHoldingItem = false;
                 }
             } else
             {
-                _axe.SetActive(true);
-                axs.enabled = true;
+                axeScript.axe.SetActive(true);
                 EB1.SetActive(true);
-                holdItem(_axe, false,false);
+                holdItem(axeScript.axe, false,false);
             }
         }
         
@@ -114,23 +108,22 @@ public class PlayerHeldItem : MonoBehaviour
         { 
             if (heldItem != null)
             {
-                if (heldItem == _chainsaw)
+                if (heldItem == chainsawScript.CS)
                 {
-                    _chainsaw.SetActive(false);
+                    chainsawScript.CS.SetActive(false);
                     _fuelBar.SetActive(false);
                     EB2.SetActive(false);
-                    css.enabled = false;
                     
                     heldItem = null;
                     isHoldingItem = false;
                 }
             } else
             {
-                _chainsaw.SetActive(true);
+                chainsawScript.CS.SetActive(true);
                 _fuelBar.SetActive(true);
+                PlayerAttributes.instance.Fuel = PlayerAttributes.instance.Fuel;
                 EB2.SetActive(true);
-                css.enabled = true;
-                holdItem(_chainsaw, false,false);
+                holdItem(chainsawScript.CS, false,false);
             }
         }
     }

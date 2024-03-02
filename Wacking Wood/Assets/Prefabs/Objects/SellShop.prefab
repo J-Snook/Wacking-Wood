@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5903031273721811166}
   m_Layer: 0
-  m_Name: Shop
+  m_Name: SellShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

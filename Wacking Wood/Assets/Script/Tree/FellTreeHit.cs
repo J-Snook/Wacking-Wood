@@ -33,7 +33,7 @@ public class FellTreeHit : MonoBehaviour
         {
             GameObject log = Instantiate(_itemLogPrefab, transform.position, transform.rotation);
             log.transform.localScale = new Vector3(_radius, 1f, _radius);
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 
