@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FuelPurchase : MonoBehaviour,IInteractSystem
 {
+    [SerializeField] private ShelfRestock shelf;
     [SerializeField] private float addFuelAmount;
     [SerializeField] private float fuelCost;
     private PlayerAttributes _player;
@@ -32,6 +33,10 @@ public class FuelPurchase : MonoBehaviour,IInteractSystem
             if (_player.UpdateCash(-fuelCost))
             {
                 _player.Fuel += addFuelAmount;
+                if(shelf!= null )
+                {
+                    StartCoroutine(shelf.restock(gameObject));
+                }
             }
         }
     }

@@ -75,7 +75,7 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
         {
             if(cycles[i].hourTime==Hours)
             {
-                float transitionTime = Mathf.Abs(cycles[(i + 1 > cycles.Length) ? 0 : i+1].hourTime - cycles[i].hourTime)/4f;
+                float transitionTime = (Mathf.Abs(cycles[(i + 1 > cycles.Length) ? 0 : i+1].hourTime - cycles[i].hourTime)/4f)*60f;
                 StartCoroutine(LerpSkybox(cycles[(i - 1 < 0) ? cycles.Length-1 : i-1].tex, cycles[i].tex, transitionTime));
                 StartCoroutine(LerpLight(i, transitionTime));
                 StartCoroutine(LerpFogDensity(cycles[(i - 1 < 0) ? cycles.Length - 1 : i - 1].fogDensity, cycles[i].fogDensity, transitionTime));

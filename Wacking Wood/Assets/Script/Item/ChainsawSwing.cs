@@ -6,7 +6,7 @@ using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 public class ChainsawSwing : MonoBehaviour
 {
     [SerializeField] private float swingCoolDown = 0.5f;
-    [SerializeField] private float swingFuelCost = 15f;
+    [SerializeField] private float swingFuelCost = 5f;
     public GameObject CS;
     private bool readyToSwing;
     private bool isUsing = false;

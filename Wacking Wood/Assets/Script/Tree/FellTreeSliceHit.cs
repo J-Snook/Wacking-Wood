@@ -9,7 +9,7 @@ public class FellTreeSliceHit : MonoBehaviour, IHitSystem
     {
         if (transform.parent.TryGetComponent(out FellTreeHit trunkScript))
         {
-            trunkScript.SliceHit();
+            trunkScript.SliceHit(player,heldItem);
         }
     }
 }

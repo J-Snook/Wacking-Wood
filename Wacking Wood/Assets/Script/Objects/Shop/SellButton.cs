@@ -28,7 +28,7 @@ public class SellButton : MonoBehaviour, IInteractSystem
             for(int i = _logStorage.storedLogs.Count-1; i>=0; i--)
             {
                 Destroy(_logStorage.storedLogs[i].gameObject);
-                playerAttributes.UpdateCash(10f);
+                playerAttributes.UpdateCash(sellPrice);
                 _logStorage.storedLogs.RemoveAt(i);
             }
         }

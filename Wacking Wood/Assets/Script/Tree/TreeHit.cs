@@ -17,10 +17,16 @@ public class TreeHit : MonoBehaviour, IHitSystem
     private int _treeHealth;
     private Transform _currentTarget;
     private AxeSwing axeSwing;
+    private ChainsawSwing csSwing;
     private bool _treeTimeOutActive = false;
     private bool _isHit = false;
     public Vector3 initPoint;
-    // Start is called before the first frame update
+
+    private void Start()
+    {
+        
+    }
+
     public void ResetTree()
     {
         StopAllCoroutines();
@@ -35,14 +41,11 @@ public class TreeHit : MonoBehaviour, IHitSystem
 
     private void FallTree()
     {
-        Vector3 force = new Vector3(transform.position.x,_currentTarget.position.y, transform.position.z);
-        force = (force - _currentTarget.transform.position).normalized;
         if(transform.parent.parent.TryGetComponent(out TreeGenerationMesh tgm) && initPoint!=Vector3.zero)
         {
             tgm.RemovePoint(initPoint);
         }
         Rigidbody rb = transform.parent.gameObject.AddComponent<Rigidbody>();
-        rb.AddForceAtPosition(-force, _currentTarget.position);
         FellTreeHit ftH = gameObject.AddComponent<FellTreeHit>();
         ftH.Setup(_sliceTargetPrefab, _itemLogPrefab);
         string treeTag = transform.parent.name.Split(':')[0];
@@ -55,10 +58,24 @@ public class TreeHit : MonoBehaviour, IHitSystem
 
     public void Hit(InteractionSystem player, RaycastHit target, GameObject heldItem)
     {
-        axeSwing = player.transform.GetComponentInChildren<AxeSwing>();
-        if(heldItem == axeSwing.axe && axeSwing.CanSwing && !_isHit)
+        if(axeSwing == null)
         {
-            StartCoroutine(AxeHitSwingDelayed(player,target, _hitTimeDelay));
+            axeSwing = player.transform.GetComponent<AxeSwing>();
+        }
+        if (csSwing== null)
+        {
+            csSwing = player.transform.GetComponent<ChainsawSwing>();
+        }
+        if(!_isHit)
+        {
+            if(heldItem == axeSwing.axe && axeSwing.CanSwing)
+            {
+                StartCoroutine(AxeHitSwingDelayed(player, target, _hitTimeDelay));
+            }
+            else if(heldItem == csSwing.CS && csSwing.CanSwing)
+            {
+                StartCoroutine(ChainsawSwing());
+            }
         }
     }
 
@@ -93,6 +110,20 @@ public class TreeHit : MonoBehaviour, IHitSystem
             i++;
         }
         Destroy(_currentTarget.gameObject);
+    }
+
+    IEnumerator ChainsawSwing(float delay=0.5f)
+    {
+        _isHit = true;
+        yield return new WaitForSeconds(delay);
+        if(_currentTarget != null)
+        {
+            Destroy(_currentTarget.gameObject);
+        }
+        FallTree();
+        StopAllCoroutines();
+        _treeTimeOutActive = false;
+        _isHit= false;
     }
 
     IEnumerator AxeHitSwingDelayed(InteractionSystem player, RaycastHit target,float delay=0.5f)

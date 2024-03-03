@@ -8,7 +8,7 @@ public class AxeSwing : MonoBehaviour
     public GameObject axe;
 
     [SerializeField] private float swingCoolDown=0.5f;
-    [SerializeField] private float swingStaminaCost = 10f;
+    [SerializeField] private float swingStaminaCost = 5f;
     private bool readyToSwing;
     private bool isSwinging=false;
     public bool CanSwing { get { return readyToSwing; } }
