@@ -23,8 +23,10 @@ public class MoveStorage : MonoBehaviour,IInteractSystem
     {
         if (!playerHeldScript.isHoldingItem)
         {
-            playerHeldScript.holdItem(transform.parent.gameObject, true);
-            transform.parent.localPosition = Vector3.back;
+            playerHeldScript.holdItem(transform.parent.parent.gameObject, true);
+            transform.parent.parent.parent = player.transform;
+            transform.parent.parent.localPosition = new Vector3(-1.45f, -0.9f, -6.6f);
+            transform.parent.parent.rotation = player.transform.rotation;
         }
     }
 
@@ -32,11 +34,5 @@ public class MoveStorage : MonoBehaviour,IInteractSystem
     void Start()
     {
         playerHeldScript = PlayerHeldItem.Instance;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

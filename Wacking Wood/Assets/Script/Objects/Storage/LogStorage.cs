@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class LogStorage : MonoBehaviour, IInteractSystem
 {
-    [SerializeField] private int _maxLogs=3;
+    [SerializeField] private List<LogStoragePositions> logPositions;
     public List<LogPickup> storedLogs = new List<LogPickup>();
     private PlayerHeldItem playerHeldScript;
     public string text
     {
         get 
         {
-            if(playerHeldScript.isHoldingItem && storedLogs.Count >=_maxLogs)
+            if(playerHeldScript.isHoldingItem && storedLogs.Count >= logPositions.Count)
             {
                 return "Storage Full";
             }
@@ -44,18 +44,20 @@ public class LogStorage : MonoBehaviour, IInteractSystem
     {
         if (playerHeldScript.isHoldingItem)
         {
-            if (storedLogs.Count < _maxLogs)
+            if (storedLogs.Count < logPositions.Count)
             {
                 GameObject heldItem = playerHeldScript.HeldItem;
-                if (heldItem.TryGetComponent(out LogPickup logPickup) && storedLogs.Count < _maxLogs)
+                if (heldItem.TryGetComponent(out LogPickup logPickup))
                 {
                     if (playerHeldScript.PlaceItem())
                     {
-                        heldItem.transform.parent = transform;
-                        heldItem.transform.localPosition = Vector3.up * storedLogs.Count;
-                        heldItem.transform.rotation = transform.rotation;
                         logPickup.logStorage = this;
                         storedLogs.Add(logPickup);
+                        int index = storedLogs.Count-1;
+                        heldItem.transform.parent = transform;
+                        heldItem.transform.localPosition = logPositions[index].pos; 
+                        heldItem.transform.localRotation = Quaternion.Euler(logPositions[index].rot);
+                        //heldItem.transform.localScale = new Vector3(0.00589783303f, 0.111021027f, 0.00270915194f);
                     }
                 }
             }
@@ -68,4 +70,11 @@ public class LogStorage : MonoBehaviour, IInteractSystem
             topLog.Interact(player);
         }
     }
+}
+
+[System.Serializable]
+public class LogStoragePositions
+{
+    public Vector3 pos;
+    public Vector3 rot;
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.32696944, g: 0.28958488, b: 0.3222681, a: 1}
+  m_IndirectSpecularColor: {r: 0.54935646, g: 0.7941612, b: 0.9733915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714553392656433498, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 51.47
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8714553392656433498, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2645,7 +2645,11 @@ MonoBehaviour:
     weight: 2
     radius: 10
   - name: Camp
-    prefab: {fileID: 9150456957865727120, guid: 8409837646425534d85588adf28d272a, type: 3}
+    prefab: {fileID: 9150456957865727120, guid: 5c7a104de8e30b14793de38e8a2efd5c, type: 3}
+    weight: 3
+    radius: 10
+  - name: Cart
+    prefab: {fileID: 4844437552157254760, guid: eb29798e1ff3b8e498fcc1ac101bc64a, type: 3}
     weight: 100
     radius: 10
   player: {fileID: 470673959}
