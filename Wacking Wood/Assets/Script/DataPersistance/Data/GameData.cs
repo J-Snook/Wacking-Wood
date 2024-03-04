@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,6 +15,7 @@ public class GameData
     public Vector3 playerPosition;
     public Quaternion playerRotation;
     public Quaternion cameraRotation;
+    public SerializableDictionary<Vector2, RemovedTrees> treeCutdown;
 
     public GameData()
     {
@@ -29,5 +31,17 @@ public class GameData
         stamina=100f;
         fuel=0f;
         seed = r.Next(999999999)* r.Next(999999999);
+        treeCutdown = new SerializableDictionary<Vector2, RemovedTrees>();
+    }
+}
+
+[System.Serializable]
+public class RemovedTrees
+{
+    public List<Vector3> points;
+
+    public RemovedTrees(List<Vector3> treeCutdownPoints)
+    {
+        this.points = treeCutdownPoints;
     }
 }
