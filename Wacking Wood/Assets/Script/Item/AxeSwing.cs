@@ -13,6 +13,10 @@ public class AxeSwing : MonoBehaviour
     private bool isSwinging=false;
     public bool CanSwing { get { return readyToSwing; } }
     private PlayerAttributes _player;
+
+    
+    
+    
     
     private void Start()
     {

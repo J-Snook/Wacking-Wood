@@ -31,6 +31,7 @@ public class PlayerHeldItem : MonoBehaviour
     
     public void Start()
     {
+        
     }
 
     public bool holdItem(GameObject item, bool itemDroppable=true, bool itemPlaceable=true)
@@ -85,7 +86,7 @@ public class PlayerHeldItem : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        if (Input.GetKeyDown(KeyCode.Alpha1) && chainsawScript.CanSwing) 
         { 
             if (heldItem != null)
             {
@@ -104,7 +105,7 @@ public class PlayerHeldItem : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Alpha2)) 
+        if (Input.GetKeyDown(KeyCode.Alpha2) && axeScript.CanSwing) 
         { 
             if (heldItem != null)
             {
