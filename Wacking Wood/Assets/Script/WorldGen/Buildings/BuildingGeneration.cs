@@ -1,35 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class BuildingGeneration: MonoBehaviour,IDataPersistance
+public class BuildingGeneration: MonoBehaviour
 {
     public bool hasBuilding=false;
-    private int buildingIndex;
     public GameObject buildingGO;
     public BuildingInfo building;
     public Vector2Int buildingLocalPos;
-    private Vector2 coord;
-    private bool hasStoredInfo=false;
+    private System.Random prng;
 
     public void buildingInit(Vector2 coord)
     {
-        this.coord = coord;
+        int seed = DataPersistanceManager.instance.gameData.seed;
+        int x = (int)coord.x;
+        int y = (int)coord.y;
+        x = (x >= 0) ? 2 * x : -2 * (x - 1);
+        y = (y >= 0) ? 2 * y : -2 * (y - 1);
+        int a = (x >= y) ? (x * x) + x + y : x + (y * y);
+        seed = seed * Mathf.RoundToInt(a);
+        prng = new System.Random(seed);
     }
 
     public void selectedBuildingIndex(BuildingInfo[] buildingInfo)
     {
-        if(DataPersistanceManager.instance.gameData.buildingStoredInfo.TryGetValue(coord, out BuildingInfomation storedInfo))
-        {
-            buildingIndex = storedInfo.index;
-            building = buildingInfo[buildingIndex];
-            buildingLocalPos = storedInfo.localPos;
-            hasBuilding = true;
-            hasStoredInfo = true;
-            return;
-        }
-        float randomWeight = Random.Range(0f, 100f);
+        float randomWeight = (float)prng.NextDouble()*100f;
         int index = -1;
         for(int i = 0; i < buildingInfo.Length; i++)
         {
@@ -38,20 +31,18 @@ public class BuildingGeneration: MonoBehaviour,IDataPersistance
         if (index >= 0)
         {
             hasBuilding= true;
-            buildingIndex = index;
             building= buildingInfo[index];
         }
     }
 
     public void GenerateStructurePosition()
     {
-        if(hasStoredInfo) { return; }
         if (hasBuilding)
         {
             float structureDiameter = building.radius * 4f;
             int lowerBound = Mathf.CeilToInt(structureDiameter);
             int upperBound = Mathf.FloorToInt(240f - structureDiameter);
-            buildingLocalPos = new Vector2Int(Random.Range(lowerBound, upperBound), Random.Range(lowerBound, upperBound));
+            buildingLocalPos = new Vector2Int(prng.Next(lowerBound, upperBound), prng.Next(lowerBound, upperBound));
         }
     }
 
@@ -67,21 +58,6 @@ public class BuildingGeneration: MonoBehaviour,IDataPersistance
                 buildingGO.name = building.name;
             }
         }
-    }
-
-    public void LoadData(GameData data)
-    {
-        //Ignore me loads a different way
-    }
-
-    public void SaveData(ref GameData data)
-    {
-        if(!hasBuilding) { return; }
-        if(data.buildingStoredInfo.ContainsKey(coord))
-        {
-            data.buildingStoredInfo.Remove(coord);
-        }
-        data.buildingStoredInfo.Add(coord,new BuildingInfomation(buildingIndex,buildingLocalPos));
     }
 }
 

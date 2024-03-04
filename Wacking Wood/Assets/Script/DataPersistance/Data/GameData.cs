@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class GameData
@@ -20,8 +14,6 @@ public class GameData
     public Vector3 playerPosition;
     public Quaternion playerRotation;
     public Quaternion cameraRotation;
-    public SerializableDictionary<Vector2, BuildingInfomation> buildingStoredInfo;
-    public SerializableDictionary<Vector2, treeInfomation> treeInfomation;
 
     public GameData()
     {
@@ -36,36 +28,6 @@ public class GameData
         cashAmount = 0f;
         stamina=100f;
         fuel=0f;
-        seed = r.Next(1000000);
-        buildingStoredInfo = new SerializableDictionary<Vector2, BuildingInfomation>();
-        treeInfomation = new SerializableDictionary<Vector2, treeInfomation>();
-    }
-}
-
-[System.Serializable]
-public class treeInfomation
-{
-    public Vector2 coord;
-    public string tag;
-    public List<Vector3> positions;
-
-    public treeInfomation(string tag, List<Vector3> positions, Vector2 coord)
-    {
-        this.tag = tag;
-        this.positions = positions;
-        this.coord = coord;
-    }
-}
-
-[System.Serializable]
-public class BuildingInfomation
-{
-    public int index;
-    public Vector2Int localPos;
-
-    public BuildingInfomation(int index, Vector2Int localPos)
-    {
-        this.index = index;
-        this.localPos = localPos;
+        seed = r.Next(999999999)* r.Next(999999999);
     }
 }

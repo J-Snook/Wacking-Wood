@@ -1,12 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class PointGeneration
 {
 
-    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
+    public static List<Vector2> GeneratePoints(int seed,float radius, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
     {
+        System.Random prng = new System.Random(seed);
         float cellSize = radius / Mathf.Sqrt(2);
 
         int[,] grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize), Mathf.CeilToInt(sampleRegionSize.y / cellSize)];
@@ -16,15 +16,16 @@ public static class PointGeneration
         spawnPoints.Add(sampleRegionSize/2);
         while(spawnPoints.Count > 0)
         {
-            int spawnIndex = Random.Range(0, spawnPoints.Count);
+            int spawnIndex = prng.Next(0, spawnPoints.Count);
             Vector2 spawnCentre = spawnPoints[spawnIndex];
             bool candidateAccepted = false;
 
             for(int i = 0; i < numSamplesBeforeRejection; i++)
             {
-                float angle = Random.value * Mathf.PI * 2;
+                float angle = (float)prng.NextDouble() * Mathf.PI * 2;
                 Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-                Vector2 candidate = spawnCentre + dir * Random.Range(radius, 2 * radius);
+                float dist = ((float)prng.NextDouble() * radius) + radius;
+                Vector2 candidate = spawnCentre + dir * dist;
                 if(IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid))
                 {
                     points.Add(candidate);

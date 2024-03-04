@@ -12,7 +12,7 @@ public class DisplayPointGen : MonoBehaviour
 
     private void OnValidate()
     {
-        points = PointGeneration.GeneratePoints(radius,area,numBeforeRejection);
+        points = PointGeneration.GeneratePoints(Random.Range(0, 1000000) * Random.Range(0, 1000000), radius, area, numBeforeRejection);
     }
 
     private void OnDrawGizmos()

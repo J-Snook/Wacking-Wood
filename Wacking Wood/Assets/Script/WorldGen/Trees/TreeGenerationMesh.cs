@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
+public class TreeGenerationMesh : MonoBehaviour
 {
     private List<Vector3> treePoints;
     private List<GameObject> treeObjects = new List<GameObject>();
     private ObjectPooler _pooler;
     private string treeTag;
-    private Vector2 coord;
+    private int seed;
+    private System.Random prng;
 
     private void Awake()
     {
@@ -18,12 +19,14 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
 
     public void treeInit(Vector2 coord)
     {
-        this.coord = coord;
-        if(DataPersistanceManager.instance.gameData.treeInfomation.TryGetValue(coord, out treeInfomation treeInfo))
-        {
-            treePoints = treeInfo.positions;
-            treeTag = treeInfo.tag;
-        }
+        seed = DataPersistanceManager.instance.gameData.seed;
+        int x = (int)coord.x;
+        int y = (int)coord.y;
+        x = (x >= 0) ? 2 * x : -2 * (x - 1);
+        y = (y >= 0) ? 2 * y : -2 * (y - 1);
+        int a = (x >= y) ? (x * x) + x + y : x + (y * y); // Generates a Roughly unique number based on x and y except for when x||y ==0
+        seed = seed * Mathf.RoundToInt(a);
+        prng = new System.Random(seed);
     }
 
     public void TreeGen(MeshRenderer meshRenderer, BuildingGeneration buildingScript,float density=7f,int rejectionSamples=2)
@@ -32,10 +35,10 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
         if (treePoints == null )
         {
             treePoints = new List<Vector3>();
-            treeTag = "tree" + Random.Range(1, 4).ToString();
+            treeTag = "tree" + prng.Next(1, 4).ToString();
             Bounds _meshBounds = meshRenderer.bounds;
             Vector2 regionSize = new Vector2(_meshBounds.size.x, _meshBounds.size.z);
-            List<Vector2> points = PointGeneration.GeneratePoints(density, regionSize, rejectionSamples);
+            List<Vector2> points = PointGeneration.GeneratePoints(seed,density, regionSize, rejectionSamples);
             Vector2 _structPos = new Vector2(buildingScript.buildingLocalPos.x, 240f - buildingScript.buildingLocalPos.y);
             float sqrbuildRadius = buildingScript.building.radius * buildingScript.building.radius;
             foreach(Vector2 point in points)
@@ -83,19 +86,5 @@ public class TreeGenerationMesh : MonoBehaviour,IDataPersistance
             treeObjects[i].transform.parent = _pooler.transform.Find(treeTag);
         }
         treeObjects.Clear();
-    }
-
-    public void LoadData(GameData data)
-    {
-        //Ignore me loads a different way
-    }
-
-    public void SaveData(ref GameData data)
-    {
-        if (data.treeInfomation.ContainsKey(coord))
-        {
-            data.treeInfomation.Remove(coord);
-        }
-        data.treeInfomation.Add(coord, new treeInfomation(treeTag,treePoints,coord));
     }
 }
