@@ -11,7 +11,7 @@ public class ChainsawSwing : MonoBehaviour
     private bool readyToSwing;
     private bool isUsing = false;
     public bool CanSwing { get { return readyToSwing; } }
-
+    public bool IsUsing { get { return isUsing; } }
     private PlayerAttributes _player;
     
     private void Start()

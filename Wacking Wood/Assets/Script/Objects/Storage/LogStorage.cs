@@ -33,6 +33,7 @@ public class LogStorage : MonoBehaviour, IInteractSystem
     public string promptText => text;
     private void Start()
     {
+        Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), PlayerAttributes.instance.gameObject.GetComponent<Collider>(), true);
         playerHeldScript = FindObjectOfType<PlayerHeldItem>();
         if (playerHeldScript == null)
         {
@@ -51,13 +52,13 @@ public class LogStorage : MonoBehaviour, IInteractSystem
                 {
                     if (playerHeldScript.PlaceItem())
                     {
-                        logPickup.logStorage = this;
-                        storedLogs.Add(logPickup);
-                        int index = storedLogs.Count-1;
+                        int index = storedLogs.Count;
                         heldItem.transform.parent = transform;
                         heldItem.transform.localPosition = logPositions[index].pos; 
                         heldItem.transform.localRotation = Quaternion.Euler(logPositions[index].rot);
-                        //heldItem.transform.localScale = new Vector3(0.00589783303f, 0.111021027f, 0.00270915194f);
+                        //heldItem.transform.localScale = Vector3.one;//new Vector3(0.00589783303f, 0.111021027f, 0.00270915194f);
+                        logPickup.logStorage = this;
+                        storedLogs.Add(logPickup);
                     }
                 }
             }

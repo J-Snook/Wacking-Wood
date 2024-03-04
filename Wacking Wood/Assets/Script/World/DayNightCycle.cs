@@ -131,7 +131,7 @@ public class DayNightCycle : MonoBehaviour, IDataPersistance
         {
             for(int i = 1; i < cycles.Length; i++)
             {
-                if(hours >= cycles[i].hourTime && hours < cycles[(i+1>cycles.Length) ? 0 : i+1].hourTime)
+                if(hours >= cycles[i].hourTime && hours < cycles[(i+1>cycles.Length-1) ? 0 : i+1].hourTime)
                 {
                     index = i;
                 }

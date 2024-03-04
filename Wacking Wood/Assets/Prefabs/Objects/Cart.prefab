@@ -191,7 +191,7 @@ Transform:
   m_GameObject: {fileID: 826391190461095242}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.65, z: 0}
   m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -204,6 +204,7 @@ Transform:
   - {fileID: 1066301895109957166}
   - {fileID: 1413085566421138994}
   - {fileID: 6737442806545622730}
+  - {fileID: 8569283669494187844}
   m_Father: {fileID: 8001880793631382370}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1339380140777497202
@@ -323,8 +324,7 @@ GameObject:
   - component: {fileID: 2697336366184361320}
   - component: {fileID: 2048645344390568762}
   - component: {fileID: 8429635900408820970}
-  - component: {fileID: 1999568253502594429}
-  - component: {fileID: 7704060398764061582}
+  - component: {fileID: 6165355890643726079}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -397,8 +397,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1999568253502594429
-BoxCollider:
+--- !u!64 &6165355890643726079
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -415,53 +415,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.015843518, y: 0.020832732, z: 0.43419516}
-  m_Center: {x: -0.000013766963, y: -0.00018331142, z: 0.0947654}
---- !u!114 &7704060398764061582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033732635872937412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5de87c043d6d56419f81952e6370430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logPositions:
-  - pos: {x: 0.004018821, y: -0.0057995897, z: 0.06584918}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: 0.004018821, y: 0.0001719676, z: 0.0658492}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: 0.004018821, y: 0.006143523, z: 0.065849215}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.0015688085, y: -0.0057995887, z: 0.06584918}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.0015688076, y: 0.00017196844, z: 0.0658492}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.0015688088, y: 0.006143523, z: 0.065849215}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: 0.0040188204, y: -0.0029243953, z: 0.16160513}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: 0.004018821, y: 0.0030471615, z: 0.1624378}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.0015688087, y: -0.0029243953, z: 0.16243778}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.0015688088, y: 0.0030471615, z: 0.1624378}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: 0.004018821, y: 0.00003926626, z: 0.25736028}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.005896679, y: -0.0057995897, z: 0.12413539}
-    rot: {x: 90, y: 0, z: 0}
-  - pos: {x: 0.004018821, y: -0.0057995897, z: 0.06584918}
-    rot: {x: 90, y: 270, z: 0}
-  - pos: {x: -0.00589668, y: 0.00017196801, z: 0.124135405}
-    rot: {x: 90, y: 0, z: 0}
-  - pos: {x: -0.00589668, y: 0.0061435243, z: 0.12413541}
-    rot: {x: 90, y: 0, z: 0}
-  storedLogs: []
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -462981019419857548, guid: cbed307972c4ac444a1f4e72bea83da4, type: 3}
 --- !u!1 &3825766282947442470
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,6 +617,100 @@ Transform:
   - {fileID: 4959366331190662868}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8127937916501022661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8569283669494187844}
+  - component: {fileID: 660218461776485509}
+  - component: {fileID: 996872561409698426}
+  m_Layer: 0
+  m_Name: Storage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8569283669494187844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127937916501022661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7, y: 15, z: -20.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4959366331190662868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &660218461776485509
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127937916501022661}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 77.87779, y: 18.533298, z: 46.6932}
+  m_Center: {x: 8.077754, y: 0.43534595, z: 0.5465976}
+--- !u!114 &996872561409698426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127937916501022661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5de87c043d6d56419f81952e6370430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logPositions:
+  - pos: {x: 28, y: 0, z: 13.5}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 28, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 28, y: 0, z: -13.5}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 0, y: 0, z: 13.5}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 0, y: 0, z: 0}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 0, y: 0, z: -13.5}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 28, y: 11.5, z: 6.75}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 28, y: 11.5, z: -6.75}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 0, y: 11.5, z: 6.75}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: 0, y: 11.5, z: -13.5}
+    rot: {x: 0, y: 0, z: 90}
+  - pos: {x: -21, y: 6.5, z: 13.5}
+    rot: {x: 0, y: 0, z: 0}
+  - pos: {x: -21, y: 6.5, z: 0}
+    rot: {x: 0, y: 0, z: 0}
+  - pos: {x: -21, y: 6.5, z: -13.5}
+    rot: {x: 0, y: 0, z: 0}
+  storedLogs: []
 --- !u!1 &8133705066170187912
 GameObject:
   m_ObjectHideFlags: 0

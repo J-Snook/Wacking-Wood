@@ -89,9 +89,9 @@ public class PlayerHeldItem : MonoBehaviour
         { 
             if (heldItem != null)
             {
-                if (heldItem == axeScript.axe)
+                if (heldItem == axeScript.axe && !axeScript.IsSwinging)
                 {
-                    axeScript.axe.SetActive(false);
+                    heldItem.SetActive(false);
                     EB1.SetActive(false);
                     heldItem = null;
                     isHoldingItem = false;
@@ -108,9 +108,9 @@ public class PlayerHeldItem : MonoBehaviour
         { 
             if (heldItem != null)
             {
-                if (heldItem == chainsawScript.CS)
+                if (heldItem == chainsawScript.CS && !chainsawScript.IsUsing)
                 {
-                    chainsawScript.CS.SetActive(false);
+                    heldItem.SetActive(false);
                     _fuelBar.SetActive(false);
                     EB2.SetActive(false);
                     
