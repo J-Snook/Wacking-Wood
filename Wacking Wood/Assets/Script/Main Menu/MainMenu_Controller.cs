@@ -25,9 +25,6 @@ public class MainMenu_Controller : MonoBehaviour
     [SerializeField] private int defaultSen = 4;
     public int mainControllerSen = 4;
     
-    
-    
-    
     [Header("Graphics Settings")] 
     [SerializeField] private TMP_Text brightnessValue = null;
     [SerializeField] private Slider brightnessSlider = null;
@@ -35,10 +32,14 @@ public class MainMenu_Controller : MonoBehaviour
 
     [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private Toggle fullScreenToggle;
+    [SerializeField] private Toggle bloomToggle;
+    [SerializeField] private Toggle motionBlurToggle;
 
     private int _qualityLevel;
     private bool _isFullScreen;
     private float _brightnessLevel;
+    private bool _isBloom;
+    private bool _isMotionBlur;
     
     [Header("Load levels")] 
     public string _newGameLevel;
@@ -142,6 +143,16 @@ public class MainMenu_Controller : MonoBehaviour
         _qualityLevel = qualityIndex;
     }
 
+    public void SetBloom(bool isBloom)
+    {
+        _isBloom = isBloom;
+    }
+
+    public void SetMotionBlur(bool isBlur)
+    {
+        _isMotionBlur = isBlur;
+    }
+
     public void GraphicsApply()
     {
         //Applying Brightness that was selected
@@ -154,6 +165,10 @@ public class MainMenu_Controller : MonoBehaviour
         //Applying Fullscreen to be true or falls
         PlayerPrefs.SetInt("masterFullScreen", (_isFullScreen ? 1 : 0));
         Screen.fullScreen = _isFullScreen;
+
+        PlayerPrefs.SetInt("masterBloom", (_isBloom ? 1 : 0));
+
+        PlayerPrefs.SetInt("masterMotionBlur", (_isMotionBlur ? 1 : 0));
 
         StartCoroutine(Confirmation());
     }
@@ -189,13 +204,15 @@ public class MainMenu_Controller : MonoBehaviour
             fullScreenToggle.isOn = false;
             Screen.fullScreen = false;
 
+            bloomToggle.isOn = false;
+
+            motionBlurToggle.isOn = false;
+
             Resolution currentResolution = Screen.currentResolution;
             Screen.SetResolution(currentResolution.width, currentResolution.height, Screen.fullScreen);
             ResolutionDropdown.value = resolutions.Length;
             
-            
             GraphicsApply();
-            
         }
     }
 

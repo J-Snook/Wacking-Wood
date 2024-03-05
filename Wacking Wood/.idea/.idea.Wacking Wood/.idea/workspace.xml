@@ -4,15 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65824067-b709-4e31-9f9a-d3694c1bdd97" name="Changes" comment="" />
+    <list default="true" id="65824067-b709-4e31-9f9a-d3694c1bdd97" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Wacking Wood/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Wacking Wood/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Skybox/Skybox.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Skybox/Skybox.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JoshWorkingScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/JoshWorkingScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Main Menu/LoadPrefs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Main Menu/LoadPrefs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/Main Menu/MainMenu_Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Main Menu/MainMenu_Controller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/DataPersistance/FileDataHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/DataPersistance/IDataPersistance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/UI Elements/PlayerUI.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -41,9 +48,9 @@
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\binko\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\binko\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\binko\\AppData\\Local\\Symbols\\src&quot;
+      &quot;C:\\Users\\jackt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\jackt\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\jackt\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
 }</component>
@@ -57,7 +64,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;C:\Users\AdamJ\OneDrive\Desktop\Wacking Wood\Wacking-Wood\Wacking Wood&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\AdamJ\OneDrive\Desktop\Wacking Wood\Wacking-Wood\Wacking Wood" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -73,7 +80,7 @@
       <method v="2" />
     </configuration>
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;C:\Users\AdamJ\OneDrive\Desktop\Wacking Wood\Wacking-Wood\Wacking Wood&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\AdamJ\OneDrive\Desktop\Wacking Wood\Wacking-Wood\Wacking Wood" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -118,6 +125,9 @@
       <workItem from="1708437193516" duration="7000" />
       <workItem from="1709170608532" duration="4018000" />
       <workItem from="1709207610391" duration="7540000" />
+      <workItem from="1709486292837" duration="814000" />
+      <workItem from="1709487646762" duration="2000" />
+      <workItem from="1709524506447" duration="5000" />
     </task>
     <servers />
   </component>

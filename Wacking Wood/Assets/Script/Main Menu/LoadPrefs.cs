@@ -24,6 +24,12 @@ public class LoadPrefs : MonoBehaviour
  
  [Header("Fullscreen Settings")]
  [SerializeField] private Toggle fullScreenToggle;
+
+ [Header("Bloom Settings")] 
+ [SerializeField] private Toggle bloomToggle;
+
+ [Header("Motion Blur Settings")]
+ [SerializeField] private Toggle motionBlurToggle;
  
  [Header("Sensitivity Settings")]
  [SerializeField] private TMP_Text controllerSenTextValue = null;
@@ -85,6 +91,18 @@ public class LoadPrefs : MonoBehaviour
              controllerSenTextValue.text = localSensitivity.ToString("0");
              controllerSenSlider.value = localSensitivity;
              menuController.mainControllerSen = Mathf.RoundToInt(localSensitivity);
+         }
+
+         if (PlayerPrefs.HasKey("masterBloon"))
+         {
+             bool bloom = PlayerPrefs.GetInt("masterBloom") == 1;
+             bloomToggle.isOn = bloom;
+         }
+
+         if (PlayerPrefs.HasKey("masterMotionBlur"))
+         {
+            bool blur = PlayerPrefs.GetInt("masterMotionBlur") == 1;
+            motionBlurToggle.isOn = blur;
          }
      }
  }
