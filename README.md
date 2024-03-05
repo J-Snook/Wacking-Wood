@@ -3,10 +3,6 @@ Wacking Wood!
 A low poly game we worked hard on.By Joshua Snook, Jack Lee, Adam Jeziorski, and Arkadiusz Binkowski.
 It was done as a part of our Univeristy of Derby Team Project.
 
-
-
-
-
 Features:
 
 
