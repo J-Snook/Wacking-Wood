@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.32696944, g: 0.28958488, b: 0.3222681, a: 1}
+  m_IndirectSpecularColor: {r: 0.48380125, g: 0.6461871, b: 0.7815144, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,15 +237,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8714553392656433498, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 8714553392656433498, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100
+      value: 99.46
       objectReference: {fileID: 0}
     - target: {fileID: 8714553392656433498, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -6.93
       objectReference: {fileID: 0}
     - target: {fileID: 8714553392656433498, guid: 21e660e28efa8084799a9af0d7645709, type: 3}
       propertyPath: m_LocalRotation.w
@@ -737,6 +737,9 @@ MonoBehaviour:
     playerPosition: {x: 0, y: 15, z: 0}
     playerRotation: {x: 0, y: 0, z: 0, w: 1}
     cameraRotation: {x: 0, y: 0, z: 0, w: 1}
+    treeCutdown:
+      keys: []
+      values: []
 --- !u!1 &356877461
 GameObject:
   m_ObjectHideFlags: 0
