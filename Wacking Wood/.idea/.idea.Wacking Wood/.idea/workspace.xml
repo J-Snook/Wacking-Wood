@@ -57,7 +57,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;C:\Users\AdamJ\OneDrive\Desktop\Wacking Wood\Wacking-Wood\Wacking Wood&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\AdamJ\OneDrive\Desktop\Wacking Wood\Wacking-Wood\Wacking Wood" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -65,7 +65,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;C:\Users\Arek\Documents\GitHub\Wacking-Wood\Wacking Wood&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\Arek\Documents\GitHub\Wacking-Wood\Wacking Wood" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -118,6 +118,9 @@
       <workItem from="1708437193516" duration="7000" />
       <workItem from="1709170608532" duration="4018000" />
       <workItem from="1709207610391" duration="7540000" />
+      <workItem from="1709603235475" duration="527000" />
+      <workItem from="1709603939739" duration="8000" />
+      <workItem from="1709604209755" duration="185000" />
     </task>
     <servers />
   </component>
