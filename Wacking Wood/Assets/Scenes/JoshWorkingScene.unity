@@ -2634,7 +2634,7 @@ MonoBehaviour:
     useForCollider: 0
   buildingInfo:
   - name: Store
-    prefab: {fileID: 6830949276178957363, guid: 507a4e560c5641f41a063bb0bec28f44, type: 3}
+    prefab: {fileID: 1214983323056671961, guid: 970ea6bfd4de4a74395c1cab080d7b5d, type: 3}
     weight: 15
     radius: 10
   - name: Store
