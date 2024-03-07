@@ -54,7 +54,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenubutton()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadSceneAsync("MainMenu");
     }
     private void Resume()
     {
