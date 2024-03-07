@@ -19,8 +19,8 @@ public class PauseMenu : MonoBehaviour
     
     public Button resumeButton;
 
-  
-   
+    private string mainSceneName = "JoshWorkingScene";
+
 
     private void Start()
     {
@@ -55,6 +55,8 @@ public class PauseMenu : MonoBehaviour
     public void MainMenubutton()
     {
         SceneManager.LoadSceneAsync("MainMenu");
+        pausedGame = false;
+        Time.timeScale = 1f;
     }
     private void Resume()
     {

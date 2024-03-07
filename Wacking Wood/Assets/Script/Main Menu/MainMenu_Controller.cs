@@ -50,7 +50,14 @@ public class MainMenu_Controller : MonoBehaviour
     public TMP_Dropdown ResolutionDropdown;
     private Resolution[] resolutions;
 
-    private void Start()
+    private string mainSceneName = "JoshWorkingScene";
+
+    public void ReloadMainScene()
+    {
+        SceneManager.UnloadSceneAsync(mainSceneName);
+        SceneManager.LoadSceneAsync(mainSceneName, LoadSceneMode.Additive);
+    }
+        private void Start()
     {
         resolutions = Screen.resolutions;
         ResolutionDropdown.ClearOptions();
