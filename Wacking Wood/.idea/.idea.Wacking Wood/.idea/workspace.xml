@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65824067-b709-4e31-9f9a-d3694c1bdd97" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Wacking Wood/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Wacking Wood/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Skybox/Skybox.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Skybox/Skybox.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JoshWorkingScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/JoshWorkingScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Main Menu/LoadPrefs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Main Menu/LoadPrefs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Script/Main Menu/MainMenu_Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Main Menu/MainMenu_Controller.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +121,7 @@
       <workItem from="1709486292837" duration="814000" />
       <workItem from="1709487646762" duration="2000" />
       <workItem from="1709524506447" duration="5000" />
+      <workItem from="1709638145862" duration="5000" />
     </task>
     <servers />
   </component>
