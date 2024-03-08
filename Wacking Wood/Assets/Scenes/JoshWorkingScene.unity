@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.48380125, g: 0.6461871, b: 0.7815144, a: 1}
+  m_IndirectSpecularColor: {r: 0.026693266, g: 0.29309753, b: 0.4874039, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2634,7 +2634,7 @@ MonoBehaviour:
     useForCollider: 0
   buildingInfo:
   - name: Store
-    prefab: {fileID: 1214983323056671961, guid: 970ea6bfd4de4a74395c1cab080d7b5d, type: 3}
+    prefab: {fileID: 4385871063607181549, guid: a34493e6cc4940d438165e26b0717e63, type: 3}
     weight: 15
     radius: 10
   - name: Store
